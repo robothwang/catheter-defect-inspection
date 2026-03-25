@@ -1,6 +1,7 @@
 # Catheter Defect Inspection Preprocessing
+![cross section of the infusion catheter](./img/catheter_01.png)
 
-카테터 단면 이미지 전처리 및 템플릿 오버레이 확인용 스크립트 모음입니다.
+카테터 단면 이미지 전처리 및 템플릿 오버레이 확인용 스크립트 모음이며, 연구 중 입니다.
 
 ## 프로그램 소개
 이 프로젝트는 카테터 단면 이미지를 학습/분석에 활용하기 쉬운 형태로 정렬하고,
@@ -26,9 +27,15 @@
 - `scripts/overlay_with_template.py`: 템플릿 오버레이 확인
 
 ## 환경
-- Python 3.10+
-- OpenCV (`cv2`), NumPy
-- (권장) `conda` 환경: `yolo26`
+|속성|버전|
+|------|---|
+|**OS**|Ubuntu 24.04.4 LTS (nobel)|
+|**Python**|3.10 +|
+|**CUDA**|12.6|
+|**cuDNN**|9.14.0.64|
+|**OpenCV**|`cv2`|
+|**NumPy**|2.4.3|
+|**venv**|`miniforge3` or `conda`|
 
 ## 실행 예시
 ```bash
@@ -47,3 +54,6 @@ conda run -n yolo26 python scripts/preprocess_pro3.py
 
 ## 참고
 - 대용량 데이터(`data/raw`, `data/processed`)와 가중치(`weights`)는 `.gitignore`로 제외되어 있습니다.
+
+## License
+This project is licensed under the MIT License. See [LICENSE](./LICENSE).
