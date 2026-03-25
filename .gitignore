@@ -1,0 +1,30 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual env
+.venv/
+venv/
+env/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Logs
+*.log
+
+# Data and model artifacts
+/data/raw/
+/data/processed/
+/weights/
+/runs/
+/outputs/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
