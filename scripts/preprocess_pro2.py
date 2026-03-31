@@ -346,7 +346,7 @@ def process_one(
         if not cv2.imwrite(str(ov_path), ov):
             return False, "imwrite_overlay_failed"
 
-    return True, f"ok scale={scale:.4f} shift=({dx:.1f},{dy:.1f}) rot={best_angle:.2f} iou={best_iou:.4f}"
+    return True, f"\"ok\" scale={scale:.4f}, shift=({dx:.1f},{dy:.1f}), rot={best_angle:.2f}, iou={best_iou:.4f}"
 
 
 def run_preprocess(
@@ -395,10 +395,10 @@ def run_preprocess(
         )
 
         if ok:
-            print(f"[{idx}/{total}] OK   {path.name} | {msg}")
+            print(f"[{idx}/{total}] OK   {path.name}\n{msg}")
         else:
             failures.append((path.name, msg))
-            print(f"[{idx}/{total}] FAIL {path.name} | {msg}")
+            print(f"[{idx}/{total}] FAIL {path.name}\n{msg}")
 
     if failures:
         print(f"완료 (실패 {len(failures)}건)")
@@ -415,7 +415,7 @@ def main():
     parser.add_argument(
         "--input-dir",
         type=Path,
-        default=Path("/home/hjj747/catheter/data/raw/targets/pro_2"),
+        default=Path("/home/hjj747/catheter-defect-inspection/data/raw/targets/pro_2"),
         help="입력 폴더",
     )
     parser.add_argument(
@@ -427,19 +427,19 @@ def main():
     parser.add_argument(
         "--template",
         type=Path,
-        default=Path("/home/hjj747/catheter/data/raw/label_orign/pro_2_endpoint.png"),
+        default=Path("/home/hjj747/catheter-defect-inspection/data/raw/label_orign/pro_2_endpoint.png"),
         help="기준 템플릿 이미지",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("/home/hjj747/catheter/data/processed/processed_images/pro2"),
+        default=Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_images/pro2"),
         help="정렬+크롭 결과 저장 폴더",
     )
     parser.add_argument(
         "--overlay-dir",
         type=Path,
-        default=Path("/home/hjj747/catheter/data/processed/overlay_images/pro2"),
+        default=Path("/home/hjj747/catheter-defect-inspection/data/processed/overlay_images/pro2"),
         help="템플릿 오버레이 결과 저장 폴더",
     )
     parser.add_argument(

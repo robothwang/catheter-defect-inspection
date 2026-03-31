@@ -28,3 +28,7 @@ Thumbs.db
 
 # Notebook checkpoints
 .ipynb_checkpoints/
+
+# Local large dataset archive/folder (do not push)
+/3루멘_카테터 데이터.zip
+/3루멘_카테터 데이터/

@@ -12,6 +12,21 @@ def to_grayscale(img):
     return img
 
 
+def collect_files(input_dir, pattern):
+    # 콤마로 전달된 복수 패턴을 합쳐 입력 파일 목록을 만든다.
+    patterns = [p.strip() for p in str(pattern).split(",") if p.strip()]
+    if not patterns:
+        patterns = ["*.BMP"]
+
+    merged = []
+    for pat in patterns:
+        merged.extend(input_dir.glob(pat))
+
+    # 중복 제거 + 정렬
+    files = sorted({p.resolve() for p in merged if p.is_file()})
+    return [Path(p) for p in files]
+
+
 def extract_main_component(gray, foreground="bright"):
     # 가장 큰 연결 성분(카테터 외곽)을 추출한다.
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
@@ -67,6 +82,85 @@ def extract_main_component(gray, foreground="bright"):
         "bbox": (x, y, bw, bh),
         "area": area,
     }
+
+
+def extract_target_outer_component_pro1(gray):
+    # pro1 타깃 전용: 고임계 기반으로 밝은 카테터 링 후보를 우선 선택한다.
+    h, w = gray.shape
+    area_total = float(h * w)
+    img_center = np.array([w * 0.5, h * 0.5], dtype=np.float32)
+    diag = max(float(np.hypot(w, h)), 1.0)
+
+    blur = cv2.GaussianBlur(gray, (5, 5), 0)
+    best = None
+
+    for thr in [245, 240, 235, 230, 225, 220, 215, 210, 205, 200]:
+        _, binary = cv2.threshold(blur, thr, 255, cv2.THRESH_BINARY)
+        binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
+        binary = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, np.ones((5, 5), np.uint8))
+
+        contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        for cnt in contours:
+            contour_area = float(cv2.contourArea(cnt))
+            if contour_area < area_total * 0.001 or contour_area > area_total * 0.35:
+                continue
+
+            peri = float(cv2.arcLength(cnt, True))
+            circularity = 0.0 if peri == 0 else float(4.0 * np.pi * contour_area / (peri * peri))
+
+            x, y, bw, bh = cv2.boundingRect(cnt)
+            ar = float(bw / max(bh, 1))
+            ar_score = 1.0 - min(abs(np.log(max(ar, 1e-6))), 1.0)
+
+            fill_mask = np.zeros_like(gray, dtype=np.uint8)
+            cv2.drawContours(fill_mask, [cnt], -1, 255, thickness=cv2.FILLED)
+            fill_area = float(np.count_nonzero(fill_mask))
+            if fill_area <= 0:
+                continue
+
+            comp_mask = np.zeros_like(gray, dtype=np.uint8)
+            comp_mask[(binary > 0) & (fill_mask > 0)] = 255
+            bright_area = float(np.count_nonzero(comp_mask))
+            fill_ratio = bright_area / fill_area
+
+            pts = gray[fill_mask > 0]
+            mean_intensity = float(pts.mean()) if pts.size > 0 else 0.0
+
+            m = cv2.moments(fill_mask)
+            if m["m00"] == 0:
+                cx, cy = float(x + bw * 0.5), float(y + bh * 0.5)
+            else:
+                cx = float(m["m10"] / m["m00"])
+                cy = float(m["m01"] / m["m00"])
+            dist = float(np.linalg.norm(np.array([cx, cy], dtype=np.float32) - img_center) / diag)
+
+            score = (
+                3.0 * min(max(circularity, 0.0), 1.0)
+                + 2.5 * min(max(fill_ratio, 0.0), 1.0)
+                + 1.0 * min(max((mean_intensity - 120.0) / 135.0, 0.0), 1.0)
+                + 1.0 * (1.0 - min(dist * 1.2, 1.0))
+                + 0.5 * max(ar_score, 0.0)
+            )
+
+            if best is None or score > best["score"]:
+                best = {
+                    "score": score,
+                    "mask": comp_mask,
+                    "center": (cx, cy),
+                    "bbox": (x, y, int(bw), int(bh)),
+                    "area": int(bright_area),
+                }
+
+    if best is not None:
+        return {
+            "mask": best["mask"],
+            "center": best["center"],
+            "bbox": best["bbox"],
+            "area": best["area"],
+        }
+
+    # 고임계 검출 실패 시 기존 공통 로직으로 폴백한다.
+    return extract_main_component(gray, foreground="bright")
 
 
 def fill_section_mask(outer_mask):
@@ -194,7 +288,7 @@ def _extract_hole_components(binary_mask, section_area, min_ratio, max_ratio, mi
 
 
 def _split_component_into_two(component, shape):
-    # 붙어서 검출된 hole 성분 1개를 x-축 k-means로 2개로 분리한다.
+    # 하나로 붙어 검출된 성분을 k-means(2클러스터)로 분리한다.
     comp_mask = np.zeros(shape, dtype=np.uint8)
     cv2.drawContours(comp_mask, [component["contour"]], -1, 255, thickness=cv2.FILLED)
 
@@ -202,7 +296,7 @@ def _split_component_into_two(component, shape):
     if xs.size < 200:
         return None
 
-    data = xs.reshape(-1, 1).astype(np.float32)
+    data = np.stack([xs, ys], axis=1).astype(np.float32)
     criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 50, 0.2)
     _, labels, _ = cv2.kmeans(data, 2, None, criteria, 5, cv2.KMEANS_PP_CENTERS)
     labels = labels.reshape(-1)
@@ -242,76 +336,74 @@ def _split_component_into_two(component, shape):
 
     if len(split_components) != 2:
         return None
+    split_components.sort(key=lambda x: x["area"], reverse=True)
     return split_components
 
 
-def _augment_components_if_merged(components, shape, section_area, min_ratio, max_ratio, min_circularity):
-    # 3개로 검출되면 마지막(작은 그룹) 성분 분할을 시도해 4개를 복원한다.
-    if len(components) != 3:
+def _augment_components_if_merged_for_2(components, shape, section_area, min_ratio, max_ratio, min_circularity):
+    # 1개로 검출되면 분할을 시도해서 2개 hole을 복원한다.
+    if len(components) != 1:
         return components
 
-    split = _split_component_into_two(components[-1], shape)
+    split = _split_component_into_two(components[0], shape)
     if split is None:
         return components
 
-    merged = components[:2] + split
     min_area = float(section_area) * float(min_ratio)
     max_area = float(section_area) * float(max_ratio)
 
     filtered = []
-    for comp in merged:
+    for comp in split:
         if not (min_area <= comp["area"] <= max_area):
             continue
-        if comp["circularity"] < float(min_circularity) * 0.90:
+        if comp["circularity"] < float(min_circularity) * 0.85:
             continue
         filtered.append(comp)
 
     filtered.sort(key=lambda x: x["area"], reverse=True)
-    return filtered
+    if len(filtered) == 2:
+        return filtered
+    return components
 
 
-def _build_hole_group_masks(shape, components):
-    # 면적 상위 4개를 사용해 big(2개)/small(2개) 마스크를 만든다.
-    top4 = sorted(components, key=lambda x: x["area"], reverse=True)[:4]
-    if len(top4) < 4:
+def _build_hole_group_masks_2(shape, components):
+    # 면적 상위 2개를 사용해 hole1/hole2/all 마스크를 만든다.
+    top2 = sorted(components, key=lambda x: x["area"], reverse=True)[:2]
+    if len(top2) < 2:
         return None
 
-    big = top4[:2]
-    small = top4[2:4]
+    # 방향 불확실성을 줄이기 위해 y좌표 기준으로 위/아래 순서로 고정한다.
+    top2 = sorted(top2, key=lambda x: x["center"][1])
+    hole_1, hole_2 = top2[0], top2[1]
 
-    big_mask = np.zeros(shape, dtype=np.uint8)
-    small_mask = np.zeros(shape, dtype=np.uint8)
+    hole1_mask = np.zeros(shape, dtype=np.uint8)
+    hole2_mask = np.zeros(shape, dtype=np.uint8)
     all_mask = np.zeros(shape, dtype=np.uint8)
 
-    cv2.drawContours(big_mask, [big[0]["contour"], big[1]["contour"]], -1, 255, thickness=cv2.FILLED)
-    cv2.drawContours(small_mask, [small[0]["contour"], small[1]["contour"]], -1, 255, thickness=cv2.FILLED)
-    cv2.drawContours(
-        all_mask,
-        [big[0]["contour"], big[1]["contour"], small[0]["contour"], small[1]["contour"]],
-        -1,
-        255,
-        thickness=cv2.FILLED,
-    )
+    cv2.drawContours(hole1_mask, [hole_1["contour"]], -1, 255, thickness=cv2.FILLED)
+    cv2.drawContours(hole2_mask, [hole_2["contour"]], -1, 255, thickness=cv2.FILLED)
+    cv2.drawContours(all_mask, [hole_1["contour"], hole_2["contour"]], -1, 255, thickness=cv2.FILLED)
+
+    area_ratio = float(min(hole_1["area"], hole_2["area"]) / max(hole_1["area"], hole_2["area"], 1.0))
 
     return {
-        "top4": top4,
-        "big": big,
-        "small": small,
-        "big_mask": big_mask,
-        "small_mask": small_mask,
+        "top2": top2,
+        "hole_1": hole_1,
+        "hole_2": hole_2,
+        "hole1_mask": hole1_mask,
+        "hole2_mask": hole2_mask,
         "all_mask": all_mask,
-        "big_mean": float((big[0]["area"] + big[1]["area"]) * 0.5),
-        "small_mean": float((small[0]["area"] + small[1]["area"]) * 0.5),
+        "similarity": area_ratio,
     }
 
 
 def detect_template_holes(template_gray, template_section_mask):
-    # 템플릿 전용: 강한 blur + high-threshold로 4개 lumen을 안정적으로 추출한다.
+    # 템플릿 전용: high-threshold 기반으로 2개 lumen을 안정적으로 추출한다.
     sec_area = max(float(np.count_nonzero(template_section_mask)), 1.0)
     blurred = cv2.GaussianBlur(template_gray, (31, 31), 0)
 
     best = None
-    for thr in [245, 242, 240, 238, 235, 232]:
+    for thr in [245, 242, 240, 238, 235, 232, 228, 224, 220]:
         cand = np.zeros_like(template_gray, dtype=np.uint8)
         cand[(blurred >= thr) & (template_section_mask > 0)] = 255
 
@@ -321,27 +413,26 @@ def detect_template_holes(template_gray, template_section_mask):
         comps = _extract_hole_components(
             binary_mask=cand,
             section_area=sec_area,
-            min_ratio=0.005,
-            max_ratio=0.28,
-            min_circularity=0.55,
+            min_ratio=0.01,
+            max_ratio=0.46,
+            min_circularity=0.08,
         )
-        comps = _augment_components_if_merged(
+        comps = _augment_components_if_merged_for_2(
             components=comps,
             shape=template_gray.shape,
             section_area=sec_area,
-            min_ratio=0.005,
-            max_ratio=0.28,
-            min_circularity=0.55,
+            min_ratio=0.01,
+            max_ratio=0.46,
+            min_circularity=0.08,
         )
 
-        grouped = _build_hole_group_masks(template_gray.shape, comps)
+        grouped = _build_hole_group_masks_2(template_gray.shape, comps)
         if grouped is None:
             if best is None or len(comps) > best["count"]:
                 best = {"count": len(comps), "thr": thr, "grouped": None}
             continue
 
-        gap = grouped["big"][1]["area"] / max(grouped["small"][0]["area"], 1.0)
-        score = 1000.0 + gap
+        score = 1000.0 + grouped["similarity"] * 100.0
         if best is None or score > best.get("score", -1e9):
             best = {"count": len(comps), "thr": thr, "grouped": grouped, "score": score}
 
@@ -354,7 +445,7 @@ def detect_template_holes(template_gray, template_section_mask):
 
 
 def detect_target_holes(target_gray, target_section_mask):
-    # 타깃 전용: Otsu 기반 dark-threshold + 완화 파라미터로 4개 lumen을 찾는다.
+    # 타깃 전용: Otsu 기반 dark-threshold + 완화 파라미터로 2개 lumen을 찾는다.
     sec_area = max(float(np.count_nonzero(target_section_mask)), 1.0)
     inner_section = cv2.erode(target_section_mask, np.ones((11, 11), np.uint8), iterations=1)
 
@@ -367,7 +458,7 @@ def detect_target_holes(target_gray, target_section_mask):
 
         otsu_thr, _ = cv2.threshold(vals.astype(np.uint8), 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-        for offset in [0, 5, -5, 10, -10]:
+        for offset in [0, 5, -5, 10, -10, 15, -15]:
             thr = float(np.clip(otsu_thr + offset, 0, 255))
 
             cand = np.zeros_like(target_gray, dtype=np.uint8)
@@ -378,33 +469,33 @@ def detect_target_holes(target_gray, target_section_mask):
             comps = _extract_hole_components(
                 binary_mask=cand,
                 section_area=sec_area,
-                min_ratio=0.003,
-                max_ratio=0.30,
-                min_circularity=0.55,
+                min_ratio=0.004,
+                max_ratio=0.50,
+                min_circularity=0.08,
             )
-            comps = _augment_components_if_merged(
+            comps = _augment_components_if_merged_for_2(
                 components=comps,
                 shape=target_gray.shape,
                 section_area=sec_area,
-                min_ratio=0.003,
-                max_ratio=0.30,
-                min_circularity=0.55,
+                min_ratio=0.004,
+                max_ratio=0.50,
+                min_circularity=0.08,
             )
 
-            grouped = _build_hole_group_masks(target_gray.shape, comps)
-            count_top = min(len(comps), 4)
+            grouped = _build_hole_group_masks_2(target_gray.shape, comps)
+            count_top = min(len(comps), 2)
             if count_top == 0:
                 continue
 
             top = comps[:count_top]
             smallest = float(top[-1]["area"])
             mean_circ = float(np.mean([x["circularity"] for x in top]))
-            gap = 0.0
+            similarity = 0.0
             if grouped is not None:
-                gap = float(grouped["big"][1]["area"] / max(grouped["small"][0]["area"], 1.0))
+                similarity = float(grouped["similarity"])
 
-            # 4개 검출을 최우선으로, 그다음 작은 홀까지 안정적으로 남는 후보를 선호한다.
-            score = count_top * 10000.0 + smallest + mean_circ * 100.0 + gap * 50.0
+            # 2개 검출을 최우선으로, 그다음 안정적인 형상(원형도+면적 균형)을 선호한다.
+            score = count_top * 10000.0 + smallest + mean_circ * 100.0 + similarity * 300.0
 
             if best is None or score > best["score"]:
                 best = {
@@ -422,33 +513,33 @@ def detect_target_holes(target_gray, target_section_mask):
 
 
 def find_best_rotation_with_hole_groups(target_grouped, template_grouped, center, coarse_step=3.0, fine_step=0.25):
-    # big/small 마스크를 분리해 회전 점수를 계산한다.
-    t_big = target_grouped["big_mask"]
-    t_small = target_grouped["small_mask"]
+    # 2개 hole 마스크를 짝지어 회전 점수를 계산한다(순서 뒤바뀜 permutation 허용).
+    t1 = target_grouped["hole1_mask"]
+    t2 = target_grouped["hole2_mask"]
     t_all = target_grouped["all_mask"]
 
-    ref_big = template_grouped["big_mask"]
-    ref_small = template_grouped["small_mask"]
+    ref1 = template_grouped["hole1_mask"]
+    ref2 = template_grouped["hole2_mask"]
     ref_all = template_grouped["all_mask"]
 
     def score_at(angle):
-        rb = rotate_image(
-            t_big,
+        r1 = rotate_image(
+            t1,
             angle_deg=angle,
             center=center,
             interpolation=cv2.INTER_NEAREST,
             border_value=0,
             border_mode=cv2.BORDER_CONSTANT,
         )
-        rs = rotate_image(
-            t_small,
+        r2 = rotate_image(
+            t2,
             angle_deg=angle,
             center=center,
             interpolation=cv2.INTER_NEAREST,
             border_value=0,
             border_mode=cv2.BORDER_CONSTANT,
         )
-        ra = rotate_image(
+        r_all = rotate_image(
             t_all,
             angle_deg=angle,
             center=center,
@@ -457,34 +548,39 @@ def find_best_rotation_with_hole_groups(target_grouped, template_grouped, center
             border_mode=cv2.BORDER_CONSTANT,
         )
 
-        s_big = iou_score(rb, ref_big)
-        s_small = iou_score(rs, ref_small)
-        s_all = iou_score(ra, ref_all)
+        # hole 크기가 비슷해 라벨이 바뀔 수 있으므로 두 경우 중 더 좋은 매칭을 사용한다.
+        s_11 = iou_score(r1, ref1)
+        s_22 = iou_score(r2, ref2)
+        s_12 = iou_score(r1, ref2)
+        s_21 = iou_score(r2, ref1)
 
-        score = 0.55 * s_big + 0.30 * s_small + 0.15 * s_all
-        return score, s_big, s_small, s_all
+        s_pair_a = 0.5 * (s_11 + s_22)
+        s_pair_b = 0.5 * (s_12 + s_21)
+        s_pair = max(s_pair_a, s_pair_b)
+        s_all = iou_score(r_all, ref_all)
 
-    best = {"angle": 0.0, "score": -1.0, "s_big": 0.0, "s_small": 0.0, "s_all": 0.0}
+        score = 0.75 * s_pair + 0.25 * s_all
+        return score, s_pair, s_all
+
+    best = {"angle": 0.0, "score": -1.0, "s_pair": 0.0, "s_all": 0.0}
 
     for angle in np.arange(-180.0, 180.0, coarse_step, dtype=np.float32):
-        score, s_big, s_small, s_all = score_at(float(angle))
+        score, s_pair, s_all = score_at(float(angle))
         if score > best["score"]:
             best = {
                 "angle": float(angle),
                 "score": float(score),
-                "s_big": float(s_big),
-                "s_small": float(s_small),
+                "s_pair": float(s_pair),
                 "s_all": float(s_all),
             }
 
     for angle in np.arange(best["angle"] - coarse_step, best["angle"] + coarse_step + fine_step, fine_step, dtype=np.float32):
-        score, s_big, s_small, s_all = score_at(float(angle))
+        score, s_pair, s_all = score_at(float(angle))
         if score > best["score"]:
             best = {
                 "angle": float(angle),
                 "score": float(score),
-                "s_big": float(s_big),
-                "s_small": float(s_small),
+                "s_pair": float(s_pair),
                 "s_all": float(s_all),
             }
 
@@ -646,7 +742,7 @@ def process_one(
 
     gray = to_grayscale(img)
 
-    target_outer_info = extract_main_component(gray, foreground="bright")
+    target_outer_info = extract_target_outer_component_pro1(gray)
     if target_outer_info is None:
         return False, "target_outer_component_not_found"
 
@@ -680,8 +776,8 @@ def process_one(
         )
         best_angle = float(rot["angle"])
         metric_msg = (
-            f"hole(k={target_hole_result['ksize']},thr={target_hole_result['threshold']:.1f},"
-            f"big={rot['s_big']:.3f},small={rot['s_small']:.3f},all={rot['s_all']:.3f})"
+            f"hole[ score={rot['score']:.3f}, k={target_hole_result['ksize']}, thr={target_hole_result['threshold']:.1f}, "
+            f"iou_pair={rot['s_pair']:.3f}, iou_all={rot['s_all']:.3f} ]"
         )
     else:
         best_angle, outer_iou = find_best_rotation_outer_mask(
@@ -691,7 +787,7 @@ def process_one(
             coarse_step=3.0,
             fine_step=0.25,
         )
-        metric_msg = f"fallback_outer(iou={outer_iou:.3f})"
+        metric_msg = f"fallback[ score={outer_iou:.3f}, iou_outer={outer_iou:.3f} ]"
 
     aligned_gray = rotate_image(
         placed_gray,
@@ -790,9 +886,14 @@ def process_one(
         if not cv2.imwrite(str(ov_path), ov):
             return False, "imwrite_overlay_failed"
 
+    geom_msg = (
+        f"geom[ scale={scale:.4f}, shift=({dx:.1f},{dy:.1f}), "
+        f"rot={best_angle:.2f}, fit={auto_scale:.3f} ]"
+    )
+
     return (
         True,
-        f"ok scale={scale:.4f} shift=({dx:.1f},{dy:.1f}) rot={best_angle:.2f} fit={auto_scale:.3f} {metric_msg}",
+        f"\"ok\" {geom_msg}\n{metric_msg}",
     )
 
 
@@ -816,12 +917,12 @@ def run_preprocess(
     if save_overlay:
         overlay_dir.mkdir(parents=True, exist_ok=True)
 
-    files = sorted(input_dir.glob(pattern))
+    files = collect_files(input_dir, pattern)
     total = len(files)
 
     template_model = prepare_template(template_path)
 
-    print(f"{total}장 pro3 전처리 시작 (template registration + big/small lumen split)")
+    print(f"{total}장 pro1 전처리 시작 (template registration + 2-hole mask align)")
     print(f"input:    {input_dir} ({pattern})")
     print(f"template: {template_path}")
     print(f"output:   {output_dir}")
@@ -842,10 +943,10 @@ def run_preprocess(
         )
 
         if ok:
-            print(f"[{idx}/{total}] OK   {path.name} | {msg}")
+            print(f"[{idx}/{total}] OK   {path.name:<18} \n{msg}")
         else:
             failures.append((path.name, msg))
-            print(f"[{idx}/{total}] FAIL {path.name} | {msg}")
+            print(f"[{idx}/{total}] FAIL {path.name:<18} \n{msg}")
 
     if failures:
         print(f"완료 (실패 {len(failures)}건)")
@@ -857,36 +958,36 @@ def run_preprocess(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="pro3 전처리: 1) Gray -> 2) Template Registration(중심+회전) -> 3) Crop"
+        description="pro1 전처리: 1) Gray -> 2) Template Registration(2-hole 중심+회전) -> 3) Crop"
     )
     parser.add_argument(
         "--input-dir",
         type=Path,
-        default=Path("/home/hjj747/catheter/data/raw/targets/pro_3"),
+        default=Path("/home/hjj747/catheter-defect-inspection/data/raw/targets/pro_1"),
         help="입력 폴더",
     )
     parser.add_argument(
         "--pattern",
         type=str,
-        default="*.png",
-        help="파일 패턴(예: *.png, *.BMP)",
+        default="*.BMP,*.bmp,*.png",
+        help="파일 패턴(콤마 구분 예: *.BMP,*.png)",
     )
     parser.add_argument(
         "--template",
         type=Path,
-        default=Path("/home/hjj747/catheter/data/raw/label_orign/pro_3_endpoint.png"),
+        default=Path("/home/hjj747/catheter-defect-inspection/data/raw/label_orign/pro_1_endpoint.png"),
         help="기준 템플릿 이미지",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("/home/hjj747/catheter/data/processed/processed_images/pro3"),
+        default=Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_images/pro1_holealign"),
         help="정렬+크롭 결과 저장 폴더",
     )
     parser.add_argument(
         "--overlay-dir",
         type=Path,
-        default=Path("/home/hjj747/catheter/data/processed/overlay_images/pro3"),
+        default=Path("/home/hjj747/catheter-defect-inspection/data/processed/overlay_images/pro1_holealign"),
         help="템플릿 오버레이 결과 저장 폴더",
     )
     parser.add_argument(
