@@ -5,11 +5,11 @@ import cv2
 import numpy as np
 
 
-SOURCE_DIR = Path("/home/hjj747/catheter-defect-inspection/data/raw/targets/pro_3")
-OUTPUT_ROOT_DIR = Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_pro3_source")
-TEMPLATE_RESULT_DIR = Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_templates/pro3_endpoint")
-FINAL_OUTPUT_DIR = Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_images/pro3_source")
-OVERLAY_OUTPUT_DIR = Path("/home/hjj747/catheter-defect-inspection/data/processed/overlay_images/pro3_source")
+SOURCE_DIR = Path("/home/hjj747/catheter-defect-inspection/data/raw/targets/pro_2")
+TEMPLATE_RESULT_DIR = Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_templates/pro2_endpoint")
+OUTPUT_DIR = Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_images/pro2_holealign")
+OVERLAY_DIR = Path("/home/hjj747/catheter-defect-inspection/data/processed/overlay_images/pro2_holealign")
+STAGE_DIR = Path("/home/hjj747/catheter-defect-inspection/data/processed/stage_images/pro2_holealign")
 
 
 ############################## 단계별 결과 이미지 저장 함수 ##############################
@@ -25,6 +25,15 @@ def save_stage_image(output_dir, index, stage_name, image):
     return out_path
 
 
+############################## 선택적 단계별 결과 저장 함수 ##############################
+def save_optional_stage(stage_root_dir, item_name, index, stage_name, image):
+
+    if stage_root_dir is None:
+        return None
+
+    return save_stage_image(stage_root_dir / item_name, index, stage_name, image)
+
+
 ############################## gray scale 함수 ##############################
 def bgr_to_grayscale(img):
 
@@ -35,12 +44,15 @@ def bgr_to_grayscale(img):
 ############################## 마스크 중심 계산 함수 ##############################
 def mask_centroid(mask):
 
-    m = cv2.moments(mask)
-    if m["m00"] == 0:
+    moments = cv2.moments(mask)
+    if moments["m00"] == 0:
         h, w = mask.shape
         return (float(w) * 0.5, float(h) * 0.5)
 
-    return (float(m["m10"] / m["m00"]), float(m["m01"] / m["m00"]))
+    return (
+        float(moments["m10"] / moments["m00"]),
+        float(moments["m01"] / moments["m00"]),
+    )
 
 
 ############################## 외곽 마스크를 채워 section mask를 만드는 함수 ##############################
@@ -171,12 +183,12 @@ def extract_lumen_components(binary_mask, section_area, min_ratio, max_ratio, mi
         if circularity < float(min_circularity):
             continue
 
-        m = cv2.moments(cnt)
-        if m["m00"] == 0:
+        moments = cv2.moments(cnt)
+        if moments["m00"] == 0:
             continue
 
-        cx = float(m["m10"] / m["m00"])
-        cy = float(m["m01"] / m["m00"])
+        cx = float(moments["m10"] / moments["m00"])
+        cy = float(moments["m01"] / moments["m00"])
         rows.append(
             {
                 "contour": cnt,
@@ -231,12 +243,12 @@ def split_component_into_two(component, shape):
 
         peri = float(cv2.arcLength(cnt, True))
         circularity = 0.0 if peri == 0 else float(4.0 * np.pi * area / (peri * peri))
-        moment = cv2.moments(cnt)
-        if moment["m00"] == 0:
+        moments = cv2.moments(cnt)
+        if moments["m00"] == 0:
             continue
 
-        cx = float(moment["m10"] / moment["m00"])
-        cy = float(moment["m01"] / moment["m00"])
+        cx = float(moments["m10"] / moments["m00"])
+        cy = float(moments["m01"] / moments["m00"])
         split_components.append(
             {
                 "contour": cnt,
@@ -252,17 +264,18 @@ def split_component_into_two(component, shape):
     return split_components
 
 
-############################## 3개 lumen 검출 시 4개로 복원 시도하는 함수 ##############################
+############################## 2개 lumen 검출 시 3개로 복원 시도하는 함수 ##############################
 def augment_components_if_merged(components, shape, section_area, min_ratio, max_ratio, min_circularity):
 
-    if len(components) != 3:
+    # pro2는 큰 홀 1개 + 작은 홀 2개 구조라서, 2개만 검출되면 큰 성분 분할을 시도한다.
+    if len(components) != 2:
         return components
 
-    split = split_component_into_two(components[-1], shape)
+    split = split_component_into_two(components[0], shape)
     if split is None:
         return components
 
-    merged = components[:2] + split
+    merged = [components[1]] + split
     min_area = float(section_area) * float(min_ratio)
     max_area = float(section_area) * float(max_ratio)
 
@@ -278,41 +291,42 @@ def augment_components_if_merged(components, shape, section_area, min_ratio, max
     return filtered
 
 
-############################## 4개 lumen을 big/small/all로 그룹화하는 함수 ##############################
+############################## 3개 lumen을 big/small/all로 그룹화하는 함수 ##############################
 def build_hole_group_masks(shape, components):
 
-    top4 = sorted(components, key=lambda x: x["area"], reverse=True)[:4]
-    if len(top4) < 4:
+    top3 = sorted(components, key=lambda x: x["area"], reverse=True)[:3]
+    if len(top3) < 3:
         return None
 
-    big = top4[:2]
-    small = top4[2:4]
+    big = top3[0]
+    small = top3[1:3]
 
     big_mask = np.zeros(shape, dtype=np.uint8)
     small_mask = np.zeros(shape, dtype=np.uint8)
     all_mask = np.zeros(shape, dtype=np.uint8)
 
-    cv2.drawContours(big_mask, [big[0]["contour"], big[1]["contour"]], -1, 255, thickness=cv2.FILLED)
+    cv2.drawContours(big_mask, [big["contour"]], -1, 255, thickness=cv2.FILLED)
     cv2.drawContours(small_mask, [small[0]["contour"], small[1]["contour"]], -1, 255, thickness=cv2.FILLED)
     cv2.drawContours(
         all_mask,
-        [big[0]["contour"], big[1]["contour"], small[0]["contour"], small[1]["contour"]],
+        [big["contour"], small[0]["contour"], small[1]["contour"]],
         -1,
         255,
         thickness=cv2.FILLED,
     )
 
     return {
-        "top4": top4,
+        "top3": top3,
         "big": big,
         "small": small,
         "big_mask": big_mask,
         "small_mask": small_mask,
         "all_mask": all_mask,
+        "small_mean": float((small[0]["area"] + small[1]["area"]) * 0.5),
     }
 
 
-############################## template 좌표계에서 source lumen을 검출하는 함수 ##############################
+############################## pro2 source lumen 검출 함수 ##############################
 def detect_source_lumens(source_gray, source_section_mask):
 
     sec_area = max(float(np.count_nonzero(source_section_mask)), 1.0)
@@ -321,74 +335,73 @@ def detect_source_lumens(source_gray, source_section_mask):
     best = None
     for ksize in [31, 25, 35]:
         blurred = cv2.GaussianBlur(source_gray, (ksize, ksize), 0)
-        vals = blurred[inner_section > 0]
-        if vals.size < 100:
+        values = blurred[inner_section > 0]
+        if values.size < 100:
             continue
 
-        otsu_thr, _ = cv2.threshold(vals.astype(np.uint8), 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        otsu_thr, _ = cv2.threshold(values.astype(np.uint8), 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
         for offset in [0, 5, -5, 10, -10]:
             thr = float(np.clip(otsu_thr + offset, 0, 255))
-            cand = np.zeros_like(source_gray, dtype=np.uint8)
-            cand[(blurred <= thr) & (inner_section > 0)] = 255
 
-            cand = cv2.morphologyEx(cand, cv2.MORPH_OPEN, np.ones((7, 7), np.uint8))
-            cand = cv2.morphologyEx(cand, cv2.MORPH_CLOSE, np.ones((11, 11), np.uint8))
+            candidate = np.zeros_like(source_gray, dtype=np.uint8)
+            candidate[(blurred <= thr) & (inner_section > 0)] = 255
+            candidate = cv2.morphologyEx(candidate, cv2.MORPH_OPEN, np.ones((7, 7), np.uint8))
+            candidate = cv2.morphologyEx(candidate, cv2.MORPH_CLOSE, np.ones((11, 11), np.uint8))
 
-            comps = extract_lumen_components(
-                binary_mask=cand,
+            components = extract_lumen_components(
+                binary_mask=candidate,
                 section_area=sec_area,
                 min_ratio=0.003,
-                max_ratio=0.30,
-                min_circularity=0.55,
+                max_ratio=0.45,
+                min_circularity=0.20,
             )
-
-            comps = augment_components_if_merged(
-                components=comps,
+            components = augment_components_if_merged(
+                components=components,
                 shape=source_gray.shape,
                 section_area=sec_area,
                 min_ratio=0.003,
-                max_ratio=0.30,
-                min_circularity=0.55,
+                max_ratio=0.45,
+                min_circularity=0.20,
             )
 
-            grouped = build_hole_group_masks(source_gray.shape, comps)
-
-            count_top = min(len(comps), 4)
+            grouped = build_hole_group_masks(source_gray.shape, components)
+            count_top = min(len(components), 3)
             if count_top == 0:
                 continue
 
-            top = comps[:count_top]
+            top = components[:count_top]
             smallest = float(top[-1]["area"])
-            mean_circ = float(np.mean([x["circularity"] for x in top]))
-
+            mean_circularity = float(np.mean([row["circularity"] for row in top]))
             gap = 0.0
             if grouped is not None:
-                gap = float(grouped["big"][1]["area"] / max(grouped["small"][0]["area"], 1.0))
+                gap = float(grouped["big"]["area"] / max(grouped["small_mean"], 1.0))
 
-            score = count_top * 10000.0 + smallest + mean_circ * 100.0 + gap * 50.0
+            # pro2는 3개 복원 성공을 최우선으로 두고, 작은 홀 유지와 분리도 안정성을 함께 본다.
+            score = count_top * 10000.0 + smallest + mean_circularity * 100.0 + gap * 50.0
 
             if best is None or score > best["score"]:
                 best = {
                     "score": score,
                     "ksize": ksize,
                     "threshold": thr,
-                    "components": comps,
+                    "components": components,
                     "grouped": grouped,
                 }
+
+    if best is None:
+        return None
 
     return best
 
 
-############################## IoU 계산 함수 ##############################
+############################## 두 마스크의 IoU 점수 계산 함수 ##############################
 def iou_score(mask_a, mask_b):
 
     a = mask_a > 0
     b = mask_b > 0
-
     inter = np.logical_and(a, b).sum()
     union = np.logical_or(a, b).sum()
-
     if union == 0:
         return 0.0
 
@@ -400,7 +413,6 @@ def rotate_image(img, angle_deg, center, interpolation, border_value=0, border_m
 
     h, w = img.shape[:2]
     matrix = cv2.getRotationMatrix2D(center, angle_deg, 1.0)
-
     return cv2.warpAffine(
         img,
         matrix,
@@ -411,10 +423,10 @@ def rotate_image(img, angle_deg, center, interpolation, border_value=0, border_m
     )
 
 
-############################## 중심 기준 크롭 + 패딩 함수 ##############################
-def center_crop_with_padding(gray, crop_size=(640, 640), center=None):
+############################## 지정 중심 기준 크롭 함수 ##############################
+def center_crop_with_padding(gray, crop_size=(600, 600), center=None):
 
-    h, w = gray.shape[:2]
+    h, w = gray.shape
     crop_w, crop_h = crop_size
 
     if center is None:
@@ -451,12 +463,11 @@ def center_crop_with_padding(gray, crop_size=(640, 640), center=None):
     return gray[y1:y2, x1:x2]
 
 
-############################## 중심 기준 스케일 조정 함수 ##############################
+############################## 중심 고정 등방 스케일 함수 ##############################
 def scale_about_center(img, center, scale, interpolation, border_mode, border_value=0):
 
     h, w = img.shape[:2]
     matrix = cv2.getRotationMatrix2D(center, 0.0, float(scale))
-
     return cv2.warpAffine(
         img,
         matrix,
@@ -479,12 +490,12 @@ def mask_bbox_size(mask):
     return (width, height)
 
 
-############################## 템플릿 오버레이 미리보기 함수 ##############################
+############################## 오버레이 미리보기 생성 함수 ##############################
 def overlay_preview(template_gray, aligned_gray, aligned_mask, alpha=0.45):
 
     template_bgr = cv2.cvtColor(template_gray, cv2.COLOR_GRAY2BGR)
-    aligned_bgr = cv2.cvtColor(aligned_gray, cv2.COLOR_GRAY2BGR)
-    blended = cv2.addWeighted(template_bgr, 1.0 - alpha, aligned_bgr, alpha, 0.0)
+    proc_bgr = cv2.cvtColor(aligned_gray, cv2.COLOR_GRAY2BGR)
+    blended = cv2.addWeighted(template_bgr, 1.0 - alpha, proc_bgr, alpha, 0.0)
 
     out = template_bgr.copy()
     mask_bool = aligned_mask > 0
@@ -493,73 +504,21 @@ def overlay_preview(template_gray, aligned_gray, aligned_mask, alpha=0.45):
     return out
 
 
-############################## 중심점 표시 함수 ##############################
+############################## 템플릿/정렬 중심 마커 그리기 함수 ##############################
 def draw_alignment_centers(overlay_img, template_center, aligned_mask_center):
 
     out = overlay_img.copy()
+    tx, ty = int(round(template_center[0])), int(round(template_center[1]))
+    ax, ay = int(round(aligned_mask_center[0])), int(round(aligned_mask_center[1]))
 
-    template_pt = (int(round(template_center[0])), int(round(template_center[1])))
-    aligned_pt = (int(round(aligned_mask_center[0])), int(round(aligned_mask_center[1])))
-
-    cv2.drawMarker(
-        out,
-        template_pt,
-        (0, 0, 255),
-        markerType=cv2.MARKER_CROSS,
-        markerSize=28,
-        thickness=3,
-    )
-    cv2.drawMarker(
-        out,
-        aligned_pt,
-        (0, 200, 0),
-        markerType=cv2.MARKER_DIAMOND,
-        markerSize=24,
-        thickness=3,
-    )
+    cv2.drawMarker(out, (tx, ty), (0, 0, 255), markerType=cv2.MARKER_CROSS, markerSize=20, thickness=2)
+    cv2.drawMarker(out, (ax, ay), (0, 255, 255), markerType=cv2.MARKER_TILTED_CROSS, markerSize=18, thickness=2)
 
     return out
 
 
-############################## outer mask IoU 기반 fallback 회전 함수 ##############################
-def find_best_rotation_outer_mask(placed_outer_mask, template_outer_mask, center, coarse_step=3.0, fine_step=0.25):
-
-    best_angle = 0.0
-    best_score = -1.0
-
-    for angle in np.arange(-180.0, 180.0, coarse_step, dtype=np.float32):
-        rot = rotate_image(
-            placed_outer_mask,
-            angle_deg=float(angle),
-            center=center,
-            interpolation=cv2.INTER_NEAREST,
-            border_value=0,
-            border_mode=cv2.BORDER_CONSTANT,
-        )
-        score = iou_score(rot, template_outer_mask)
-        if score > best_score:
-            best_score = float(score)
-            best_angle = float(angle)
-
-    for angle in np.arange(best_angle - coarse_step, best_angle + coarse_step + fine_step, fine_step, dtype=np.float32):
-        rot = rotate_image(
-            placed_outer_mask,
-            angle_deg=float(angle),
-            center=center,
-            interpolation=cv2.INTER_NEAREST,
-            border_value=0,
-            border_mode=cv2.BORDER_CONSTANT,
-        )
-        score = iou_score(rot, template_outer_mask)
-        if score > best_score:
-            best_score = float(score)
-            best_angle = float(angle)
-
-    return best_angle, best_score
-
-
-############################## lumen group 기반 회전 탐색 함수 ##############################
-def find_best_rotation_with_lumen_groups(source_grouped, template_grouped, center, coarse_step=3.0, fine_step=0.25):
+############################## hole 그룹 기반 최적 회전 탐색 함수 ##############################
+def find_best_rotation_with_hole_groups(source_grouped, template_grouped, center, coarse_step=3.0, fine_step=0.25):
 
     source_big = source_grouped["big_mask"]
     source_small = source_grouped["small_mask"]
@@ -595,49 +554,86 @@ def find_best_rotation_with_lumen_groups(source_grouped, template_grouped, cente
             border_mode=cv2.BORDER_CONSTANT,
         )
 
-        iou_big = iou_score(rotated_big, template_big)
-        iou_small = iou_score(rotated_small, template_small)
-        iou_all = iou_score(rotated_all, template_all)
-        score = 0.55 * iou_big + 0.30 * iou_small + 0.15 * iou_all
+        score_big = iou_score(rotated_big, template_big)
+        score_small = iou_score(rotated_small, template_small)
+        score_all = iou_score(rotated_all, template_all)
+        score = 0.60 * score_big + 0.25 * score_small + 0.15 * score_all
 
-        return score, iou_big, iou_small, iou_all
+        return score, score_big, score_small, score_all
 
     best = {"angle": 0.0, "score": -1.0, "s_big": 0.0, "s_small": 0.0, "s_all": 0.0}
 
     for angle in np.arange(-180.0, 180.0, coarse_step, dtype=np.float32):
-        score, s_big, s_small, s_all = score_at(float(angle))
+        score, score_big, score_small, score_all = score_at(float(angle))
         if score > best["score"]:
             best = {
                 "angle": float(angle),
                 "score": float(score),
-                "s_big": float(s_big),
-                "s_small": float(s_small),
-                "s_all": float(s_all),
+                "s_big": float(score_big),
+                "s_small": float(score_small),
+                "s_all": float(score_all),
             }
 
     for angle in np.arange(best["angle"] - coarse_step, best["angle"] + coarse_step + fine_step, fine_step, dtype=np.float32):
-        score, s_big, s_small, s_all = score_at(float(angle))
+        score, score_big, score_small, score_all = score_at(float(angle))
         if score > best["score"]:
             best = {
                 "angle": float(angle),
                 "score": float(score),
-                "s_big": float(s_big),
-                "s_small": float(s_small),
-                "s_all": float(s_all),
+                "s_big": float(score_big),
+                "s_small": float(score_small),
+                "s_all": float(score_all),
             }
 
     return best
 
 
-############################## 템플릿 기준 정보 준비 함수 ##############################
-def prepare_template_model(template_result_dir):
+############################## 외곽 마스크 기반 fallback 회전 탐색 함수 ##############################
+def find_best_rotation_outer_mask(placed_outer_mask, template_outer_mask, center, coarse_step=3.0, fine_step=0.25):
 
-    template_gray_path = template_result_dir / "01_pro3_endpoint_grayscale.png"
-    template_outer_path = template_result_dir / "04_pro3_endpoint_outer_mask.png"
-    template_section_path = template_result_dir / "05_pro3_endpoint_section_mask.png"
-    template_big_path = template_result_dir / "06_pro3_endpoint_lumen_big_mask.png"
-    template_small_path = template_result_dir / "07_pro3_endpoint_lumen_small_mask.png"
-    template_all_path = template_result_dir / "08_pro3_endpoint_lumen_all_mask.png"
+    best_angle = 0.0
+    best_score = -1.0
+
+    for angle in np.arange(-180.0, 180.0, coarse_step, dtype=np.float32):
+        rotated = rotate_image(
+            placed_outer_mask,
+            angle_deg=float(angle),
+            center=center,
+            interpolation=cv2.INTER_NEAREST,
+            border_value=0,
+            border_mode=cv2.BORDER_CONSTANT,
+        )
+        score = iou_score(rotated, template_outer_mask)
+        if score > best_score:
+            best_score = float(score)
+            best_angle = float(angle)
+
+    for angle in np.arange(best_angle - coarse_step, best_angle + coarse_step + fine_step, fine_step, dtype=np.float32):
+        rotated = rotate_image(
+            placed_outer_mask,
+            angle_deg=float(angle),
+            center=center,
+            interpolation=cv2.INTER_NEAREST,
+            border_value=0,
+            border_mode=cv2.BORDER_CONSTANT,
+        )
+        score = iou_score(rotated, template_outer_mask)
+        if score > best_score:
+            best_score = float(score)
+            best_angle = float(angle)
+
+    return best_angle, best_score
+
+
+############################## 템플릿 기준 정보 준비 함수 ##############################
+def prepare_template_model(template_result_dir, stage_root_dir=None):
+
+    template_gray_path = template_result_dir / "01_pro2_endpoint_grayscale.png"
+    template_outer_path = template_result_dir / "04_pro2_endpoint_outer_mask.png"
+    template_section_path = template_result_dir / "05_pro2_endpoint_section_mask.png"
+    template_big_path = template_result_dir / "06_pro2_endpoint_lumen_big_mask.png"
+    template_small_path = template_result_dir / "07_pro2_endpoint_lumen_small_mask.png"
+    template_all_path = template_result_dir / "08_pro2_endpoint_lumen_all_mask.png"
 
     template_gray = cv2.imread(str(template_gray_path), cv2.IMREAD_GRAYSCALE)
     if template_gray is None:
@@ -663,15 +659,19 @@ def prepare_template_model(template_result_dir):
     if template_all_mask is None:
         raise RuntimeError(f"failed_to_read_template_lumen_all_mask: {template_all_path}")
 
-    template_center = mask_centroid(template_section_mask)
-    template_area = int(np.count_nonzero(template_outer_mask))
+    save_optional_stage(stage_root_dir, "template", 1, "pro2_endpoint_grayscale", template_gray)
+    save_optional_stage(stage_root_dir, "template", 2, "pro2_endpoint_outer_mask", template_outer_mask)
+    save_optional_stage(stage_root_dir, "template", 3, "pro2_endpoint_section_mask", template_section_mask)
+    save_optional_stage(stage_root_dir, "template", 4, "pro2_endpoint_lumen_big_mask", template_big_mask)
+    save_optional_stage(stage_root_dir, "template", 5, "pro2_endpoint_lumen_small_mask", template_small_mask)
+    save_optional_stage(stage_root_dir, "template", 6, "pro2_endpoint_lumen_all_mask", template_all_mask)
 
     return {
         "gray": template_gray,
         "outer_mask": template_outer_mask,
         "section_mask": template_section_mask,
-        "center": template_center,
-        "area": template_area,
+        "center": mask_centroid(template_section_mask),
+        "area": int(np.count_nonzero(template_outer_mask)),
         "holes": {
             "big_mask": template_big_mask,
             "small_mask": template_small_mask,
@@ -681,24 +681,24 @@ def prepare_template_model(template_result_dir):
 
 
 ############################## source를 template 좌표계에 배치하는 함수 ##############################
-def place_source_to_template(source_gray, template_model):
+def place_source_to_template(source_gray, template_model, scale_adjust=1.0):
 
     source_outer_info = extract_main_component(source_gray, foreground="bright")
     if source_outer_info is None:
         raise RuntimeError("failed_to_extract_source_outer_component")
 
-    source_section = fill_section_mask(source_outer_info["mask"])
-    if source_section is None:
+    source_section_mask = fill_section_mask(source_outer_info["mask"])
+    if source_section_mask is None:
         raise RuntimeError("failed_to_build_source_section_mask")
 
     source_area = max(float(source_outer_info["area"]), 1.0)
     template_area = max(float(template_model["area"]), 1.0)
-    scale = np.sqrt(template_area / source_area)
+    scale = np.sqrt(template_area / source_area) * float(scale_adjust)
 
     placed_gray, placed_outer, placed_section, dx, dy = place_to_template(
         gray_source=source_gray,
         outer_mask=source_outer_info["mask"],
-        section_mask=source_section,
+        section_mask=source_section_mask,
         template_shape=template_model["gray"].shape,
         template_center=template_model["center"],
         scale=scale,
@@ -706,7 +706,8 @@ def place_source_to_template(source_gray, template_model):
 
     return {
         "source_outer_mask": source_outer_info["mask"],
-        "source_section_mask": source_section,
+        "source_section_mask": source_section_mask,
+        "source_center": source_outer_info["center"],
         "placed_gray": placed_gray,
         "placed_outer_mask": placed_outer,
         "placed_section_mask": placed_section,
@@ -720,32 +721,32 @@ def place_source_to_template(source_gray, template_model):
 def process_source(
     source_path,
     template_model,
-    output_root_dir,
-    final_output_dir,
-    overlay_output_dir,
-    crop_size=(640, 640),
+    output_dir,
+    overlay_dir,
+    stage_root_dir=None,
+    crop_size=(600, 600),
     alpha=0.45,
+    scale_adjust=1.0,
+    save_overlay=True,
 ):
-
-    output_dir = output_root_dir / source_path.stem
 
     source_bgr = cv2.imread(str(source_path), cv2.IMREAD_COLOR)
     if source_bgr is None:
         return False, "imread_failed"
 
     source_gray = bgr_to_grayscale(source_bgr)
-    save_stage_image(output_dir, 1, f"{source_path.stem}_grayscale", source_gray)
+    save_optional_stage(stage_root_dir, source_path.stem, 1, f"{source_path.stem}_grayscale", source_gray)
 
     try:
-        placed_result = place_source_to_template(source_gray, template_model)
+        placed_result = place_source_to_template(source_gray, template_model, scale_adjust=scale_adjust)
     except RuntimeError as exc:
         return False, str(exc)
 
-    save_stage_image(output_dir, 2, f"{source_path.stem}_outer_mask", placed_result["source_outer_mask"])
-    save_stage_image(output_dir, 3, f"{source_path.stem}_section_mask", placed_result["source_section_mask"])
-    save_stage_image(output_dir, 4, f"{source_path.stem}_placed_gray", placed_result["placed_gray"])
-    save_stage_image(output_dir, 5, f"{source_path.stem}_placed_outer_mask", placed_result["placed_outer_mask"])
-    save_stage_image(output_dir, 6, f"{source_path.stem}_placed_section_mask", placed_result["placed_section_mask"])
+    save_optional_stage(stage_root_dir, source_path.stem, 2, f"{source_path.stem}_outer_mask", placed_result["source_outer_mask"])
+    save_optional_stage(stage_root_dir, source_path.stem, 3, f"{source_path.stem}_section_mask", placed_result["source_section_mask"])
+    save_optional_stage(stage_root_dir, source_path.stem, 4, f"{source_path.stem}_placed_gray", placed_result["placed_gray"])
+    save_optional_stage(stage_root_dir, source_path.stem, 5, f"{source_path.stem}_placed_outer_mask", placed_result["placed_outer_mask"])
+    save_optional_stage(stage_root_dir, source_path.stem, 6, f"{source_path.stem}_placed_section_mask", placed_result["placed_section_mask"])
 
     source_lumen_result = detect_source_lumens(
         placed_result["placed_gray"],
@@ -757,11 +758,11 @@ def process_source(
         source_grouped = source_lumen_result.get("grouped")
 
     if source_grouped is not None:
-        save_stage_image(output_dir, 7, f"{source_path.stem}_lumen_big_mask", source_grouped["big_mask"])
-        save_stage_image(output_dir, 8, f"{source_path.stem}_lumen_small_mask", source_grouped["small_mask"])
-        save_stage_image(output_dir, 9, f"{source_path.stem}_lumen_all_mask", source_grouped["all_mask"])
+        save_optional_stage(stage_root_dir, source_path.stem, 7, f"{source_path.stem}_lumen_big_mask", source_grouped["big_mask"])
+        save_optional_stage(stage_root_dir, source_path.stem, 8, f"{source_path.stem}_lumen_small_mask", source_grouped["small_mask"])
+        save_optional_stage(stage_root_dir, source_path.stem, 9, f"{source_path.stem}_lumen_all_mask", source_grouped["all_mask"])
 
-        rot = find_best_rotation_with_lumen_groups(
+        rot = find_best_rotation_with_hole_groups(
             source_grouped=source_grouped,
             template_grouped=template_model["holes"],
             center=template_model["center"],
@@ -791,7 +792,7 @@ def process_source(
         border_value=0,
         border_mode=cv2.BORDER_CONSTANT,
     )
-    save_stage_image(output_dir, 10, f"{source_path.stem}_aligned_gray", aligned_gray)
+    save_optional_stage(stage_root_dir, source_path.stem, 10, f"{source_path.stem}_aligned_gray", aligned_gray)
 
     aligned_outer = rotate_image(
         placed_result["placed_outer_mask"],
@@ -801,7 +802,7 @@ def process_source(
         border_value=0,
         border_mode=cv2.BORDER_CONSTANT,
     )
-    save_stage_image(output_dir, 11, f"{source_path.stem}_aligned_outer_mask", aligned_outer)
+    save_optional_stage(stage_root_dir, source_path.stem, 11, f"{source_path.stem}_aligned_outer_mask", aligned_outer)
 
     aligned_section = rotate_image(
         placed_result["placed_section_mask"],
@@ -811,7 +812,7 @@ def process_source(
         border_value=0,
         border_mode=cv2.BORDER_CONSTANT,
     )
-    save_stage_image(output_dir, 12, f"{source_path.stem}_aligned_section_mask", aligned_section)
+    save_optional_stage(stage_root_dir, source_path.stem, 12, f"{source_path.stem}_aligned_section_mask", aligned_section)
 
     if source_grouped is not None:
         aligned_big = rotate_image(
@@ -839,16 +840,37 @@ def process_source(
             border_mode=cv2.BORDER_CONSTANT,
         )
 
-        save_stage_image(output_dir, 13, f"{source_path.stem}_aligned_lumen_big_mask", aligned_big)
-        save_stage_image(output_dir, 14, f"{source_path.stem}_aligned_lumen_small_mask", aligned_small)
-        save_stage_image(output_dir, 15, f"{source_path.stem}_aligned_lumen_all_mask", aligned_all)
+        save_optional_stage(stage_root_dir, source_path.stem, 13, f"{source_path.stem}_aligned_lumen_big_mask", aligned_big)
+        save_optional_stage(stage_root_dir, source_path.stem, 14, f"{source_path.stem}_aligned_lumen_small_mask", aligned_small)
+        save_optional_stage(stage_root_dir, source_path.stem, 15, f"{source_path.stem}_aligned_lumen_all_mask", aligned_all)
 
-    crop_center = mask_centroid(aligned_section)
-    margin = 14
+    # pro2는 템플릿 좌표계는 각도 추정에만 쓰고, 최종 출력은 원본 해상도 좌표계에서 회전/크롭한다.
+    original_center = placed_result["source_center"]
+    rotated_original = rotate_image(
+        source_gray,
+        angle_deg=best_angle,
+        center=original_center,
+        interpolation=cv2.INTER_CUBIC,
+        border_value=0,
+        border_mode=cv2.BORDER_REFLECT_101,
+    )
+    rotated_outer_original = rotate_image(
+        placed_result["source_outer_mask"],
+        angle_deg=best_angle,
+        center=original_center,
+        interpolation=cv2.INTER_NEAREST,
+        border_value=0,
+        border_mode=cv2.BORDER_CONSTANT,
+    )
+    rotated_section_original = fill_section_mask(rotated_outer_original)
+    if rotated_section_original is None:
+        return False, "failed_to_build_rotated_section_mask"
+
     auto_scale = 1.0
+    margin = 14
+    crop_center = original_center
 
-    cropped_gray_source = aligned_gray
-    bbox = mask_bbox_size(aligned_section)
+    bbox = mask_bbox_size(rotated_section_original)
     if bbox is not None:
         bbox_w, bbox_h = bbox
         fit_w = (crop_size[0] - 2 * margin) / max(float(bbox_w), 1.0)
@@ -856,42 +878,55 @@ def process_source(
         auto_scale = min(1.0, fit_w, fit_h)
 
         if auto_scale < 0.999:
-            cropped_gray_source = scale_about_center(
-                aligned_gray,
-                center=crop_center,
+            rotated_original = scale_about_center(
+                rotated_original,
+                center=original_center,
                 scale=auto_scale,
                 interpolation=cv2.INTER_CUBIC,
                 border_mode=cv2.BORDER_REFLECT_101,
                 border_value=0,
             )
+            rotated_section_original = scale_about_center(
+                rotated_section_original,
+                center=original_center,
+                scale=auto_scale,
+                interpolation=cv2.INTER_NEAREST,
+                border_mode=cv2.BORDER_CONSTANT,
+                border_value=0,
+            )
+
+    crop_center = mask_centroid(rotated_section_original)
 
     final_crop = center_crop_with_padding(
-        cropped_gray_source,
+        rotated_original,
         crop_size=crop_size,
         center=crop_center,
     )
-    save_stage_image(output_dir, 16, f"{source_path.stem}_final_crop_{crop_size[0]}", final_crop)
-    final_output_dir.mkdir(parents=True, exist_ok=True)
-    final_output_path = final_output_dir / f"15_{source_path.stem}_final_crop_{crop_size[0]}.png"
+    save_optional_stage(stage_root_dir, source_path.stem, 16, f"{source_path.stem}_final_crop_{crop_size[0]}", final_crop)
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    final_output_path = output_dir / source_path.name
     if not cv2.imwrite(str(final_output_path), final_crop):
         return False, f"failed_to_write_final_output: {final_output_path}"
 
-    overlay = overlay_preview(
-        template_model["gray"],
-        aligned_gray,
-        aligned_section,
-        alpha=alpha,
-    )
-    overlay = draw_alignment_centers(
-        overlay,
-        template_center=template_model["center"],
-        aligned_mask_center=mask_centroid(aligned_section),
-    )
-    save_stage_image(output_dir, 17, f"{source_path.stem}_template_overlay", overlay)
-    overlay_output_dir.mkdir(parents=True, exist_ok=True)
-    overlay_output_path = overlay_output_dir / f"16_{source_path.stem}_template_overlay.png"
-    if not cv2.imwrite(str(overlay_output_path), overlay):
-        return False, f"failed_to_write_overlay_output: {overlay_output_path}"
+    if save_overlay:
+        overlay = overlay_preview(
+            template_model["gray"],
+            aligned_gray,
+            aligned_section,
+            alpha=alpha,
+        )
+        overlay = draw_alignment_centers(
+            overlay,
+            template_center=template_model["center"],
+            aligned_mask_center=mask_centroid(aligned_section),
+        )
+        save_optional_stage(stage_root_dir, source_path.stem, 17, f"{source_path.stem}_template_overlay", overlay)
+
+        overlay_dir.mkdir(parents=True, exist_ok=True)
+        overlay_output_path = overlay_dir / f"{source_path.stem}_overlay.png"
+        if not cv2.imwrite(str(overlay_output_path), overlay):
+            return False, f"failed_to_write_overlay_output: {overlay_output_path}"
 
     geom_msg = (
         f"geom[ scale={placed_result['scale']:.4f}, shift=({placed_result['dx']:.1f},{placed_result['dy']:.1f}), "
@@ -901,7 +936,20 @@ def process_source(
     return True, f"ok {geom_msg}\n{metric_msg}"
 
 
-def run_preprocess(input_dir, pattern, template_result_dir, output_dir, final_output_dir, overlay_output_dir, crop_size, alpha):
+############################## 전체 source 이미지 전처리 실행 함수 ##############################
+def run_preprocess(
+    input_dir,
+    pattern,
+    template_result_dir,
+    output_dir,
+    overlay_dir,
+    crop_size=(600, 600),
+    alpha=0.45,
+    scale_adjust=1.0,
+    save_overlay=True,
+    stage_dir=None,
+    save_stage_images=False,
+):
 
     if not input_dir.exists():
         raise FileNotFoundError(f"input dir not found: {input_dir}")
@@ -909,36 +957,45 @@ def run_preprocess(input_dir, pattern, template_result_dir, output_dir, final_ou
         raise FileNotFoundError(f"template result dir not found: {template_result_dir}")
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    final_output_dir.mkdir(parents=True, exist_ok=True)
-    overlay_output_dir.mkdir(parents=True, exist_ok=True)
+    if save_overlay:
+        overlay_dir.mkdir(parents=True, exist_ok=True)
+    if save_stage_images and stage_dir is not None:
+        stage_dir.mkdir(parents=True, exist_ok=True)
 
     source_files = sorted(input_dir.glob(pattern))
     total = len(source_files)
     if total == 0:
         raise FileNotFoundError(f"no_source_files: {input_dir} ({pattern})")
 
-    template_model = prepare_template_model(template_result_dir)
+    template_model = prepare_template_model(
+        template_result_dir,
+        stage_root_dir=stage_dir if save_stage_images else None,
+    )
 
-    print("=============== 전처리 시작 (template registration + big/small lumen split) ===============")
+    print("=============== 전처리 시작 (template registration + 3-lumen split) ===============")
     print(f"이미지 개수:  {total}장")
-    print("카테터 타입:  pro3 (4-lumen)")
+    print("카테터 타입:  pro2 (3-lumen)")
     print(f"input:     {input_dir} ({pattern})")
     print(f"template:  {template_result_dir}")
-    print(f"stages:    {output_dir}")
-    print(f"output:    {final_output_dir}")
-    print(f"overlay:   {overlay_output_dir}")
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print(f"output:    {output_dir}")
+    if save_overlay:
+        print(f"overlay:   {overlay_dir}")
+    if save_stage_images and stage_dir is not None:
+        print(f"stages:    {stage_dir}")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
     failures = []
     for idx, source_path in enumerate(source_files, start=1):
         ok, msg = process_source(
             source_path=source_path,
             template_model=template_model,
-            output_root_dir=output_dir,
-            final_output_dir=final_output_dir,
-            overlay_output_dir=overlay_output_dir,
+            output_dir=output_dir,
+            overlay_dir=overlay_dir,
+            stage_root_dir=stage_dir if save_stage_images else None,
             crop_size=crop_size,
             alpha=alpha,
+            scale_adjust=scale_adjust,
+            save_overlay=save_overlay,
         )
 
         if ok:
@@ -961,7 +1018,7 @@ def run_preprocess(input_dir, pattern, template_result_dir, output_dir, final_ou
 def main():
 
     parser = argparse.ArgumentParser(
-        description="pro3 source 전처리: 1) Gray scale -> 2) Template Registration(중심+회전) -> 3) Crop"
+        description="pro2 전처리: 1) Gray scale -> 2) Template Registration(3-lumen 중심+회전) -> 3) Crop"
     )
     parser.add_argument(
         "--input-dir",
@@ -973,37 +1030,31 @@ def main():
         "--pattern",
         type=str,
         default="*.png",
-        help="파일 확장자(e.g. *.png, *BMP)",
+        help="파일 확장자(e.g. *.png, *.BMP)",
     )
     parser.add_argument(
         "--template-result-dir",
         type=Path,
         default=TEMPLATE_RESULT_DIR,
-        help="전처리된 템플릿 결과 폴더 경로",
+        help="전처리된 pro2 템플릿 결과 폴더 경로",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=OUTPUT_ROOT_DIR,
-        help="단계별 source 전처리 결과 저장 폴더 경로",
+        default=OUTPUT_DIR,
+        help="전처리 결과 저장 폴더 경로",
     )
     parser.add_argument(
-        "--final-output-dir",
+        "--overlay-dir",
         type=Path,
-        default=FINAL_OUTPUT_DIR,
-        help="최종 전처리 이미지 저장 폴더 경로",
-    )
-    parser.add_argument(
-        "--overlay-output-dir",
-        type=Path,
-        default=OVERLAY_OUTPUT_DIR,
-        help="템플릿 오버레이 이미지 저장 폴더 경로",
+        default=OVERLAY_DIR,
+        help="템플릿 오버레이 결과 저장 폴더 경로",
     )
     parser.add_argument(
         "--crop-size",
         nargs=2,
         type=int,
-        default=(640, 640),
+        default=(600, 600),
         metavar=("W", "H"),
         help="최종 크롭 사이즈",
     )
@@ -1011,7 +1062,29 @@ def main():
         "--alpha",
         type=float,
         default=0.45,
-        help="템플릿 오버레이 투명도 (0~1)",
+        help="오버레이 투명도 (0~1)",
+    )
+    parser.add_argument(
+        "--scale-adjust",
+        type=float,
+        default=1.0,
+        help="자동 스케일 보정 배율",
+    )
+    parser.add_argument(
+        "--no-overlay",
+        action="store_true",
+        help="오버레이 결과 저장 비활성화",
+    )
+    parser.add_argument(
+        "--stage-dir",
+        type=Path,
+        default=STAGE_DIR,
+        help="전처리 중간 결과 이미지 저장 폴더 경로",
+    )
+    parser.add_argument(
+        "--no-stage-images",
+        action="store_true",
+        help="전처리 중간 결과 이미지 저장 비활성화",
     )
 
     args = parser.parse_args()
@@ -1021,10 +1094,13 @@ def main():
         pattern=args.pattern,
         template_result_dir=args.template_result_dir,
         output_dir=args.output_dir,
-        final_output_dir=args.final_output_dir,
-        overlay_output_dir=args.overlay_output_dir,
+        overlay_dir=args.overlay_dir,
         crop_size=tuple(args.crop_size),
         alpha=args.alpha,
+        scale_adjust=args.scale_adjust,
+        save_overlay=not args.no_overlay,
+        stage_dir=args.stage_dir,
+        save_stage_images=not args.no_stage_images,
     )
 
 

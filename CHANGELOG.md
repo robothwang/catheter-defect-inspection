@@ -2,6 +2,42 @@
 
 이 문서는 프로젝트의 주요 변경 이력을 기록합니다.
 
+## [0.3.2] - 2026-04-11
+
+### Added
+- `scripts/preprocess_source.py`에서 `pro1/pro2/pro3` 공통으로 `--stage-dir`, `--no-stage-images` 흐름을 지원하도록 정리
+- `pro1/pro2/pro3` source 전처리 단계별 결과 저장 경로 추가
+  - `data/processed/stage_images/pro1_holealign`
+  - `data/processed/stage_images/pro2_holealign`
+  - `data/processed/stage_images/pro3_holealign`
+
+### Changed
+- `scripts/preprocess_source.py`를 타입별 `holealign` 스크립트를 import 해서 실행하는 공용 디스패처 구조로 정리
+- `scripts/preprocess_pro1_holealign.py`, `scripts/preprocess_pro2_holealign.py`, `scripts/preprocess_pro3_holealign.py`가 모두 전처리된 템플릿 결과 폴더를 직접 읽도록 통일
+- `pro1/pro2/pro3` `holealign` 스크립트의 코드 흐름과 주석 스타일을 `new.py` 기준으로 재정리
+- `pro1` 단계별 결과를 `2-hole` 구조에 맞춰 저장하도록 정리
+  - `07_*_lumen_hole1_mask.png`
+  - `08_*_lumen_hole2_mask.png`
+  - `09_*_lumen_all_mask.png`
+- `pro2` 단계별 결과를 `3-lumen` 구조에 맞춰 정리
+  - `07_*_lumen_big_mask.png`
+  - `08_*_lumen_small_mask.png`
+  - `09_*_lumen_all_mask.png`
+  - `16_*_final_crop_600.png`
+  - `17_*_template_overlay.png`
+- `pro3` 단계별 결과 번호를 `new.py` 흐름 기준으로 유지
+  - `10_*_aligned_gray.png`
+  - `11_*_aligned_outer_mask.png`
+  - `12_*_aligned_section_mask.png`
+  - `16_*_final_crop_600.png`
+  - `17_*_template_overlay.png`
+- `README.MD`를 현재 권장 실행 구조(`preprocess_source.py` + 타입별 `holealign`) 기준으로 갱신
+
+### Fixed
+- `preprocess_source.py --catheter-type pro2` 실행 시 `--stage-dir`가 실제 `pro2` 파이프라인으로 전달되지 않던 문제 수정
+- `pro1/pro2` source 전처리에서 템플릿 경로는 맞지만 템플릿 처리 구조가 분산돼 있던 부분을 정리
+- `pro1/pro2/pro3` 직접 실행과 `preprocess_source.py` 경유 실행 간 출력 구조가 달라지던 부분을 정리
+
 ## [0.3.1] - 2026-04-10
 
 ### Added
