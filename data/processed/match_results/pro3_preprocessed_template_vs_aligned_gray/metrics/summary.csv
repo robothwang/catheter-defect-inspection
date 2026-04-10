@@ -1,0 +1,11 @@
+template_image,source_image,template_keypoints,source_keypoints,matched_keypoints,match_ratio_vs_template,match_ratio_vs_source,mean_confidence,max_confidence,homography_found,homography_inliers,homography_inlier_ratio,mean_reprojection_error
+01_pro3_endpoint_grayscale.png,10_3_FS (49)_aligned_gray.png,176,333,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+01_pro3_endpoint_grayscale.png,10_3_FS (51)_aligned_gray.png,176,324,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+01_pro3_endpoint_grayscale.png,10_3_FS (52)_aligned_gray.png,176,313,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+01_pro3_endpoint_grayscale.png,10_3_FS (54)_aligned_gray.png,176,273,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+01_pro3_endpoint_grayscale.png,10_3_FS (55)_aligned_gray.png,176,291,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+01_pro3_endpoint_grayscale.png,10_3_FS (56)_aligned_gray.png,176,294,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+01_pro3_endpoint_grayscale.png,10_3_FS (57)_aligned_gray.png,176,509,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+01_pro3_endpoint_grayscale.png,10_3_FS (58)_aligned_gray.png,176,347,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+01_pro3_endpoint_grayscale.png,10_3_FS (60)_aligned_gray.png,176,287,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+01_pro3_endpoint_grayscale.png,10_3_FS (62)_aligned_gray.png,176,404,0,0.0,0.0,0.0,0.0,0,0,0.0,nan

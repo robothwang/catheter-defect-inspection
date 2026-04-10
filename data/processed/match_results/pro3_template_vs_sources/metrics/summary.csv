@@ -1,0 +1,11 @@
+template_image,source_image,template_keypoints,source_keypoints,matched_keypoints,match_ratio_vs_template,match_ratio_vs_source,mean_confidence,max_confidence,homography_found,homography_inliers,homography_inlier_ratio,mean_reprojection_error
+pro_3_endpoint.png,3_FS (49).png,176,383,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+pro_3_endpoint.png,3_FS (51).png,176,365,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+pro_3_endpoint.png,3_FS (52).png,176,302,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+pro_3_endpoint.png,3_FS (54).png,176,315,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+pro_3_endpoint.png,3_FS (55).png,176,311,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+pro_3_endpoint.png,3_FS (56).png,176,368,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+pro_3_endpoint.png,3_FS (57).png,176,491,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+pro_3_endpoint.png,3_FS (58).png,176,358,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+pro_3_endpoint.png,3_FS (60).png,176,315,0,0.0,0.0,0.0,0.0,0,0,0.0,nan
+pro_3_endpoint.png,3_FS (62).png,176,461,0,0.0,0.0,0.0,0.0,0,0,0.0,nan

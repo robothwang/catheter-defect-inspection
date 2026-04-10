@@ -63,6 +63,11 @@ torch.set_grad_enabled(False)
 
 
 if __name__ == '__main__':
+    # 이 스크립트의 전체 흐름:
+    # 1) 이미지 쌍 목록을 읽는다.
+    # 2) 각 이미지 쌍에서 SuperPoint로 keypoint/descriptor를 추출한다.
+    # 3) SuperGlue로 두 이미지의 대응 keypoint를 매칭한다.
+    # 4) 필요하면 pose 평가와 시각화를 수행한다.
     parser = argparse.ArgumentParser(
         description='Image pair matching and pose evaluation with SuperGlue',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -143,11 +148,15 @@ if __name__ == '__main__':
     opt = parser.parse_args()
     print(opt)
 
+    # 옵션 간의 의존성을 검사한다.
+    # 예를 들어 OpenCV 화면 출력은 시각화 기능이 켜져 있어야 의미가 있다.
     assert not (opt.opencv_display and not opt.viz), 'Must use --viz with --opencv_display'
     assert not (opt.opencv_display and not opt.fast_viz), 'Cannot use --opencv_display without --fast_viz'
     assert not (opt.fast_viz and not opt.viz), 'Must use --viz with --fast_viz'
     assert not (opt.fast_viz and opt.viz_extension == 'pdf'), 'Cannot use pdf extension with --fast_viz'
 
+    # resize 인자를 정규화한다.
+    # [640, -1] 형태는 [640]과 같은 의미로 취급한다.
     if len(opt.resize) == 2 and opt.resize[1] == -1:
         opt.resize = opt.resize[0:1]
     if len(opt.resize) == 2:
@@ -163,19 +172,26 @@ if __name__ == '__main__':
     with open(opt.input_pairs, 'r') as f:
         pairs = [l.split() for l in f.readlines()]
 
+    # 최대 처리 개수를 제한한 경우 일부 pair만 사용한다.
     if opt.max_length > -1:
         pairs = pairs[0:np.min([len(pairs), opt.max_length])]
 
+    # 같은 순서로 재현 가능하게 섞는다.
     if opt.shuffle:
         random.Random(0).shuffle(pairs)
 
+    # 평가 모드에서는 각 줄에 카메라 정보와 정답 pose까지 포함되어야 한다.
     if opt.eval:
         if not all([len(p) == 38 for p in pairs]):
             raise ValueError(
                 'All pairs should have ground truth info for evaluation.'
                 'File \"{}\" needs 38 valid entries per row'.format(opt.input_pairs))
 
-    # Load the SuperPoint and SuperGlue models.
+    # SuperPoint + SuperGlue 모델을 로드한다.
+    # Matching 클래스 내부에서
+    # - SuperPoint: keypoint / descriptor 추출
+    # - SuperGlue: 두 이미지 간 descriptor 매칭
+    # 을 연결된 파이프라인으로 처리한다.
     device = 'cuda' if torch.cuda.is_available() and not opt.force_cpu else 'cpu'
     print('Running inference on device \"{}\"'.format(device))
     config = {
@@ -192,7 +208,7 @@ if __name__ == '__main__':
     }
     matching = Matching(config).eval().to(device)
 
-    # Create the output directories if they do not exist already.
+    # 결과 저장 디렉터리를 준비한다.
     input_dir = Path(opt.input_dir)
     print('Looking for data in directory \"{}\"'.format(input_dir))
     output_dir = Path(opt.output_dir)
@@ -207,6 +223,8 @@ if __name__ == '__main__':
 
     timer = AverageTimer(newline=True)
     for i, pair in enumerate(pairs):
+        # pair의 앞 2개 값은 이미지 파일명이다.
+        # 뒤에는 회전 정보 또는 평가용 카메라/pose 정보가 추가될 수 있다.
         name0, name1 = pair[:2]
         stem0, stem1 = Path(name0).stem, Path(name1).stem
         matches_path = output_dir / '{}_{}_matches.npz'.format(stem0, stem1)
@@ -215,7 +233,8 @@ if __name__ == '__main__':
         viz_eval_path = output_dir / \
             '{}_{}_evaluation.{}'.format(stem0, stem1, opt.viz_extension)
 
-        # Handle --cache logic.
+        # --cache를 사용하면 이미 계산된 npz/시각화 결과를 재사용한다.
+        # 반복 실험 속도를 높이기 위한 장치이다.
         do_match = True
         do_eval = opt.eval
         do_viz = opt.viz
@@ -252,13 +271,15 @@ if __name__ == '__main__':
             timer.print('Finished pair {:5} of {:5}'.format(i, len(pairs)))
             continue
 
-        # If a rotation integer is provided (e.g. from EXIF data), use it:
+        # pair 파일에 회전 정수(EXIF 등)가 있으면 이를 사용한다.
+        # 입력 이미지가 저장 단계에서 회전된 경우를 보정하기 위한 정보이다.
         if len(pair) >= 5:
             rot0, rot1 = int(pair[2]), int(pair[3])
         else:
             rot0, rot1 = 0, 0
 
-        # Load the image pair.
+        # 이미지 쌍을 읽고 모델 입력 텐서로 변환한다.
+        # read_image 내부에서는 로드, grayscale 변환, resize, tensor 변환이 함께 수행된다.
         image0, inp0, scales0 = read_image(
             input_dir / name0, device, opt.resize, rot0, opt.resize_float)
         image1, inp1, scales1 = read_image(
@@ -270,36 +291,43 @@ if __name__ == '__main__':
         timer.update('load_image')
 
         if do_match:
-            # Perform the matching.
+            # 실제 이미지 매칭 추론을 수행한다.
+            # Matching({'image0', 'image1'}) 호출 한 번으로
+            # 1) 각 이미지의 keypoint/descriptor 추출
+            # 2) 두 descriptor 집합 간 대응점 매칭
+            # 이 연속적으로 실행된다.
             pred = matching({'image0': inp0, 'image1': inp1})
             pred = {k: v[0].cpu().numpy() for k, v in pred.items()}
             kpts0, kpts1 = pred['keypoints0'], pred['keypoints1']
             matches, conf = pred['matches0'], pred['matching_scores0']
             timer.update('matcher')
 
-            # Write the matches to disk.
+            # 매칭 결과를 디스크에 저장한다.
+            # matches0[i] = j  : image0의 i번째 keypoint가 image1의 j번째 keypoint와 매칭
+            # matches0[i] = -1 : 유효한 대응점이 없음을 의미
             out_matches = {'keypoints0': kpts0, 'keypoints1': kpts1,
                            'matches': matches, 'match_confidence': conf}
             np.savez(str(matches_path), **out_matches)
 
-        # Keep the matching keypoints.
+        # 매칭이 실제로 성립한 keypoint만 추려낸다.
+        # kpts0, kpts1은 전체 검출점이고, mkpts0, mkpts1은 대응점만 남긴 결과이다.
         valid = matches > -1
         mkpts0 = kpts0[valid]
         mkpts1 = kpts1[matches[valid]]
         mconf = conf[valid]
 
         if do_eval:
-            # Estimate the pose and compute the pose error.
+            # 평가 모드에서는 정답 카메라 정보와 비교해 기하적 성능을 측정한다.
             assert len(pair) == 38, 'Pair does not have ground truth info'
             K0 = np.array(pair[4:13]).astype(float).reshape(3, 3)
             K1 = np.array(pair[13:22]).astype(float).reshape(3, 3)
             T_0to1 = np.array(pair[22:]).astype(float).reshape(4, 4)
 
-            # Scale the intrinsics to resized image.
+            # 이미지를 resize했기 때문에 intrinsic도 같은 비율로 보정해야 한다.
             K0 = scale_intrinsics(K0, scales0)
             K1 = scale_intrinsics(K1, scales1)
 
-            # Update the intrinsics + extrinsics if EXIF rotation was found.
+            # EXIF 회전이 있었다면 intrinsic / extrinsic도 함께 수정한다.
             if rot0 != 0 or rot1 != 0:
                 cam0_T_w = np.eye(4)
                 cam1_T_w = T_0to1
@@ -312,12 +340,14 @@ if __name__ == '__main__':
                 cam1_T_cam0 = cam1_T_w @ np.linalg.inv(cam0_T_w)
                 T_0to1 = cam1_T_cam0
 
+            # epipolar error를 기준으로 매칭이 기하적으로 올바른지 판단한다.
             epi_errs = compute_epipolar_error(mkpts0, mkpts1, T_0to1, K0, K1)
             correct = epi_errs < 5e-4
             num_correct = np.sum(correct)
             precision = np.mean(correct) if len(correct) > 0 else 0
             matching_score = num_correct / len(kpts0) if len(kpts0) > 0 else 0
 
+            # 대응점으로부터 상대 pose(R, t)를 복원하고 정답과의 오차를 계산한다.
             thresh = 1.  # In pixels relative to resized image size.
             ret = estimate_pose(mkpts0, mkpts1, K0, K1, thresh)
             if ret is None:
@@ -326,7 +356,7 @@ if __name__ == '__main__':
                 R, t, inliers = ret
                 err_t, err_R = compute_pose_error(T_0to1, R, t)
 
-            # Write the evaluation results to disk.
+            # 평가 결과를 npz로 저장한다.
             out_eval = {'error_t': err_t,
                         'error_R': err_R,
                         'precision': precision,
@@ -337,7 +367,9 @@ if __name__ == '__main__':
             timer.update('eval')
 
         if do_viz:
-            # Visualize the matches.
+            # 매칭 시각화:
+            # 두 이미지의 keypoint와 대응선들을 그려 사람이 바로 결과를 확인할 수 있게 한다.
+            # 선의 색은 매칭 confidence를 반영한다.
             color = cm.jet(mconf)
             text = [
                 'SuperGlue',
@@ -347,7 +379,7 @@ if __name__ == '__main__':
             if rot0 != 0 or rot1 != 0:
                 text.append('Rotation: {}:{}'.format(rot0, rot1))
 
-            # Display extra parameter info.
+            # 어떤 threshold로 실행했는지 그림 하단에 함께 표시한다.
             k_thresh = matching.superpoint.config['keypoint_threshold']
             m_thresh = matching.superglue.config['match_threshold']
             small_text = [
@@ -364,7 +396,8 @@ if __name__ == '__main__':
             timer.update('viz_match')
 
         if do_viz_eval:
-            # Visualize the evaluation results for the image pair.
+            # 평가 시각화:
+            # epipolar error가 작은 매칭과 큰 매칭을 색으로 구분해 보여준다.
             color = np.clip((epi_errs - 0) / (1e-3 - 0), 0, 1)
             color = error_colormap(1 - color)
             deg, delta = ' deg', 'Delta '
@@ -380,7 +413,7 @@ if __name__ == '__main__':
             if rot0 != 0 or rot1 != 0:
                 text.append('Rotation: {}:{}'.format(rot0, rot1))
 
-            # Display extra parameter info (only works with --fast_viz).
+            # 사용한 threshold 정보도 함께 표시한다.
             k_thresh = matching.superpoint.config['keypoint_threshold']
             m_thresh = matching.superglue.config['match_threshold']
             small_text = [
@@ -400,7 +433,8 @@ if __name__ == '__main__':
         timer.print('Finished pair {:5} of {:5}'.format(i, len(pairs)))
 
     if opt.eval:
-        # Collate the results into a final table and print to terminal.
+        # 모든 pair의 평가 결과를 모아 최종 평균 성능 표를 출력한다.
+        # AUC@5/10/20은 pose error 임계값별 누적 성능을 의미한다.
         pose_errors = []
         precisions = []
         matching_scores = []
