@@ -63,6 +63,7 @@
   - `data/processed/overlay_images/pro3_source`
 
 대표 산출물:
+- `11_*_aligned_outer_mask.png`: 템플릿 기준 정렬된 외곽 마스크
 - `15_*_final_crop_640.png`: 최종 전처리 결과
 - `16_*_template_overlay.png`: 템플릿 전체 기준 오버레이 결과
   - 템플릿 중심: 빨간 `cross`

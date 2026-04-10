@@ -2,6 +2,24 @@
 
 이 문서는 프로젝트의 주요 변경 이력을 기록합니다.
 
+## [0.3.1] - 2026-04-10
+
+### Added
+- `scripts/preprocess_pro3_source.py`에 정렬 결과 `aligned_outer_mask` 저장 단계 추가
+  - `10_*_aligned_gray.png`
+  - `11_*_aligned_outer_mask.png`
+  - `12_*_aligned_section_mask.png`
+
+### Changed
+- `pro3` source 단계별 출력 번호를 `aligned_outer_mask` 추가에 맞춰 조정
+  - `aligned_lumen_big_mask`: `13_*`
+  - `aligned_lumen_small_mask`: `14_*`
+  - `aligned_lumen_all_mask`: `15_*`
+  - 디버그 폴더 내 `final_crop`: `16_*`
+  - 디버그 폴더 내 `template_overlay`: `17_*`
+- `README.MD`에 `11_*_aligned_outer_mask.png` 산출물 설명 추가
+- `data/raw/targets/pro_3` 전체 10장에 대해 `preprocess_pro3_source.py`를 다시 실행해 새 정렬 외곽 마스크 산출물 반영
+
 ## [0.3.0] - 2026-04-09
 
 ### Added

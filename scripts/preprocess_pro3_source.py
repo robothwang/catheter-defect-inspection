@@ -793,6 +793,16 @@ def process_source(
     )
     save_stage_image(output_dir, 10, f"{source_path.stem}_aligned_gray", aligned_gray)
 
+    aligned_outer = rotate_image(
+        placed_result["placed_outer_mask"],
+        angle_deg=best_angle,
+        center=template_model["center"],
+        interpolation=cv2.INTER_NEAREST,
+        border_value=0,
+        border_mode=cv2.BORDER_CONSTANT,
+    )
+    save_stage_image(output_dir, 11, f"{source_path.stem}_aligned_outer_mask", aligned_outer)
+
     aligned_section = rotate_image(
         placed_result["placed_section_mask"],
         angle_deg=best_angle,
@@ -801,7 +811,7 @@ def process_source(
         border_value=0,
         border_mode=cv2.BORDER_CONSTANT,
     )
-    save_stage_image(output_dir, 11, f"{source_path.stem}_aligned_section_mask", aligned_section)
+    save_stage_image(output_dir, 12, f"{source_path.stem}_aligned_section_mask", aligned_section)
 
     if source_grouped is not None:
         aligned_big = rotate_image(
@@ -829,9 +839,9 @@ def process_source(
             border_mode=cv2.BORDER_CONSTANT,
         )
 
-        save_stage_image(output_dir, 12, f"{source_path.stem}_aligned_lumen_big_mask", aligned_big)
-        save_stage_image(output_dir, 13, f"{source_path.stem}_aligned_lumen_small_mask", aligned_small)
-        save_stage_image(output_dir, 14, f"{source_path.stem}_aligned_lumen_all_mask", aligned_all)
+        save_stage_image(output_dir, 13, f"{source_path.stem}_aligned_lumen_big_mask", aligned_big)
+        save_stage_image(output_dir, 14, f"{source_path.stem}_aligned_lumen_small_mask", aligned_small)
+        save_stage_image(output_dir, 15, f"{source_path.stem}_aligned_lumen_all_mask", aligned_all)
 
     crop_center = mask_centroid(aligned_section)
     margin = 14
@@ -860,7 +870,7 @@ def process_source(
         crop_size=crop_size,
         center=crop_center,
     )
-    save_stage_image(output_dir, 15, f"{source_path.stem}_final_crop_{crop_size[0]}", final_crop)
+    save_stage_image(output_dir, 16, f"{source_path.stem}_final_crop_{crop_size[0]}", final_crop)
     final_output_dir.mkdir(parents=True, exist_ok=True)
     final_output_path = final_output_dir / f"15_{source_path.stem}_final_crop_{crop_size[0]}.png"
     if not cv2.imwrite(str(final_output_path), final_crop):
@@ -877,7 +887,7 @@ def process_source(
         template_center=template_model["center"],
         aligned_mask_center=mask_centroid(aligned_section),
     )
-    save_stage_image(output_dir, 16, f"{source_path.stem}_template_overlay", overlay)
+    save_stage_image(output_dir, 17, f"{source_path.stem}_template_overlay", overlay)
     overlay_output_dir.mkdir(parents=True, exist_ok=True)
     overlay_output_path = overlay_output_dir / f"16_{source_path.stem}_template_overlay.png"
     if not cv2.imwrite(str(overlay_output_path), overlay):
