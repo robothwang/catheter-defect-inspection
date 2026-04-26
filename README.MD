@@ -4,18 +4,23 @@
 카테터 단면 이미지 전처리 및 템플릿 오버레이 확인용 스크립트 모음이며, 연구 중 입니다.
 
 ## 프로그램 소개
-이 프로젝트는 카테터 단면 이미지를 학습/분석에 활용하기 쉬운 형태로 정렬하고,
-템플릿 기준으로 결과를 빠르게 점검할 수 있도록 만든 전처리 도구입니다.
+이 프로젝트는 카테터 단면 이미지를 학습/분석에 활용하기 쉬운 형태로 정렬하는 전처리 도구와,
+전처리된 이미지를 활용한 CNN 기반 카테터 타입 분류 실험 파이프라인을 포함합니다.
+
+- 전처리 파이프라인: 템플릿 기준 정렬 및 단계별 결과 저장
+- 분류 실험 파이프라인: 8개 pretrained CNN 모델 × 2종 전처리(original/holealign) 비교 실험, 5-fold 교차검증, 회전 강건성 평가
 
 민감할 수 있는 세부 파라미터나 내부 기준값은 문서에 상세히 기재하지 않고,
 실행 흐름과 사용 목적 중심으로만 안내합니다.
 
 ## 최근 변경 사항 요약
-- 템플릿 전처리와 source 전처리를 분리하고, source 전처리 공용 진입점을 `scripts/preprocess_source.py`로 정리했습니다.
-- `preprocess_source.py`는 `pro1`, `pro2`, `pro3` 타입에 따라 각 `holealign` 스크립트를 import 해서 실행합니다.
-- `preprocess_pro1_holealign.py`, `preprocess_pro2_holealign.py`, `preprocess_pro3_holealign.py`는 모두 전처리된 템플릿 결과 폴더를 직접 읽도록 통일했습니다.
-- `pro1`, `pro2`, `pro3` source 파이프라인에 단계별 `stage_images` 저장 옵션을 추가했습니다.
-- `pro1/pro2/pro3` 단계별 결과 번호와 이름을 `new.py` 흐름에 맞춰 정리했습니다.
+- ResNet18, ResNet50, DenseNet121, DenseNet201, EfficientNetB0, MobileNetV2, GoogLeNet, InceptionV3 8개 모델 파인튜닝 파이프라인(`scripts/fine-tuning/`)을 추가했습니다.
+- `original` / `holealign` 전처리 두 종류를 동일 조건으로 학습·비교하는 실험 구조를 구성했습니다.
+- 5-fold 교차검증 학습·추론·집계 자동화 스크립트를 추가했습니다.
+- 회전 강건성 평가용 랜덤 회전 이미지 생성 스크립트(`scripts/generate_original_rr.py`)를 추가했습니다.
+- 전처리 지표 CSV 공통 모듈(`scripts/preprocess_metrics.py`)을 추가했습니다.
+- k-fold 분석 결과 및 논문용 테이블을 `notebooks/kfold_cross_validation_analysis.ipynb`에 정리했습니다.
+- (전처리) 템플릿 전처리와 source 전처리를 분리하고, source 공용 진입점을 `scripts/preprocess_source.py`로 정리했습니다.
 
 ## 사용된 방식(요약)
 - 템플릿 endpoint 이미지에서 외곽/section/lumen mask를 생성
@@ -47,6 +52,78 @@
 - `scripts/preprocess_pro3_source.py`
   - 예전 `pro3` source 전용 스크립트
   - 현재 권장 진입점은 `scripts/preprocess_source.py`
+- `scripts/generate_original_rr.py`
+  - original 이미지를 임의 각도로 회전하여 회전 강건성 평가용 데이터셋 생성
+  - seed 기반 재현 가능, rotation metadata CSV 저장
+- `scripts/preprocess_metrics.py`
+  - 전처리 파이프라인 metrics CSV 필드 정의 및 공통 I/O 유틸리티 모듈
+
+## 분류 실험 개요
+
+`pro1`, `pro2`, `pro3` 3-class 분류를 기반으로 아래 두 가지 비교 실험을 수행합니다.
+
+- **전처리 비교**: `original` 이미지 vs `holealign` 전처리 이미지로 동일 모델 학습 후 accuracy/macro-F1 비교
+- **회전 강건성 평가**: 학습된 모델을 랜덤 회전된 이미지(`original_rr`)에 적용해 전처리가 회전 불변성에 미치는 영향 측정
+
+실험 대상 모델 (pretrained backbone, feature extractor freeze):
+
+| 모델 | 단일 분할 | 5-fold |
+|------|:---------:|:------:|
+| ResNet18 | O | O |
+| ResNet50 | O | O |
+| DenseNet121 | O | O |
+| DenseNet201 | O | O |
+| EfficientNetB0 | O | O |
+| MobileNetV2 | O | O |
+| GoogLeNet | O | - |
+| InceptionV3 | O | O |
+
+## 주요 분류 스크립트 (`scripts/fine-tuning/`)
+
+- `{Model}.py`: 모델 정의, 데이터셋 로드, split CSV 기반 샘플 수집
+- `{Model}_train.py`: 학습 실행, `test_metrics.json` / `training_history.csv` / `best_model.pth` 저장
+- `{Model}_inference.py`: 체크포인트 로드 후 이미지 디렉토리 추론, predictions CSV 저장
+- `create_kfold_splits.py`: stratified k-fold 분할 CSV 생성
+- `run_kfold_training.py`: 모델·fold 조합 학습 자동화
+- `run_kfold_inference.py`: 모델·fold 조합 추론 자동화
+- `summarize_kfold.py`: fold별 `test_metrics.json`을 읽어 accuracy/macro-F1/loss 집계
+- `summarize_kfold_inference.py`: fold별 추론 predictions CSV를 읽어 accuracy/F1 집계
+
+## 실험 구조
+
+```
+experiments/
+├── {model}_{dataset}_freeze/          # 단일 분할 실험
+│   ├── best_model.pth                 # 모델 가중치 (.gitignore)
+│   ├── test_metrics.json              # 테스트 결과 (accuracy, macro-F1 등)
+│   ├── test_predictions.csv           # 샘플별 예측 결과
+│   ├── training_history.csv           # epoch별 학습 이력
+│   └── original_rr_predictions.csv   # 랜덤 회전 이미지 추론 결과
+├── kfold/
+│   ├── {model}_{dataset}_5fold_freeze/
+│   │   ├── fold_1/ … fold_5/          # fold별 best_model.pth + 추론 결과
+│   │   ├── original_rr_predictions_fold_metrics.csv
+│   │   └── original_rr_predictions_summary.csv
+│   ├── kfold_fold_metrics.csv         # 전체 fold 집계
+│   └── kfold_summary.csv             # 모델별 mean ± std 요약
+└── splits/
+    ├── {model}_3class_seed42.csv      # 단일 분할 CSV
+    └── kfold/
+        ├── original_5fold_seed42/     # fold_1~5.csv + fold_summary.csv
+        └── original_holealign_5fold_seed42/
+
+```
+
+## 노트북 (`notebooks/`)
+
+| 파일 | 설명 |
+|------|------|
+| `cnn.ipynb` | CNN 분류 초기 학습·탐색 노트북 |
+| `model_performance_analysis.ipynb` | 단일 분할 실험 모델 성능 비교 분석 |
+| `kfold_cross_validation_analysis.ipynb` | 5-fold 교차검증 결과 분석 및 논문용 테이블·그래프 생성 |
+
+`notebooks/analysis_outputs/`: 단일 분할 실험 결과 시각화
+`notebooks/kfold_analysis_outputs/`: k-fold 분석 결과 및 논문용 테이블
 
 ## 템플릿 전처리 출력
 - 템플릿 전처리 결과는 `data/processed/processed_templates/<type>_endpoint` 에 저장됩니다.
@@ -104,6 +181,11 @@
 |**cuDNN**|9.14.0.64|
 |**OpenCV**|4.13.0 (`cv2`)|
 |**NumPy**|2.4.3|
+|**PyTorch**|2.9.1+cu126|
+|**torchvision**|0.24.1+cu126|
+|**scikit-learn**|1.8.0|
+|**pandas**|3.0.2|
+|**Pillow**|12.1.1|
 |**venv**|`miniforge3` or `conda`|
 
 ## 실행 예시
@@ -151,7 +233,8 @@ conda run -n catheter python scripts/preprocess_source.py \
   [https://www.mtnews.net/news/articleView.html?idxno=16856](https://www.mtnews.net/news/articleView.html?idxno=16856)
 
 ## 참고
-- 대용량 데이터(`data/raw`, `data/processed`)와 가중치(`weights`)는 `.gitignore`로 제외되어 있습니다.
+- 대용량 데이터(`data/raw`, `data/processed`, `data/dataset`)와 가중치(`weights`, `*.pth`)는 `.gitignore`로 제외되어 있습니다.
+- `experiments/` 디렉토리의 모델 가중치(`best_model.pth`)도 `.gitignore`로 제외되어 있으며, 실험 결과 CSV/JSON만 추적됩니다.
 
 ## License
 This project is licensed under the MIT License. See [LICENSE](./LICENSE).

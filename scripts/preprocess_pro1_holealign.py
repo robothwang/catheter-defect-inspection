@@ -3,6 +3,7 @@ from pathlib import Path
 
 import cv2
 import numpy as np
+from preprocess_metrics import make_metrics_row, normalize_error_value, write_metrics_csv
 
 
 SOURCE_DIR = Path("/home/hjj747/catheter-defect-inspection/data/raw/targets/pro_1")
@@ -500,6 +501,14 @@ def iou_score(mask_a, mask_b):
     return float(inter / union)
 
 
+############################## RMSE 계산 함수 ##############################
+def rmse_error(mask_a, mask_b):
+
+    a = (mask_a > 0).astype(np.float32)
+    b = (mask_b > 0).astype(np.float32)
+    return float(np.sqrt(np.mean((a - b) ** 2)))
+
+
 ############################## 이미지 회전 함수 ##############################
 def rotate_image(img, angle_deg, center, interpolation, border_value=0, border_mode=cv2.BORDER_CONSTANT):
 
@@ -827,9 +836,15 @@ def process_source(
     save_overlay=True,
 ):
 
+    metrics = make_metrics_row("pro1", source_path.name)
+
+    def fail(message):
+        metrics["error"] = message
+        return False, message, metrics
+
     source_bgr = cv2.imread(str(source_path), cv2.IMREAD_COLOR)
     if source_bgr is None:
-        return False, "imread_failed"
+        return fail("imread_failed")
 
     source_gray = bgr_to_grayscale(source_bgr)
     save_optional_stage(stage_root_dir, source_path.stem, 1, f"{source_path.stem}_grayscale", source_gray)
@@ -837,7 +852,11 @@ def process_source(
     try:
         placed_result = place_source_to_template(source_gray, template_model, scale_adjust=scale_adjust)
     except RuntimeError as exc:
-        return False, str(exc)
+        return fail(str(exc))
+
+    metrics["scale"] = float(placed_result["scale"])
+    metrics["shift_x"] = float(placed_result["dx"])
+    metrics["shift_y"] = float(placed_result["dy"])
 
     save_optional_stage(stage_root_dir, source_path.stem, 2, f"{source_path.stem}_outer_mask", placed_result["source_outer_mask"])
     save_optional_stage(stage_root_dir, source_path.stem, 3, f"{source_path.stem}_section_mask", placed_result["source_section_mask"])
@@ -867,6 +886,12 @@ def process_source(
             fine_step=0.25,
         )
         best_angle = float(rot["angle"])
+        metrics["match_mode"] = "hole"
+        metrics["score"] = float(rot["score"])
+        metrics["ksize"] = int(source_lumen_result["ksize"])
+        metrics["threshold"] = float(source_lumen_result["threshold"])
+        metrics["iou_pair"] = float(rot["s_pair"])
+        metrics["iou_all"] = float(rot["s_all"])
         metric_msg = (
             f"hole[ score={rot['score']:.3f}, k={source_lumen_result['ksize']}, thr={source_lumen_result['threshold']:.1f}, "
             f"iou_pair={rot['s_pair']:.3f}, iou_all={rot['s_all']:.3f} ]"
@@ -879,7 +904,12 @@ def process_source(
             coarse_step=3.0,
             fine_step=0.25,
         )
+        metrics["match_mode"] = "fallback"
+        metrics["score"] = float(outer_iou)
+        metrics["iou_outer"] = float(outer_iou)
         metric_msg = f"fallback[ score={outer_iou:.3f}, iou_outer={outer_iou:.3f} ]"
+
+    metrics["rotation_deg"] = float(best_angle)
 
     aligned_gray = rotate_image(
         placed_result["placed_gray"],
@@ -910,6 +940,7 @@ def process_source(
         border_mode=cv2.BORDER_CONSTANT,
     )
     save_optional_stage(stage_root_dir, source_path.stem, 12, f"{source_path.stem}_aligned_section_mask", aligned_section)
+    metrics["rmse_section"] = rmse_error(aligned_section, template_model["section_mask"])
 
     if source_grouped is not None:
         aligned_hole1 = rotate_image(
@@ -941,6 +972,28 @@ def process_source(
         save_optional_stage(stage_root_dir, source_path.stem, 14, f"{source_path.stem}_aligned_lumen_hole2_mask", aligned_hole2)
         save_optional_stage(stage_root_dir, source_path.stem, 15, f"{source_path.stem}_aligned_lumen_all_mask", aligned_all)
 
+        rmse_11 = rmse_error(aligned_hole1, template_model["holes"]["hole1_mask"])
+        rmse_22 = rmse_error(aligned_hole2, template_model["holes"]["hole2_mask"])
+        rmse_12 = rmse_error(aligned_hole1, template_model["holes"]["hole2_mask"])
+        rmse_21 = rmse_error(aligned_hole2, template_model["holes"]["hole1_mask"])
+        rmse_pair_a = 0.5 * (rmse_11 + rmse_22)
+        rmse_pair_b = 0.5 * (rmse_12 + rmse_21)
+        rmse_pair = min(rmse_pair_a, rmse_pair_b)
+        rmse_all = rmse_error(aligned_all, template_model["holes"]["all_mask"])
+        metrics["rmse_pair"] = float(rmse_pair)
+        metrics["rmse_all"] = float(rmse_all)
+        metrics["rmse_error"] = float(np.sqrt(0.75 * (rmse_pair ** 2) + 0.25 * (rmse_all ** 2)))
+    else:
+        metrics["rmse_outer"] = rmse_error(aligned_outer, template_model["outer_mask"])
+        metrics["rmse_error"] = float(metrics["rmse_outer"])
+
+    metrics["normalized_error"] = normalize_error_value(metrics["rmse_error"])
+    metrics["error_percent"] = float(metrics["normalized_error"] * 100.0)
+    metric_msg = (
+        f"{metric_msg[:-2]}, error={metrics['rmse_error']:.3f}, "
+        f"error_norm={metrics['normalized_error']:.3f} ]"
+    )
+
     # pro1도 각도 추정은 템플릿 좌표계에서 하고, 최종 crop은 원본 좌표계에서 수행한다.
     original_center = placed_result["source_center"]
     rotated_original = rotate_image(
@@ -962,7 +1015,7 @@ def process_source(
     )
     rotated_section_original = fill_section_mask(rotated_outer_original)
     if rotated_section_original is None:
-        return False, "failed_to_build_rotated_section_mask"
+        return fail("failed_to_build_rotated_section_mask")
 
     auto_scale = 1.0
     margin = 14
@@ -993,6 +1046,7 @@ def process_source(
             )
 
     crop_center = mask_centroid(rotated_section_original)
+    metrics["fit_scale"] = float(auto_scale)
     final_crop = center_crop_with_padding(
         rotated_original,
         crop_size=crop_size,
@@ -1003,7 +1057,7 @@ def process_source(
     output_dir.mkdir(parents=True, exist_ok=True)
     final_output_path = output_dir / source_path.name
     if not cv2.imwrite(str(final_output_path), final_crop):
-        return False, f"failed_to_write_final_output: {final_output_path}"
+        return fail(f"failed_to_write_final_output: {final_output_path}")
 
     if save_overlay:
         overlay = overlay_preview(
@@ -1022,14 +1076,15 @@ def process_source(
         overlay_dir.mkdir(parents=True, exist_ok=True)
         overlay_output_path = overlay_dir / f"{source_path.stem}_overlay.png"
         if not cv2.imwrite(str(overlay_output_path), overlay):
-            return False, f"failed_to_write_overlay_output: {overlay_output_path}"
+            return fail(f"failed_to_write_overlay_output: {overlay_output_path}")
 
     geom_msg = (
         f"geom[ scale={placed_result['scale']:.4f}, shift=({placed_result['dx']:.1f},{placed_result['dy']:.1f}), "
         f"rot={best_angle:.2f}, fit={auto_scale:.3f} ]"
     )
 
-    return True, f"ok {geom_msg}\n{metric_msg}"
+    metrics["ok"] = True
+    return True, f"ok {geom_msg}\n{metric_msg}", metrics
 
 
 ############################## 전체 source 이미지 전처리 실행 함수 ##############################
@@ -1045,6 +1100,7 @@ def run_preprocess(
     save_overlay=True,
     stage_dir=None,
     save_stage_images=False,
+    metrics_csv_path=None,
 ):
 
     if not input_dir.exists():
@@ -1053,6 +1109,7 @@ def run_preprocess(
         raise FileNotFoundError(f"template result dir not found: {template_result_dir}")
 
     output_dir.mkdir(parents=True, exist_ok=True)
+    metrics_csv_path = metrics_csv_path if metrics_csv_path is not None else output_dir / "preprocess_metrics.csv"
     if save_overlay:
         overlay_dir.mkdir(parents=True, exist_ok=True)
     if save_stage_images and stage_dir is not None:
@@ -1074,6 +1131,7 @@ def run_preprocess(
     print(f"input:     {input_dir} ({pattern})")
     print(f"template:  {template_result_dir}")
     print(f"output:    {output_dir}")
+    print(f"metrics:   {metrics_csv_path}")
     if save_overlay:
         print(f"overlay:   {overlay_dir}")
     if save_stage_images and stage_dir is not None:
@@ -1081,8 +1139,9 @@ def run_preprocess(
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
     failures = []
+    metrics_rows = []
     for idx, source_path in enumerate(source_files, start=1):
-        ok, msg = process_source(
+        ok, msg, metrics = process_source(
             source_path=source_path,
             template_model=template_model,
             output_dir=output_dir,
@@ -1093,6 +1152,7 @@ def run_preprocess(
             scale_adjust=scale_adjust,
             save_overlay=save_overlay,
         )
+        metrics_rows.append(metrics)
 
         if ok:
             print(f"[{idx}/{total}] OK    {source_path.name:<18}")
@@ -1103,6 +1163,8 @@ def run_preprocess(
             print(f"{msg}\n")
 
     print("==================================== 전처리 완료 ===================================")
+    write_metrics_csv(metrics_csv_path, metrics_rows)
+    print(f"metrics csv saved: {metrics_csv_path}")
     if failures:
         print(f"완료 (실패 {len(failures)} 건)")
         for name, msg in failures[:10]:
@@ -1182,6 +1244,12 @@ def main():
         action="store_true",
         help="전처리 중간 결과 이미지 저장 비활성화",
     )
+    parser.add_argument(
+        "--metrics-csv",
+        type=Path,
+        default=None,
+        help="이미지별 정렬 지표를 저장할 CSV 경로. 기본값은 output-dir/preprocess_metrics.csv",
+    )
 
     args = parser.parse_args()
 
@@ -1197,6 +1265,7 @@ def main():
         save_overlay=not args.no_overlay,
         stage_dir=args.stage_dir,
         save_stage_images=not args.no_stage_images,
+        metrics_csv_path=args.metrics_csv,
     )
 
 

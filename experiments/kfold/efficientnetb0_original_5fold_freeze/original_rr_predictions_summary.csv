@@ -1,0 +1,2 @@
+experiment,n_folds,n_per_fold,accuracy_mean,accuracy_std,macro_f1_mean,macro_f1_std,macro_precision_mean,macro_recall_mean
+efficientnetb0_original_5fold_freeze,5,180,0.9377777777777778,0.020184335693983275,0.9370685188727587,0.02080445409007828,0.9444158144870636,0.9377777777777776

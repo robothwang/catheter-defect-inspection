@@ -6,10 +6,19 @@ import preprocess_pro2_holealign as pro2_holealign
 import preprocess_pro3_holealign as pro3_holealign
 
 
-DEFAULT_INPUT_DIRS = {
-    "pro1": Path("/home/hjj747/catheter-defect-inspection/data/raw/targets/pro_1"),
-    "pro2": Path("/home/hjj747/catheter-defect-inspection/data/raw/targets/pro_2"),
-    "pro3": Path("/home/hjj747/catheter-defect-inspection/data/raw/targets/pro_3"),
+DATASET_ROOT = Path("/home/hjj747/catheter-preprocessing/data/dataset")
+
+SOURCE_SET_INPUT_DIRS = {
+    "original": {
+        "pro1": DATASET_ROOT / "original/pro_1",
+        "pro2": DATASET_ROOT / "original/pro_2",
+        "pro3": DATASET_ROOT / "original/pro_3",
+    },
+    "original_rr": {
+        "pro1": DATASET_ROOT / "original_rr/pro_1",
+        "pro2": DATASET_ROOT / "original_rr/pro_2",
+        "pro3": DATASET_ROOT / "original_rr/pro_3",
+    },
 }
 
 DEFAULT_PATTERNS = {
@@ -19,26 +28,48 @@ DEFAULT_PATTERNS = {
 }
 
 DEFAULT_TEMPLATE_PATHS = {
-    "pro1": Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_templates/pro1_endpoint"),
-    "pro2": Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_templates/pro2_endpoint"),
-    "pro3": Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_templates/pro3_endpoint"),
+    "pro1": Path("/home/hjj747/catheter-preprocessing/data/dataset/preprocessed_templates/pro1_endpoint"),
+    "pro2": Path("/home/hjj747/catheter-preprocessing/data/dataset/preprocessed_templates/pro2_endpoint"),
+    "pro3": Path("/home/hjj747/catheter-preprocessing/data/dataset/preprocessed_templates/pro3_endpoint"),
 }
 
-DEFAULT_OUTPUT_DIRS = {
-    "pro1": Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_images/pro1_holealign"),
-    "pro2": Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_images/pro2_holealign"),
-    "pro3": Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_images/pro3_holealign"),
+SOURCE_SET_OUTPUT_DIRS = {
+    "original": {
+        "pro1": DATASET_ROOT / "original_holealign/pro1_holealign",
+        "pro2": DATASET_ROOT / "original_holealign/pro2_holealign",
+        "pro3": DATASET_ROOT / "original_holealign/pro3_holealign",
+    },
+    "original_rr": {
+        "pro1": DATASET_ROOT / "original_rr_holealign/pro1_holealign",
+        "pro2": DATASET_ROOT / "original_rr_holealign/pro2_holealign",
+        "pro3": DATASET_ROOT / "original_rr_holealign/pro3_holealign",
+    },
 }
 
-DEFAULT_OVERLAY_DIRS = {
-    "pro1": Path("/home/hjj747/catheter-defect-inspection/data/processed/overlay_images/pro1_holealign"),
-    "pro2": Path("/home/hjj747/catheter-defect-inspection/data/processed/overlay_images/pro2_holealign"),
-    "pro3": Path("/home/hjj747/catheter-defect-inspection/data/processed/overlay_images/pro3_holealign"),
+SOURCE_SET_OVERLAY_DIRS = {
+    "original": {
+        "pro1": DATASET_ROOT / "original_holealign/pro1_overlay",
+        "pro2": DATASET_ROOT / "original_holealign/pro2_overlay",
+        "pro3": DATASET_ROOT / "original_holealign/pro3_overlay",
+    },
+    "original_rr": {
+        "pro1": DATASET_ROOT / "original_rr_holealign/pro1_overlay",
+        "pro2": DATASET_ROOT / "original_rr_holealign/pro2_overlay",
+        "pro3": DATASET_ROOT / "original_rr_holealign/pro3_overlay",
+    },
 }
 
-DEFAULT_STAGE_DIRS = {
-    "pro1": Path("/home/hjj747/catheter-defect-inspection/data/processed/stage_images/pro1_holealign"),
-    "pro3": Path("/home/hjj747/catheter-defect-inspection/data/processed/stage_images/pro3_holealign"),
+SOURCE_SET_STAGE_DIRS = {
+    "original": {
+        "pro1": DATASET_ROOT / "original_holealign/pro1_stage",
+        "pro2": DATASET_ROOT / "original_holealign/pro2_stage",
+        "pro3": DATASET_ROOT / "original_holealign/pro3_stage",
+    },
+    "original_rr": {
+        "pro1": DATASET_ROOT / "original_rr_holealign/pro1_stage",
+        "pro2": DATASET_ROOT / "original_rr_holealign/pro2_stage",
+        "pro3": DATASET_ROOT / "original_rr_holealign/pro3_stage",
+    },
 }
 
 
@@ -65,25 +96,25 @@ def infer_catheter_type(input_dir, template_path=None, template_prefix=None):
     raise ValueError("failed_to_infer_catheter_type: use --catheter-type")
 
 
-def resolve_output_dir(catheter_type, output_dir, final_output_dir):
+def resolve_output_dir(source_set, catheter_type, output_dir, final_output_dir):
 
     if final_output_dir is not None:
         return final_output_dir
     if output_dir is not None:
         return output_dir
-    return DEFAULT_OUTPUT_DIRS[catheter_type]
+    return SOURCE_SET_OUTPUT_DIRS[source_set][catheter_type]
 
 
-def resolve_overlay_dir(catheter_type, overlay_dir, overlay_output_dir):
+def resolve_overlay_dir(source_set, catheter_type, overlay_dir, overlay_output_dir):
 
     if overlay_output_dir is not None:
         return overlay_output_dir
     if overlay_dir is not None:
         return overlay_dir
-    return DEFAULT_OVERLAY_DIRS[catheter_type]
+    return SOURCE_SET_OVERLAY_DIRS[source_set][catheter_type]
 
 
-def resolve_stage_dir(catheter_type, stage_dir, output_dir, final_output_dir):
+def resolve_stage_dir(source_set, catheter_type, stage_dir, output_dir, final_output_dir):
 
     if stage_dir is not None:
         return stage_dir
@@ -92,7 +123,7 @@ def resolve_stage_dir(catheter_type, stage_dir, output_dir, final_output_dir):
     if catheter_type == "pro3" and output_dir is not None and final_output_dir is not None:
         return output_dir
 
-    return DEFAULT_STAGE_DIRS.get(catheter_type)
+    return SOURCE_SET_STAGE_DIRS[source_set].get(catheter_type)
 
 
 def run_preprocess(
@@ -108,6 +139,7 @@ def run_preprocess(
     save_overlay,
     stage_dir,
     save_stage_images,
+    metrics_csv_path=None,
 ):
 
     if catheter_type == "pro1":
@@ -123,6 +155,7 @@ def run_preprocess(
             save_overlay=save_overlay,
             stage_dir=stage_dir,
             save_stage_images=save_stage_images,
+            metrics_csv_path=metrics_csv_path,
         )
         return
 
@@ -139,6 +172,7 @@ def run_preprocess(
             save_overlay=save_overlay,
             stage_dir=stage_dir,
             save_stage_images=save_stage_images,
+            metrics_csv_path=metrics_csv_path,
         )
         return
 
@@ -155,6 +189,7 @@ def run_preprocess(
             save_overlay=save_overlay,
             stage_dir=stage_dir,
             save_stage_images=save_stage_images,
+            metrics_csv_path=metrics_csv_path,
         )
         return
 
@@ -164,7 +199,14 @@ def run_preprocess(
 def main():
 
     parser = argparse.ArgumentParser(
-        description="공용 source 전처리 진입점: 타입별 holealign 스크립트를 import 해서 실행"
+        description="original/original_rr source 전처리 진입점: 타입별 holealign 스크립트를 import 해서 실행"
+    )
+    parser.add_argument(
+        "--source-set",
+        type=str,
+        choices=["original", "original_rr"],
+        default="original_rr",
+        help="전처리할 입력 세트. original은 original_holealign, original_rr은 original_rr_holealign에 저장",
     )
     parser.add_argument(
         "--catheter-type",
@@ -177,7 +219,7 @@ def main():
         "--input-dir",
         type=Path,
         default=None,
-        help="입력 폴더 경로",
+        help="입력 폴더 경로. 미지정 시 source-set에 맞는 data/dataset/*/pro_* 사용",
     )
     parser.add_argument(
         "--pattern",
@@ -263,6 +305,12 @@ def main():
         action="store_true",
         help="중간 결과 이미지 저장 비활성화",
     )
+    parser.add_argument(
+        "--metrics-csv",
+        type=Path,
+        default=None,
+        help="이미지별 정렬 지표를 저장할 CSV 경로. 미지정 시 output-dir/preprocess_metrics.csv",
+    )
 
     args = parser.parse_args()
 
@@ -279,22 +327,30 @@ def main():
         )
     )
 
-    input_dir = args.input_dir if args.input_dir is not None else DEFAULT_INPUT_DIRS[catheter_type]
+    source_set = args.source_set
+    input_dir = args.input_dir if args.input_dir is not None else SOURCE_SET_INPUT_DIRS[source_set][catheter_type]
     pattern = args.pattern if args.pattern is not None else DEFAULT_PATTERNS[catheter_type]
+
     template_path = args.template if args.template is not None else DEFAULT_TEMPLATE_PATHS[catheter_type]
-    output_dir = resolve_output_dir(catheter_type, args.output_dir, args.final_output_dir)
-    overlay_dir = resolve_overlay_dir(catheter_type, args.overlay_dir, args.overlay_output_dir)
+    if not template_path.exists():
+        raise FileNotFoundError(f"template result dir not found: {template_path}")
+
+    output_dir = resolve_output_dir(source_set, catheter_type, args.output_dir, args.final_output_dir)
+    overlay_dir = resolve_overlay_dir(source_set, catheter_type, args.overlay_dir, args.overlay_output_dir)
 
     # pro3는 예전 CLI의 output-dir/final-output-dir 조합도 stage/final로 받아들인다.
-    stage_dir = resolve_stage_dir(catheter_type, args.stage_dir, args.output_dir, args.final_output_dir)
+    stage_dir = resolve_stage_dir(source_set, catheter_type, args.stage_dir, args.output_dir, args.final_output_dir)
     save_stage_images = stage_dir is not None and not args.no_stage_images
 
     print("\n=================================== 공용 전처리 디스패처 ==================================")
+    print("method:    holealign")
+    print(f"source:    {source_set}")
     print(f"type:      {catheter_type}")
     print(f"input:     {input_dir}")
     print(f"pattern:   {pattern}")
     print(f"template:  {template_path}")
     print(f"output:    {output_dir}")
+    print(f"metrics:   {args.metrics_csv if args.metrics_csv is not None else output_dir / 'preprocess_metrics.csv'}")
     print(f"overlay:   {overlay_dir}")
     if stage_dir is not None:
         print(f"stage:     {stage_dir}")
@@ -314,6 +370,7 @@ def main():
         save_overlay=not args.no_overlay,
         stage_dir=stage_dir,
         save_stage_images=save_stage_images,
+        metrics_csv_path=args.metrics_csv,
     )
 
 

@@ -1,0 +1,2 @@
+experiment,n_folds,n_per_fold,accuracy_mean,accuracy_std,macro_f1_mean,macro_f1_std,macro_precision_mean,macro_recall_mean
+densenet121_original_5fold_freeze,5,180,0.82,0.05039963746685211,0.8140074282991122,0.05386656368655768,0.8311976394833739,0.82

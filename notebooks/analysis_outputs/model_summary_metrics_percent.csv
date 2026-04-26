@@ -1,0 +1,29 @@
+model,evaluation,input_size,support,accuracy,macro_precision,macro_recall,macro_f1,weighted_precision,weighted_recall,weighted_f1
+ResNet-18,Original Test,224 x 224,27,88.89,91.67,88.89,88.57,91.67,88.89,88.57
+ResNet-18,Original RR,224 x 224,180,85.56,86.5,85.56,85.25,86.5,85.56,85.25
+ResNet-18,HoleAlign Test,224 x 224,27,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+ResNet-18,RR + HoleAlign,224 x 224,180,98.33,98.34,98.33,98.33,98.34,98.33,98.33
+ResNet-50,Original Test,224 x 224,27,96.3,96.67,96.3,96.28,96.67,96.3,96.28
+ResNet-50,Original RR,224 x 224,180,97.78,97.87,97.78,97.76,97.87,97.78,97.76
+ResNet-50,HoleAlign Test,224 x 224,27,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+ResNet-50,RR + HoleAlign,224 x 224,180,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+DenseNet-121,Original Test,224 x 224,27,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+DenseNet-121,Original RR,224 x 224,180,89.44,89.83,89.44,89.23,89.83,89.44,89.23
+DenseNet-121,HoleAlign Test,224 x 224,27,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+DenseNet-121,RR + HoleAlign,224 x 224,180,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+DenseNet-201,Original Test,224 x 224,27,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+DenseNet-201,Original RR,224 x 224,180,82.78,86.07,82.78,81.38,86.07,82.78,81.38
+DenseNet-201,HoleAlign Test,224 x 224,27,96.3,96.67,96.3,96.28,96.67,96.3,96.28
+DenseNet-201,RR + HoleAlign,224 x 224,180,99.44,99.45,99.44,99.44,99.45,99.44,99.44
+EfficientNet-B0,Original Test,224 x 224,27,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+EfficientNet-B0,Original RR,224 x 224,180,94.44,95.24,94.44,94.41,95.24,94.44,94.41
+EfficientNet-B0,HoleAlign Test,224 x 224,27,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+EfficientNet-B0,RR + HoleAlign,224 x 224,180,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+MobileNet-V2,Original Test,224 x 224,27,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+MobileNet-V2,Original RR,224 x 224,180,98.33,98.41,98.33,98.33,98.41,98.33,98.33
+MobileNet-V2,HoleAlign Test,224 x 224,27,96.3,96.67,96.3,96.28,96.67,96.3,96.28
+MobileNet-V2,RR + HoleAlign,224 x 224,180,97.22,97.34,97.22,97.19,97.34,97.22,97.19
+Inception-V3,Original Test,299 x 299,27,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+Inception-V3,Original RR,299 x 299,180,53.89,75.92,53.89,50.12,75.92,53.89,50.12
+Inception-V3,HoleAlign Test,299 x 299,27,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+Inception-V3,RR + HoleAlign,299 x 299,180,100.0,100.0,100.0,100.0,100.0,100.0,100.0

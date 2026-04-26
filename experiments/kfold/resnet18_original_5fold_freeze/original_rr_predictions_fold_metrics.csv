@@ -1,0 +1,6 @@
+experiment,fold,prediction_csv,n,accuracy,macro_precision,macro_recall,macro_f1
+resnet18_original_5fold_freeze,fold_1,experiments/kfold/resnet18_original_5fold_freeze/fold_1/original_rr_predictions.csv,180,0.8944444444444445,0.8983573839983755,0.8944444444444445,0.8922591209096792
+resnet18_original_5fold_freeze,fold_2,experiments/kfold/resnet18_original_5fold_freeze/fold_2/original_rr_predictions.csv,180,0.9,0.9029510794216676,0.9,0.8986896303969475
+resnet18_original_5fold_freeze,fold_3,experiments/kfold/resnet18_original_5fold_freeze/fold_3/original_rr_predictions.csv,180,0.8944444444444445,0.9076716060322618,0.8944444444444444,0.8919221288285061
+resnet18_original_5fold_freeze,fold_4,experiments/kfold/resnet18_original_5fold_freeze/fold_4/original_rr_predictions.csv,180,0.8833333333333333,0.8914975346863891,0.8833333333333333,0.882903882903883
+resnet18_original_5fold_freeze,fold_5,experiments/kfold/resnet18_original_5fold_freeze/fold_5/original_rr_predictions.csv,180,0.8611111111111112,0.8674399674399673,0.861111111111111,0.8566251526251527

@@ -1,0 +1,2 @@
+experiment,n_folds,n_per_fold,accuracy_mean,accuracy_std,macro_f1_mean,macro_f1_std,macro_precision_mean,macro_recall_mean
+mobilenetv2_original_holealign_5fold_freeze,5,180,0.9922222222222222,0.012171612389003694,0.9921596971626482,0.012299095207221045,0.9925243215565797,0.9922222222222222

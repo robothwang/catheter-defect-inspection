@@ -1,0 +1,16 @@
+fold,split,n,pro1,pro2,pro3,split_csv
+1,train,117,39,39,39,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_1.csv
+1,val,27,9,9,9,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_1.csv
+1,test,36,12,12,12,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_1.csv
+2,train,117,39,39,39,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_2.csv
+2,val,27,9,9,9,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_2.csv
+2,test,36,12,12,12,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_2.csv
+3,train,117,39,39,39,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_3.csv
+3,val,27,9,9,9,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_3.csv
+3,test,36,12,12,12,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_3.csv
+4,train,117,39,39,39,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_4.csv
+4,val,27,9,9,9,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_4.csv
+4,test,36,12,12,12,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_4.csv
+5,train,117,39,39,39,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_5.csv
+5,val,27,9,9,9,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_5.csv
+5,test,36,12,12,12,/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_5.csv

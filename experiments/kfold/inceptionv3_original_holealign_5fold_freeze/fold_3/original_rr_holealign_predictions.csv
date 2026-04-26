@@ -1,0 +1,181 @@
+path,prediction,top1_class,top1_probability,top2_class,top2_probability,top3_class,top3_probability
+data/dataset/original_rr_holealign/pro1_holealign/1_S15_11.BMP,pro1,pro1,0.5000299215316772,pro2,0.2632477879524231,pro3,0.23672227561473846
+data/dataset/original_rr_holealign/pro1_holealign/1_S15_22.BMP,pro1,pro1,0.4781012237071991,pro2,0.2695005536079407,pro3,0.25239822268486023
+data/dataset/original_rr_holealign/pro1_holealign/1_S15_44.BMP,pro1,pro1,0.5115326642990112,pro2,0.2626923620700836,pro3,0.22577495872974396
+data/dataset/original_rr_holealign/pro1_holealign/1_S17_11.BMP,pro1,pro1,0.4358063340187073,pro2,0.3349741995334625,pro3,0.2292194664478302
+data/dataset/original_rr_holealign/pro1_holealign/1_S17_22.BMP,pro1,pro1,0.44347038865089417,pro2,0.31195056438446045,pro3,0.2445790022611618
+data/dataset/original_rr_holealign/pro1_holealign/1_S17_33.BMP,pro1,pro1,0.5558014512062073,pro2,0.2398047298192978,pro3,0.20439380407333374
+data/dataset/original_rr_holealign/pro1_holealign/1_S17_55.BMP,pro1,pro1,0.5283482670783997,pro2,0.25009238719940186,pro3,0.2215593308210373
+data/dataset/original_rr_holealign/pro1_holealign/1_S17_88.BMP,pro1,pro1,0.45912882685661316,pro2,0.35090744495391846,pro3,0.1899637132883072
+data/dataset/original_rr_holealign/pro1_holealign/1_s15_33.BMP,pro1,pro1,0.5496428608894348,pro2,0.2426629513502121,pro3,0.2076941281557083
+data/dataset/original_rr_holealign/pro1_holealign/1_s17_66.BMP,pro1,pro1,0.5393393039703369,pro2,0.23719185590744019,pro3,0.2234688252210617
+data/dataset/original_rr_holealign/pro1_holealign/1_s17_77.BMP,pro1,pro1,0.5109807848930359,pro2,0.2718866765499115,pro3,0.21713252365589142
+data/dataset/original_rr_holealign/pro1_holealign/2_s17_1.BMP,pro1,pro1,0.4751814007759094,pro2,0.3106790781021118,pro3,0.21413955092430115
+data/dataset/original_rr_holealign/pro1_holealign/2_s17_3.BMP,pro1,pro1,0.4778154194355011,pro2,0.3023988604545593,pro3,0.21978579461574554
+data/dataset/original_rr_holealign/pro1_holealign/2_s17_6.BMP,pro1,pro1,0.49463802576065063,pro2,0.2718912661075592,pro3,0.23347073793411255
+data/dataset/original_rr_holealign/pro1_holealign/2_s17_8.BMP,pro1,pro1,0.46591052412986755,pro2,0.2873026728630066,pro3,0.24678684771060944
+data/dataset/original_rr_holealign/pro1_holealign/2_s20_1.BMP,pro1,pro1,0.5252472162246704,pro2,0.23743334412574768,pro3,0.2373194396495819
+data/dataset/original_rr_holealign/pro1_holealign/2_s20_3.BMP,pro1,pro1,0.4759606719017029,pro3,0.26790621876716614,pro2,0.2561330795288086
+data/dataset/original_rr_holealign/pro1_holealign/2_s20_4.BMP,pro1,pro1,0.47744661569595337,pro2,0.26139456033706665,pro3,0.2611587941646576
+data/dataset/original_rr_holealign/pro1_holealign/2_s20_5.BMP,pro1,pro1,0.49705150723457336,pro2,0.27618324756622314,pro3,0.2267652302980423
+data/dataset/original_rr_holealign/pro1_holealign/2_s20_6.BMP,pro1,pro1,0.4735655188560486,pro3,0.2767859995365143,pro2,0.24964852631092072
+data/dataset/original_rr_holealign/pro1_holealign/2_s20_7.BMP,pro1,pro1,0.5125313997268677,pro2,0.24664199352264404,pro3,0.2408265322446823
+data/dataset/original_rr_holealign/pro1_holealign/2_s22_1.BMP,pro1,pro1,0.4462857246398926,pro2,0.3320263922214508,pro3,0.2216879427433014
+data/dataset/original_rr_holealign/pro1_holealign/2_s22_3.BMP,pro1,pro1,0.4449222981929779,pro2,0.3391644060611725,pro3,0.21591325104236603
+data/dataset/original_rr_holealign/pro1_holealign/2_s22_5.BMP,pro1,pro1,0.4371403157711029,pro2,0.32325994968414307,pro3,0.2395997792482376
+data/dataset/original_rr_holealign/pro1_holealign/2_s22_6.BMP,pro1,pro1,0.4448899030685425,pro2,0.30600830912590027,pro3,0.24910183250904083
+data/dataset/original_rr_holealign/pro1_holealign/2_s22_8.BMP,pro1,pro1,0.5041599869728088,pro2,0.28361815214157104,pro3,0.2122218906879425
+data/dataset/original_rr_holealign/pro1_holealign/2_s30_1.BMP,pro1,pro1,0.4099433720111847,pro3,0.31858712434768677,pro2,0.27146944403648376
+data/dataset/original_rr_holealign/pro1_holealign/2_s30_4.BMP,pro1,pro1,0.4367462396621704,pro3,0.29063844680786133,pro2,0.2726152539253235
+data/dataset/original_rr_holealign/pro1_holealign/2_s30_6.BMP,pro1,pro1,0.4311735928058624,pro3,0.29426395893096924,pro2,0.27456241846084595
+data/dataset/original_rr_holealign/pro1_holealign/3_s1_1.BMP,pro1,pro1,0.4336967170238495,pro2,0.29034721851348877,pro3,0.27595603466033936
+data/dataset/original_rr_holealign/pro1_holealign/3_s1_3.BMP,pro1,pro1,0.45336949825286865,pro3,0.28219297528266907,pro2,0.2644375264644623
+data/dataset/original_rr_holealign/pro1_holealign/3_s1_5.BMP,pro1,pro1,0.4702948033809662,pro2,0.2869844138622284,pro3,0.24272076785564423
+data/dataset/original_rr_holealign/pro1_holealign/3_s1_8.BMP,pro1,pro1,0.45588815212249756,pro3,0.27868038415908813,pro2,0.2654314637184143
+data/dataset/original_rr_holealign/pro1_holealign/3_s2_4.BMP,pro1,pro1,0.43785586953163147,pro3,0.29099899530410767,pro2,0.27114516496658325
+data/dataset/original_rr_holealign/pro1_holealign/3_s2_6.BMP,pro1,pro1,0.41254591941833496,pro3,0.2987360656261444,pro2,0.288718044757843
+data/dataset/original_rr_holealign/pro1_holealign/3_s2_7.BMP,pro1,pro1,0.44254034757614136,pro2,0.2847425937652588,pro3,0.27271711826324463
+data/dataset/original_rr_holealign/pro1_holealign/SS_S10_1.BMP,pro1,pro1,0.48016074299812317,pro2,0.2641526162624359,pro3,0.25568658113479614
+data/dataset/original_rr_holealign/pro1_holealign/SS_S10_2.BMP,pro1,pro1,0.5046247839927673,pro2,0.26100489497184753,pro3,0.23437035083770752
+data/dataset/original_rr_holealign/pro1_holealign/SS_S10_3.BMP,pro1,pro1,0.4782378673553467,pro2,0.26480117440223694,pro3,0.256960928440094
+data/dataset/original_rr_holealign/pro1_holealign/SS_S10_4.BMP,pro1,pro1,0.46914830803871155,pro3,0.28194957971572876,pro2,0.2489021271467209
+data/dataset/original_rr_holealign/pro1_holealign/SS_S10_5.BMP,pro1,pro1,0.4913971424102783,pro3,0.26779916882514954,pro2,0.24080371856689453
+data/dataset/original_rr_holealign/pro1_holealign/SS_S11_1.BMP,pro1,pro1,0.5062675476074219,pro3,0.24978461861610413,pro2,0.2439478635787964
+data/dataset/original_rr_holealign/pro1_holealign/SS_S13_8.BMP,pro1,pro1,0.44540148973464966,pro3,0.3082926869392395,pro2,0.24630585312843323
+data/dataset/original_rr_holealign/pro1_holealign/SS_S14_1.BMP,pro1,pro1,0.4980047941207886,pro2,0.2565217912197113,pro3,0.24547342956066132
+data/dataset/original_rr_holealign/pro1_holealign/SS_S14_7.BMP,pro1,pro1,0.4651065766811371,pro3,0.27034732699394226,pro2,0.26454609632492065
+data/dataset/original_rr_holealign/pro1_holealign/SS_S14_8.BMP,pro1,pro1,0.4589827358722687,pro2,0.29998400807380676,pro3,0.24103322625160217
+data/dataset/original_rr_holealign/pro1_holealign/SS_S15_1.BMP,pro1,pro1,0.47048360109329224,pro2,0.2747473120689392,pro3,0.25476905703544617
+data/dataset/original_rr_holealign/pro1_holealign/SS_S15_2.BMP,pro1,pro1,0.46326807141304016,pro2,0.28653600811958313,pro3,0.25019586086273193
+data/dataset/original_rr_holealign/pro1_holealign/SS_S15_6.BMP,pro1,pro1,0.5086342692375183,pro2,0.27493974566459656,pro3,0.21642594039440155
+data/dataset/original_rr_holealign/pro1_holealign/SS_S15_7.BMP,pro1,pro1,0.5156572461128235,pro2,0.249246746301651,pro3,0.23509596288204193
+data/dataset/original_rr_holealign/pro1_holealign/SS_S16_1.BMP,pro1,pro1,0.4722820818424225,pro2,0.2644381821155548,pro3,0.2632797658443451
+data/dataset/original_rr_holealign/pro1_holealign/SS_S16_4.BMP,pro1,pro1,0.4625101089477539,pro2,0.289738267660141,pro3,0.2477516084909439
+data/dataset/original_rr_holealign/pro1_holealign/SS_S16_5.BMP,pro1,pro1,0.44768840074539185,pro2,0.3260556161403656,pro3,0.22625590860843658
+data/dataset/original_rr_holealign/pro1_holealign/SS_S16_7.BMP,pro1,pro1,0.4810622036457062,pro2,0.26949071884155273,pro3,0.2494470328092575
+data/dataset/original_rr_holealign/pro1_holealign/SS_S17_1.BMP,pro1,pro1,0.45782747864723206,pro2,0.3135398030281067,pro3,0.22863273322582245
+data/dataset/original_rr_holealign/pro1_holealign/SS_S17_2.BMP,pro1,pro1,0.4940464198589325,pro2,0.29028093814849854,pro3,0.21567262709140778
+data/dataset/original_rr_holealign/pro1_holealign/SS_S17_3.BMP,pro1,pro1,0.4400862753391266,pro2,0.3091517686843872,pro3,0.2507619857788086
+data/dataset/original_rr_holealign/pro1_holealign/SS_S17_4.BMP,pro1,pro1,0.46923941373825073,pro2,0.31352776288986206,pro3,0.21723276376724243
+data/dataset/original_rr_holealign/pro1_holealign/SS_S17_5.BMP,pro1,pro1,0.41198161244392395,pro2,0.33532261848449707,pro3,0.2526957392692566
+data/dataset/original_rr_holealign/pro1_holealign/SS_S17_7.BMP,pro1,pro1,0.4322921633720398,pro2,0.28788626194000244,pro3,0.2798215448856354
+data/dataset/original_rr_holealign/pro2_holealign/2_F_10.png,pro2,pro2,0.4372802674770355,pro1,0.3808418810367584,pro3,0.18187789618968964
+data/dataset/original_rr_holealign/pro2_holealign/2_F_11.png,pro2,pro2,0.4370543956756592,pro1,0.31764596700668335,pro3,0.24529966711997986
+data/dataset/original_rr_holealign/pro2_holealign/2_F_12.png,pro2,pro2,0.47109436988830566,pro1,0.28759458661079407,pro3,0.24131107330322266
+data/dataset/original_rr_holealign/pro2_holealign/2_F_13.png,pro2,pro2,0.46168723702430725,pro1,0.3029062747955322,pro3,0.2354065328836441
+data/dataset/original_rr_holealign/pro2_holealign/2_F_15.png,pro2,pro2,0.5127797722816467,pro1,0.2653670310974121,pro3,0.22185318171977997
+data/dataset/original_rr_holealign/pro2_holealign/2_F_16.png,pro2,pro2,0.40893909335136414,pro1,0.30760034918785095,pro3,0.2834605276584625
+data/dataset/original_rr_holealign/pro2_holealign/2_F_17.png,pro2,pro2,0.42566320300102234,pro1,0.3374314606189728,pro3,0.23690538108348846
+data/dataset/original_rr_holealign/pro2_holealign/2_F_18.png,pro2,pro2,0.454655259847641,pro1,0.3296869993209839,pro3,0.21565769612789154
+data/dataset/original_rr_holealign/pro2_holealign/2_F_19.png,pro2,pro2,0.42095455527305603,pro1,0.3289910554885864,pro3,0.25005438923835754
+data/dataset/original_rr_holealign/pro2_holealign/2_F_2.png,pro2,pro2,0.4165055751800537,pro3,0.2992909848690033,pro1,0.2842034101486206
+data/dataset/original_rr_holealign/pro2_holealign/2_F_20.png,pro2,pro2,0.4805327355861664,pro1,0.2957950234413147,pro3,0.2236723005771637
+data/dataset/original_rr_holealign/pro2_holealign/2_F_21.png,pro2,pro2,0.4541204869747162,pro1,0.28068020939826965,pro3,0.26519933342933655
+data/dataset/original_rr_holealign/pro2_holealign/2_F_24.png,pro2,pro2,0.4095315635204315,pro1,0.3546718657016754,pro3,0.23579658567905426
+data/dataset/original_rr_holealign/pro2_holealign/2_F_25.png,pro2,pro2,0.4737938940525055,pro1,0.28372514247894287,pro3,0.24248099327087402
+data/dataset/original_rr_holealign/pro2_holealign/2_F_26.png,pro2,pro2,0.45277923345565796,pro1,0.28937092423439026,pro3,0.2578498125076294
+data/dataset/original_rr_holealign/pro2_holealign/2_F_27.png,pro2,pro2,0.4208481013774872,pro1,0.34180495142936707,pro3,0.23734697699546814
+data/dataset/original_rr_holealign/pro2_holealign/2_F_28.png,pro2,pro2,0.4910258948802948,pro1,0.28872695565223694,pro3,0.22024722397327423
+data/dataset/original_rr_holealign/pro2_holealign/2_F_29.png,pro2,pro2,0.44646868109703064,pro1,0.3213229179382324,pro3,0.23220843076705933
+data/dataset/original_rr_holealign/pro2_holealign/2_F_30.png,pro2,pro2,0.4924103915691376,pro1,0.28283756971359253,pro3,0.2247520387172699
+data/dataset/original_rr_holealign/pro2_holealign/2_F_32.png,pro2,pro2,0.4941660463809967,pro1,0.29313230514526367,pro3,0.21270163357257843
+data/dataset/original_rr_holealign/pro2_holealign/2_F_34.png,pro2,pro2,0.4177974760532379,pro1,0.3276935815811157,pro3,0.254508912563324
+data/dataset/original_rr_holealign/pro2_holealign/2_F_36.png,pro2,pro2,0.4801265001296997,pro1,0.3104405105113983,pro3,0.20943298935890198
+data/dataset/original_rr_holealign/pro2_holealign/2_F_4.png,pro2,pro2,0.46555253863334656,pro3,0.2976100742816925,pro1,0.23683741688728333
+data/dataset/original_rr_holealign/pro2_holealign/2_F_40.png,pro2,pro2,0.4175225794315338,pro1,0.34776589274406433,pro3,0.23471152782440186
+data/dataset/original_rr_holealign/pro2_holealign/2_F_6.png,pro2,pro2,0.3908078670501709,pro1,0.3233099579811096,pro3,0.2858821451663971
+data/dataset/original_rr_holealign/pro2_holealign/2_F_8.png,pro2,pro2,0.4939234256744385,pro1,0.2631106972694397,pro3,0.24296580255031586
+data/dataset/original_rr_holealign/pro2_holealign/2_S_21.png,pro2,pro2,0.4616018235683441,pro1,0.29885753989219666,pro3,0.23954059183597565
+data/dataset/original_rr_holealign/pro2_holealign/2_S_22.png,pro2,pro2,0.4595106542110443,pro3,0.28432899713516235,pro1,0.25616025924682617
+data/dataset/original_rr_holealign/pro2_holealign/2_S_23.png,pro2,pro2,0.4580685794353485,pro1,0.2920582890510559,pro3,0.2498730719089508
+data/dataset/original_rr_holealign/pro2_holealign/2_S_24.png,pro2,pro2,0.4593975245952606,pro3,0.2806955575942993,pro1,0.25990694761276245
+data/dataset/original_rr_holealign/pro2_holealign/2_S_26.png,pro2,pro2,0.4151945114135742,pro3,0.2925340533256531,pro1,0.2922714650630951
+data/dataset/original_rr_holealign/pro2_holealign/2_S_27.png,pro2,pro2,0.4531535804271698,pro1,0.27515459060668945,pro3,0.27169182896614075
+data/dataset/original_rr_holealign/pro2_holealign/2_S_28.png,pro2,pro2,0.4457799196243286,pro3,0.30144456028938293,pro1,0.2527755796909332
+data/dataset/original_rr_holealign/pro2_holealign/2_S_29.png,pro2,pro2,0.4230804741382599,pro1,0.3397738039493561,pro3,0.23714575171470642
+data/dataset/original_rr_holealign/pro2_holealign/2_S_30.png,pro2,pro2,0.4783250391483307,pro1,0.2661990523338318,pro3,0.2554759085178375
+data/dataset/original_rr_holealign/pro2_holealign/2_S_31.png,pro2,pro2,0.4487963914871216,pro3,0.2821696102619171,pro1,0.2690340280532837
+data/dataset/original_rr_holealign/pro2_holealign/2_S_33.png,pro2,pro2,0.4427361786365509,pro3,0.2965233027935028,pro1,0.2607405483722687
+data/dataset/original_rr_holealign/pro2_holealign/2_S_34.png,pro2,pro2,0.43565475940704346,pro1,0.29301294684410095,pro3,0.2713322639465332
+data/dataset/original_rr_holealign/pro2_holealign/2_S_39.png,pro2,pro2,0.39738377928733826,pro1,0.329339861869812,pro3,0.27327632904052734
+data/dataset/original_rr_holealign/pro2_holealign/2_S_40.png,pro2,pro2,0.42736127972602844,pro3,0.32417061924934387,pro1,0.24846814572811127
+data/dataset/original_rr_holealign/pro2_holealign/2_S_41.png,pro2,pro2,0.46797749400138855,pro3,0.2787209749221802,pro1,0.2533015012741089
+data/dataset/original_rr_holealign/pro2_holealign/2_S_42.png,pro2,pro2,0.44744420051574707,pro1,0.2881808578968048,pro3,0.26437491178512573
+data/dataset/original_rr_holealign/pro2_holealign/2_S_43.png,pro2,pro2,0.4270475208759308,pro3,0.3106558620929718,pro1,0.2622966170310974
+data/dataset/original_rr_holealign/pro2_holealign/2_S_44.png,pro2,pro2,0.43909209966659546,pro1,0.3214821219444275,pro3,0.23942577838897705
+data/dataset/original_rr_holealign/pro2_holealign/2_S_45.png,pro2,pro2,0.4287171959877014,pro3,0.2966269850730896,pro1,0.274655818939209
+data/dataset/original_rr_holealign/pro2_holealign/2_S_47.png,pro2,pro2,0.4594500660896301,pro3,0.27925965189933777,pro1,0.2612902820110321
+data/dataset/original_rr_holealign/pro2_holealign/2_S_49.png,pro2,pro2,0.472225546836853,pro3,0.26405656337738037,pro1,0.2637178897857666
+data/dataset/original_rr_holealign/pro2_holealign/2_S_71.png,pro2,pro2,0.4567042291164398,pro3,0.29197484254837036,pro1,0.25132086873054504
+data/dataset/original_rr_holealign/pro2_holealign/2_S_74.png,pro2,pro2,0.40057772397994995,pro3,0.3002649247646332,pro1,0.29915735125541687
+data/dataset/original_rr_holealign/pro2_holealign/2_S_75.png,pro2,pro2,0.41813331842422485,pro1,0.30121636390686035,pro3,0.2806503474712372
+data/dataset/original_rr_holealign/pro2_holealign/2_S_76.png,pro2,pro2,0.49486202001571655,pro1,0.26582959294319153,pro3,0.23930831253528595
+data/dataset/original_rr_holealign/pro2_holealign/2_S_77.png,pro2,pro2,0.5538135170936584,pro1,0.2662913203239441,pro3,0.17989514768123627
+data/dataset/original_rr_holealign/pro2_holealign/2_S_78.png,pro2,pro2,0.43908071517944336,pro1,0.3119960129261017,pro3,0.24892325699329376
+data/dataset/original_rr_holealign/pro2_holealign/2_S_80.png,pro2,pro2,0.479951411485672,pro1,0.3017900288105011,pro3,0.21825848519802094
+data/dataset/original_rr_holealign/pro2_holealign/2_S_83.png,pro2,pro2,0.39823347330093384,pro1,0.3704269230365753,pro3,0.23133957386016846
+data/dataset/original_rr_holealign/pro2_holealign/2_S_86.png,pro2,pro2,0.46047642827033997,pro1,0.3197050094604492,pro3,0.21981850266456604
+data/dataset/original_rr_holealign/pro2_holealign/2_S_87.png,pro2,pro2,0.5332266688346863,pro3,0.2355208545923233,pro1,0.23125246167182922
+data/dataset/original_rr_holealign/pro2_holealign/2_S_88.png,pro2,pro2,0.48480868339538574,pro1,0.30701297521591187,pro3,0.20817841589450836
+data/dataset/original_rr_holealign/pro2_holealign/2_S_90.png,pro2,pro2,0.48195311427116394,pro1,0.26814889907836914,pro3,0.2498980164527893
+data/dataset/original_rr_holealign/pro2_holealign/2_S_91.png,pro2,pro2,0.46576201915740967,pro1,0.2848426401615143,pro3,0.24939529597759247
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (100).png,pro3,pro3,0.4156244993209839,pro2,0.30154430866241455,pro1,0.28283122181892395
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (49).png,pro3,pro3,0.4627189040184021,pro1,0.320451945066452,pro2,0.21682915091514587
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (51).png,pro3,pro3,0.46271559596061707,pro1,0.29816681146621704,pro2,0.23911765217781067
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (52).png,pro3,pro3,0.4466320872306824,pro1,0.31258442997932434,pro2,0.24078352749347687
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (54).png,pro3,pro3,0.4435597062110901,pro1,0.31658053398132324,pro2,0.23985980451107025
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (55).png,pro3,pro3,0.5131552815437317,pro1,0.2555812895298004,pro2,0.23126345872879028
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (56).png,pro3,pro3,0.48502716422080994,pro1,0.3339690566062927,pro2,0.18100374937057495
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (57).png,pro3,pro3,0.42887082695961,pro1,0.33990782499313354,pro2,0.2312212884426117
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (58).png,pro3,pro3,0.4084955155849457,pro1,0.3027247488498688,pro2,0.28877973556518555
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (60).png,pro3,pro3,0.4465027451515198,pro1,0.3213525414466858,pro2,0.23214472830295563
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (62).png,pro3,pro3,0.45286497473716736,pro1,0.28436481952667236,pro2,0.2627701461315155
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (63).png,pro3,pro3,0.4616493284702301,pro1,0.3061176538467407,pro2,0.23223307728767395
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (65).png,pro3,pro3,0.47103121876716614,pro1,0.30681097507476807,pro2,0.22215785086154938
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (69).png,pro3,pro3,0.4628569781780243,pro1,0.3366808593273163,pro2,0.20046211779117584
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (70).png,pro3,pro3,0.43278875946998596,pro1,0.313813716173172,pro2,0.25339752435684204
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (71).png,pro3,pro3,0.40640807151794434,pro1,0.3443281054496765,pro2,0.24926386773586273
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (74).png,pro3,pro3,0.44694048166275024,pro1,0.290073037147522,pro2,0.2629864811897278
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (75).png,pro3,pro3,0.4224303662776947,pro1,0.3295041620731354,pro2,0.2480655163526535
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (76).png,pro3,pro3,0.4232705235481262,pro1,0.30280008912086487,pro2,0.2739294171333313
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (77).png,pro3,pro3,0.42882752418518066,pro1,0.3157427906990051,pro2,0.2554296851158142
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (78).png,pro3,pro3,0.45407506823539734,pro1,0.27971962094306946,pro2,0.2662052810192108
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (81).png,pro3,pro3,0.4642970860004425,pro1,0.31190481781959534,pro2,0.22379814088344574
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (82).png,pro3,pro3,0.4916852116584778,pro1,0.2996825575828552,pro2,0.20863224565982819
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (84).png,pro3,pro3,0.4838120937347412,pro1,0.2795121669769287,pro2,0.23667578399181366
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (89).png,pro3,pro3,0.4622459411621094,pro1,0.333868145942688,pro2,0.20388595759868622
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (90).png,pro3,pro3,0.43442419171333313,pro1,0.3116616904735565,pro2,0.25391411781311035
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (93).png,pro3,pro3,0.36871030926704407,pro1,0.3395603597164154,pro2,0.2917293608188629
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (94).png,pro3,pro3,0.44824105501174927,pro1,0.30784833431243896,pro2,0.24391061067581177
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (95).png,pro3,pro3,0.4215170741081238,pro1,0.3118796646595001,pro2,0.2666032910346985
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (96).png,pro3,pro3,0.47571808099746704,pro1,0.2719898521900177,pro2,0.25229209661483765
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (98).png,pro3,pro3,0.4315846860408783,pro1,0.299456387758255,pro2,0.2689589560031891
+data/dataset/original_rr_holealign/pro3_holealign/3_FS (99).png,pro3,pro3,0.43288472294807434,pro1,0.29047587513923645,pro2,0.2766393721103668
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (51).png,pro3,pro3,0.49064841866493225,pro1,0.275767982006073,pro2,0.23358356952667236
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (52).png,pro3,pro3,0.4598335325717926,pro1,0.2994687259197235,pro2,0.2406977415084839
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (53).png,pro3,pro3,0.4621664583683014,pro2,0.28646141290664673,pro1,0.2513721287250519
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (55).png,pro3,pro3,0.4551166892051697,pro1,0.2874375581741333,pro2,0.257445752620697
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (56).png,pro3,pro3,0.5400868654251099,pro1,0.2444147914648056,pro2,0.21549837291240692
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (58).png,pro3,pro3,0.5003660321235657,pro1,0.2833348512649536,pro2,0.2162991166114807
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (59).png,pro3,pro3,0.49099913239479065,pro1,0.29649239778518677,pro2,0.2125084549188614
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (60).png,pro3,pro3,0.41632944345474243,pro1,0.34744739532470703,pro2,0.23622311651706696
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (61).png,pro3,pro3,0.4354816973209381,pro1,0.31386229395866394,pro2,0.25065600872039795
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (62).png,pro3,pro3,0.42069533467292786,pro1,0.31659695506095886,pro2,0.2627076804637909
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (69).png,pro3,pro3,0.47200852632522583,pro1,0.2744278609752655,pro2,0.25356367230415344
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (70).png,pro3,pro3,0.49506908655166626,pro1,0.27767759561538696,pro2,0.227253258228302
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (71).png,pro3,pro3,0.43200284242630005,pro1,0.3011623024940491,pro2,0.2668347954750061
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (72).png,pro3,pro3,0.43638545274734497,pro1,0.3116843104362488,pro2,0.25193020701408386
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (73).png,pro3,pro3,0.44853657484054565,pro1,0.3186580538749695,pro2,0.23280541598796844
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (74).png,pro3,pro3,0.46969568729400635,pro1,0.2813693583011627,pro2,0.2489350289106369
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (75).png,pro3,pro3,0.5118910074234009,pro2,0.249471053481102,pro1,0.23863789439201355
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (77).png,pro3,pro3,0.49532192945480347,pro1,0.25748005509376526,pro2,0.24719804525375366
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (79).png,pro3,pro3,0.4636293947696686,pro1,0.28535225987434387,pro2,0.25101837515830994
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (81).png,pro3,pro3,0.47171035408973694,pro1,0.2950662076473236,pro2,0.23322346806526184
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (83).png,pro3,pro3,0.5387184619903564,pro1,0.24303437769412994,pro2,0.21824713051319122
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (84).png,pro3,pro3,0.46153828501701355,pro1,0.2818116247653961,pro2,0.25665003061294556
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (85).png,pro3,pro3,0.49008509516716003,pro1,0.2563941180706024,pro2,0.25352078676223755
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (87).png,pro3,pro3,0.4804210066795349,pro2,0.26867780089378357,pro1,0.2509012520313263
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (89).png,pro3,pro3,0.4599858224391937,pro2,0.2756299674510956,pro1,0.2643842399120331
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (92).png,pro3,pro3,0.4723595678806305,pro1,0.2962105870246887,pro2,0.2314298152923584
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (93).png,pro3,pro3,0.4142458736896515,pro2,0.2933386266231537,pro1,0.2924155592918396
+data/dataset/original_rr_holealign/pro3_holealign/3_SS (95).png,pro3,pro3,0.46202901005744934,pro1,0.28062960505485535,pro2,0.2573414742946625

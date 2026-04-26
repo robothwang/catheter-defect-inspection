@@ -1,0 +1,2 @@
+experiment,n_folds,n_per_fold,accuracy_mean,accuracy_std,macro_f1_mean,macro_f1_std,macro_precision_mean,macro_recall_mean
+inceptionv3_original_5fold_freeze,5,180,0.5122222222222221,0.020563061692579716,0.46555511541640227,0.02891752914241408,0.7592295755694555,0.5122222222222222

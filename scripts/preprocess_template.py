@@ -6,18 +6,18 @@ import numpy as np
 
 TEMPLATE_JOBS = [
     (
-        Path("/home/hjj747/catheter-defect-inspection/data/raw/templates/pro_1_endpoint.png"),
-        Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_templates/pro1_endpoint"),
+        Path("/home/hjj747/catheter-preprocessing/data/dataset/templates/pro_1_endpoint.png"),
+        Path("/home/hjj747/catheter-preprocessing/data/dataset/preprocessed_templates/pro1_endpoint"),
         "pro1_endpoint",
     ),
     (
-        Path("/home/hjj747/catheter-defect-inspection/data/raw/templates/pro_2_endpoint.png"),
-        Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_templates/pro2_endpoint"),
+        Path("/home/hjj747/catheter-preprocessing/data/dataset/templates/pro_2_endpoint.png"),
+        Path("/home/hjj747/catheter-preprocessing/data/dataset/preprocessed_templates/pro2_endpoint"),
         "pro2_endpoint",
     ),
     (
-        Path("/home/hjj747/catheter-defect-inspection/data/raw/templates/pro_3_endpoint.png"),
-        Path("/home/hjj747/catheter-defect-inspection/data/processed/processed_templates/pro3_endpoint"),
+        Path("/home/hjj747/catheter-preprocessing/data/dataset/templates/pro_3_endpoint.png"),
+        Path("/home/hjj747/catheter-preprocessing/data/dataset/preprocessed_templates/pro3_endpoint"),
         "pro3_endpoint",
     ),
 ]

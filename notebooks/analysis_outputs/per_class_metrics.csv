@@ -1,0 +1,85 @@
+model,evaluation,class,precision,recall,f1,support
+ResNet-18,Original Test,pro1,1.0,1.0,1.0,9
+ResNet-18,Original Test,pro2,1.0,0.6666666666666666,0.8,9
+ResNet-18,Original Test,pro3,0.75,1.0,0.8571428571428571,9
+ResNet-18,Original RR,pro1,0.8615384615384616,0.9333333333333333,0.896,60
+ResNet-18,Original RR,pro2,0.9333333333333333,0.7,0.8,60
+ResNet-18,Original RR,pro3,0.8,0.9333333333333333,0.8615384615384616,60
+ResNet-18,HoleAlign Test,pro1,1.0,1.0,1.0,9
+ResNet-18,HoleAlign Test,pro2,1.0,1.0,1.0,9
+ResNet-18,HoleAlign Test,pro3,1.0,1.0,1.0,9
+ResNet-18,RR + HoleAlign,pro1,0.9830508474576272,0.9666666666666667,0.9747899159663865,60
+ResNet-18,RR + HoleAlign,pro2,0.9672131147540983,0.9833333333333333,0.9752066115702479,60
+ResNet-18,RR + HoleAlign,pro3,1.0,1.0,1.0,60
+ResNet-50,Original Test,pro1,1.0,1.0,1.0,9
+ResNet-50,Original Test,pro2,1.0,0.8888888888888888,0.9411764705882353,9
+ResNet-50,Original Test,pro3,0.9,1.0,0.9473684210526315,9
+ResNet-50,Original RR,pro1,0.9836065573770492,1.0,0.9917355371900827,60
+ResNet-50,Original RR,pro2,1.0,0.9333333333333333,0.9655172413793104,60
+ResNet-50,Original RR,pro3,0.9523809523809523,1.0,0.975609756097561,60
+ResNet-50,HoleAlign Test,pro1,1.0,1.0,1.0,9
+ResNet-50,HoleAlign Test,pro2,1.0,1.0,1.0,9
+ResNet-50,HoleAlign Test,pro3,1.0,1.0,1.0,9
+ResNet-50,RR + HoleAlign,pro1,1.0,1.0,1.0,60
+ResNet-50,RR + HoleAlign,pro2,1.0,1.0,1.0,60
+ResNet-50,RR + HoleAlign,pro3,1.0,1.0,1.0,60
+DenseNet-121,Original Test,pro1,1.0,1.0,1.0,9
+DenseNet-121,Original Test,pro2,1.0,1.0,1.0,9
+DenseNet-121,Original Test,pro3,1.0,1.0,1.0,9
+DenseNet-121,Original RR,pro1,0.9076923076923077,0.9833333333333333,0.944,60
+DenseNet-121,Original RR,pro2,0.9387755102040817,0.7666666666666667,0.8440366972477065,60
+DenseNet-121,Original RR,pro3,0.8484848484848485,0.9333333333333333,0.8888888888888888,60
+DenseNet-121,HoleAlign Test,pro1,1.0,1.0,1.0,9
+DenseNet-121,HoleAlign Test,pro2,1.0,1.0,1.0,9
+DenseNet-121,HoleAlign Test,pro3,1.0,1.0,1.0,9
+DenseNet-121,RR + HoleAlign,pro1,1.0,1.0,1.0,60
+DenseNet-121,RR + HoleAlign,pro2,1.0,1.0,1.0,60
+DenseNet-121,RR + HoleAlign,pro3,1.0,1.0,1.0,60
+DenseNet-201,Original Test,pro1,1.0,1.0,1.0,9
+DenseNet-201,Original Test,pro2,1.0,1.0,1.0,9
+DenseNet-201,Original Test,pro3,1.0,1.0,1.0,9
+DenseNet-201,Original RR,pro1,0.8939393939393939,0.9833333333333333,0.9365079365079365,60
+DenseNet-201,Original RR,pro2,0.96875,0.5166666666666667,0.6739130434782609,60
+DenseNet-201,Original RR,pro3,0.7195121951219512,0.9833333333333333,0.8309859154929577,60
+DenseNet-201,HoleAlign Test,pro1,0.9,1.0,0.9473684210526315,9
+DenseNet-201,HoleAlign Test,pro2,1.0,0.8888888888888888,0.9411764705882353,9
+DenseNet-201,HoleAlign Test,pro3,1.0,1.0,1.0,9
+DenseNet-201,RR + HoleAlign,pro1,0.9836065573770492,1.0,0.9917355371900827,60
+DenseNet-201,RR + HoleAlign,pro2,1.0,0.9833333333333333,0.9915966386554622,60
+DenseNet-201,RR + HoleAlign,pro3,1.0,1.0,1.0,60
+EfficientNet-B0,Original Test,pro1,1.0,1.0,1.0,9
+EfficientNet-B0,Original Test,pro2,1.0,1.0,1.0,9
+EfficientNet-B0,Original Test,pro3,1.0,1.0,1.0,9
+EfficientNet-B0,Original RR,pro1,1.0,1.0,1.0,60
+EfficientNet-B0,Original RR,pro2,1.0,0.8333333333333334,0.9090909090909091,60
+EfficientNet-B0,Original RR,pro3,0.8571428571428571,1.0,0.9230769230769231,60
+EfficientNet-B0,HoleAlign Test,pro1,1.0,1.0,1.0,9
+EfficientNet-B0,HoleAlign Test,pro2,1.0,1.0,1.0,9
+EfficientNet-B0,HoleAlign Test,pro3,1.0,1.0,1.0,9
+EfficientNet-B0,RR + HoleAlign,pro1,1.0,1.0,1.0,60
+EfficientNet-B0,RR + HoleAlign,pro2,1.0,1.0,1.0,60
+EfficientNet-B0,RR + HoleAlign,pro3,1.0,1.0,1.0,60
+MobileNet-V2,Original Test,pro1,1.0,1.0,1.0,9
+MobileNet-V2,Original Test,pro2,1.0,1.0,1.0,9
+MobileNet-V2,Original Test,pro3,1.0,1.0,1.0,9
+MobileNet-V2,Original RR,pro1,1.0,0.95,0.9743589743589743,60
+MobileNet-V2,Original RR,pro2,0.9523809523809523,1.0,0.975609756097561,60
+MobileNet-V2,Original RR,pro3,1.0,1.0,1.0,60
+MobileNet-V2,HoleAlign Test,pro1,0.9,1.0,0.9473684210526315,9
+MobileNet-V2,HoleAlign Test,pro2,1.0,1.0,1.0,9
+MobileNet-V2,HoleAlign Test,pro3,1.0,0.8888888888888888,0.9411764705882353,9
+MobileNet-V2,RR + HoleAlign,pro1,0.9523809523809523,1.0,0.975609756097561,60
+MobileNet-V2,RR + HoleAlign,pro2,0.967741935483871,1.0,0.9836065573770492,60
+MobileNet-V2,RR + HoleAlign,pro3,1.0,0.9166666666666666,0.9565217391304348,60
+Inception-V3,Original Test,pro1,1.0,1.0,1.0,9
+Inception-V3,Original Test,pro2,1.0,1.0,1.0,9
+Inception-V3,Original Test,pro3,1.0,1.0,1.0,9
+Inception-V3,Original RR,pro1,0.42857142857142855,1.0,0.6,60
+Inception-V3,Original RR,pro2,0.9259259259259259,0.4166666666666667,0.5747126436781609,60
+Inception-V3,Original RR,pro3,0.9230769230769231,0.2,0.3287671232876712,60
+Inception-V3,HoleAlign Test,pro1,1.0,1.0,1.0,9
+Inception-V3,HoleAlign Test,pro2,1.0,1.0,1.0,9
+Inception-V3,HoleAlign Test,pro3,1.0,1.0,1.0,9
+Inception-V3,RR + HoleAlign,pro1,1.0,1.0,1.0,60
+Inception-V3,RR + HoleAlign,pro2,1.0,1.0,1.0,60
+Inception-V3,RR + HoleAlign,pro3,1.0,1.0,1.0,60

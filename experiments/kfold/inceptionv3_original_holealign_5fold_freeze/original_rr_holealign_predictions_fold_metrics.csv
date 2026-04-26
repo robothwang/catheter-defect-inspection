@@ -1,0 +1,6 @@
+experiment,fold,prediction_csv,n,accuracy,macro_precision,macro_recall,macro_f1
+inceptionv3_original_holealign_5fold_freeze,fold_1,experiments/kfold/inceptionv3_original_holealign_5fold_freeze/fold_1/original_rr_holealign_predictions.csv,180,1.0,1.0,1.0,1.0
+inceptionv3_original_holealign_5fold_freeze,fold_2,experiments/kfold/inceptionv3_original_holealign_5fold_freeze/fold_2/original_rr_holealign_predictions.csv,180,1.0,1.0,1.0,1.0
+inceptionv3_original_holealign_5fold_freeze,fold_3,experiments/kfold/inceptionv3_original_holealign_5fold_freeze/fold_3/original_rr_holealign_predictions.csv,180,1.0,1.0,1.0,1.0
+inceptionv3_original_holealign_5fold_freeze,fold_4,experiments/kfold/inceptionv3_original_holealign_5fold_freeze/fold_4/original_rr_holealign_predictions.csv,180,1.0,1.0,1.0,1.0
+inceptionv3_original_holealign_5fold_freeze,fold_5,experiments/kfold/inceptionv3_original_holealign_5fold_freeze/fold_5/original_rr_holealign_predictions.csv,180,1.0,1.0,1.0,1.0

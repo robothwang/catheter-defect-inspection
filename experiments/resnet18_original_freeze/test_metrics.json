@@ -1,0 +1,65 @@
+{
+  "dataset_type": "original",
+  "data_root": "default",
+  "split_csv": "/home/hjj747/catheter-preprocessing/experiments/splits/resnet18_3class_seed42.csv",
+  "checkpoint_path": "experiments/resnet18_original_freeze/best_model.pth",
+  "image_size": 224,
+  "epochs": 50,
+  "batch_size": 16,
+  "lr": 0.0001,
+  "weight_decay": 0.0001,
+  "freeze_backbone": true,
+  "test_loss": 0.7158224207383616,
+  "test_accuracy": 0.8888888888888888,
+  "test_macro_f1": 0.8857142857142857,
+  "classification_report": {
+    "pro1": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 9.0
+    },
+    "pro2": {
+      "precision": 1.0,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.8,
+      "support": 9.0
+    },
+    "pro3": {
+      "precision": 0.75,
+      "recall": 1.0,
+      "f1-score": 0.8571428571428571,
+      "support": 9.0
+    },
+    "accuracy": 0.8888888888888888,
+    "macro avg": {
+      "precision": 0.9166666666666666,
+      "recall": 0.8888888888888888,
+      "f1-score": 0.8857142857142857,
+      "support": 27.0
+    },
+    "weighted avg": {
+      "precision": 0.9166666666666666,
+      "recall": 0.8888888888888888,
+      "f1-score": 0.8857142857142856,
+      "support": 27.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      9,
+      0,
+      0
+    ],
+    [
+      0,
+      6,
+      3
+    ],
+    [
+      0,
+      0,
+      9
+    ]
+  ]
+}

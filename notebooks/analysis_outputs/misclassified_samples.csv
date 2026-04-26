@@ -1,0 +1,192 @@
+model,evaluation,path,label,prediction,top1_probability,top2_class,top2_probability
+ResNet-18,Original Test,/home/hjj747/catheter-preprocessing/data/dataset/original/pro_2/2_S_75.png,pro2,pro3,,,
+ResNet-18,Original Test,/home/hjj747/catheter-preprocessing/data/dataset/original/pro_2/2_S_31.png,pro2,pro3,,,
+ResNet-18,Original Test,/home/hjj747/catheter-preprocessing/data/dataset/original/pro_2/2_S_44.png,pro2,pro3,,,
+ResNet-18,Original RR,data/dataset/original_rr/pro_1/2_s20_4.BMP,pro1,pro3,0.3567596971988678,pro2,0.3432281911373138
+ResNet-18,Original RR,data/dataset/original_rr/pro_1/2_s20_5.BMP,pro1,pro2,0.3782657980918884,pro3,0.3272755146026611
+ResNet-18,Original RR,data/dataset/original_rr/pro_1/3_s1_8.BMP,pro1,pro2,0.4356259405612945,pro1,0.3923200070858001
+ResNet-18,Original RR,data/dataset/original_rr/pro_1/3_s2_6.BMP,pro1,pro3,0.4180810451507568,pro1,0.3816261887550354
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_F_10.png,pro2,pro3,0.4146263599395752,pro2,0.3274703025817871
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_F_17.png,pro2,pro1,0.3708718717098236,pro3,0.3528326749801636
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_F_18.png,pro2,pro3,0.4785835742950439,pro2,0.3411968350410461
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_F_19.png,pro2,pro3,0.4438498616218567,pro2,0.3785536587238312
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_F_20.png,pro2,pro1,0.4721367657184601,pro2,0.2650456428527832
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_F_24.png,pro2,pro3,0.4695224463939667,pro2,0.3691665530204773
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_S_21.png,pro2,pro3,0.3646416068077087,pro2,0.3291859924793243
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_S_23.png,pro2,pro3,0.4078803956508636,pro2,0.3314439952373504
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_S_26.png,pro2,pro3,0.3954106271266937,pro2,0.3436497747898102
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_S_27.png,pro2,pro1,0.3913111388683319,pro2,0.3597735464572906
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_S_28.png,pro2,pro3,0.4373117387294769,pro2,0.2981790006160736
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_S_30.png,pro2,pro3,0.4274939298629761,pro2,0.3421013057231903
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_S_41.png,pro2,pro3,0.4478445649147033,pro2,0.3145407438278198
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_S_47.png,pro2,pro1,0.3428962230682373,pro3,0.331681340932846
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_S_49.png,pro2,pro3,0.3683105707168579,pro2,0.3510732054710388
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_S_78.png,pro2,pro1,0.4111895561218261,pro2,0.3128621876239776
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_S_80.png,pro2,pro3,0.3806837201118469,pro1,0.3379253447055816
+ResNet-18,Original RR,data/dataset/original_rr/pro_2/2_S_88.png,pro2,pro1,0.3691035807132721,pro3,0.3162573277950287
+ResNet-18,Original RR,data/dataset/original_rr/pro_3/3_FS (77).png,pro3,pro1,0.3989600837230682,pro3,0.3758521974086761
+ResNet-18,Original RR,data/dataset/original_rr/pro_3/3_SS (71).png,pro3,pro1,0.4034559726715088,pro3,0.3896576762199402
+ResNet-18,Original RR,data/dataset/original_rr/pro_3/3_SS (74).png,pro3,pro1,0.4332539737224579,pro3,0.3604961335659027
+ResNet-18,Original RR,data/dataset/original_rr/pro_3/3_SS (84).png,pro3,pro2,0.3526875972747803,pro1,0.3285310566425323
+ResNet-18,RR + HoleAlign,data/dataset/original_rr_holealign/pro1_holealign/2_s20_1.BMP,pro1,pro2,0.3620581924915313,pro1,0.3528879582881927
+ResNet-18,RR + HoleAlign,data/dataset/original_rr_holealign/pro1_holealign/2_s20_7.BMP,pro1,pro2,0.3375783860683441,pro1,0.3360598981380462
+ResNet-18,RR + HoleAlign,data/dataset/original_rr_holealign/pro2_holealign/2_S_33.png,pro2,pro1,0.4706403017044067,pro2,0.3383658528327942
+ResNet-50,Original Test,/home/hjj747/catheter-preprocessing/data/dataset/original/pro_2/2_F_28.png,pro2,pro3,,,
+ResNet-50,Original RR,data/dataset/original_rr/pro_2/2_F_16.png,pro2,pro3,0.3843502104282379,pro1,0.3096450567245483
+ResNet-50,Original RR,data/dataset/original_rr/pro_2/2_F_2.png,pro2,pro3,0.3498053252696991,pro2,0.3437397480010986
+ResNet-50,Original RR,data/dataset/original_rr/pro_2/2_F_40.png,pro2,pro3,0.3599511384963989,pro2,0.3307231664657593
+ResNet-50,Original RR,data/dataset/original_rr/pro_2/2_S_91.png,pro2,pro1,0.337833434343338,pro2,0.3370056450366974
+DenseNet-121,Original RR,data/dataset/original_rr/pro_1/2_s22_5.BMP,pro1,pro2,0.4304302632808685,pro1,0.3025574088096618
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_F_12.png,pro2,pro3,0.416279137134552,pro2,0.3535971045494079
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_F_19.png,pro2,pro1,0.3686252236366272,pro2,0.3274342119693756
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_F_21.png,pro2,pro1,0.4015942215919494,pro2,0.3004004955291748
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_F_25.png,pro2,pro3,0.3809702396392822,pro2,0.330095499753952
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_F_27.png,pro2,pro3,0.4181060194969177,pro1,0.3061006665229797
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_F_28.png,pro2,pro3,0.3720859587192535,pro2,0.3501868546009063
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_F_29.png,pro2,pro1,0.3850405812263489,pro2,0.3651634156703949
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_S_23.png,pro2,pro3,0.3751121461391449,pro2,0.36299729347229
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_S_30.png,pro2,pro3,0.344572514295578,pro2,0.3340894877910614
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_S_31.png,pro2,pro3,0.4679724872112274,pro2,0.3666846752166748
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_S_40.png,pro2,pro3,0.4438971281051636,pro2,0.332047164440155
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_S_47.png,pro2,pro3,0.4131198227405548,pro2,0.3606491684913635
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_S_71.png,pro2,pro1,0.3892294764518738,pro3,0.3510628044605255
+DenseNet-121,Original RR,data/dataset/original_rr/pro_2/2_S_83.png,pro2,pro3,0.3661198914051056,pro2,0.3197812438011169
+DenseNet-121,Original RR,data/dataset/original_rr/pro_3/3_FS (78).png,pro3,pro2,0.3661236763000488,pro3,0.3453733325004577
+DenseNet-121,Original RR,data/dataset/original_rr/pro_3/3_FS (99).png,pro3,pro2,0.3641818165779114,pro3,0.3405973017215729
+DenseNet-121,Original RR,data/dataset/original_rr/pro_3/3_SS (79).png,pro3,pro1,0.4259690642356872,pro3,0.3026691377162933
+DenseNet-121,Original RR,data/dataset/original_rr/pro_3/3_SS (92).png,pro3,pro1,0.3557685315608978,pro3,0.3455590903759002
+DenseNet-201,Original RR,data/dataset/original_rr/pro_1/3_s1_1.BMP,pro1,pro3,0.4462485909461975,pro1,0.4302496314048767
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_12.png,pro2,pro3,0.3869456946849823,pro2,0.3134708702564239
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_15.png,pro2,pro3,0.3427484631538391,pro2,0.3309954404830932
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_17.png,pro2,pro3,0.4723942577838897,pro2,0.2735178172588348
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_18.png,pro2,pro3,0.4271127879619598,pro2,0.3517995774745941
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_2.png,pro2,pro3,0.368392139673233,pro2,0.3216739594936371
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_20.png,pro2,pro3,0.4402996897697449,pro2,0.3206402659416199
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_21.png,pro2,pro3,0.4467814266681671,pro2,0.2987585365772247
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_24.png,pro2,pro3,0.4089230895042419,pro2,0.3021987676620483
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_25.png,pro2,pro1,0.3836058676242828,pro3,0.3244067728519439
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_27.png,pro2,pro3,0.3790691494941711,pro2,0.3369475305080414
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_28.png,pro2,pro1,0.3497012853622436,pro3,0.3253116905689239
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_29.png,pro2,pro3,0.3903834223747253,pro2,0.3432999551296234
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_30.png,pro2,pro3,0.4203337728977203,pro2,0.3665416240692138
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_34.png,pro2,pro3,0.38169726729393,pro1,0.3321464657783508
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_F_6.png,pro2,pro1,0.3697192668914795,pro3,0.3569144010543823
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_23.png,pro2,pro3,0.375782310962677,pro2,0.3411244451999664
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_26.png,pro2,pro3,0.3788303434848785,pro2,0.3633772134780884
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_28.png,pro2,pro3,0.4140527546405792,pro2,0.2962512075901031
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_39.png,pro2,pro3,0.3910810053348541,pro2,0.3859615623950958
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_40.png,pro2,pro1,0.3585202991962433,pro2,0.3289060592651367
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_42.png,pro2,pro3,0.4019261300563812,pro2,0.338042140007019
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_44.png,pro2,pro3,0.3819622993469238,pro1,0.3130221366882324
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_74.png,pro2,pro1,0.3682742416858673,pro3,0.3560347557067871
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_75.png,pro2,pro3,0.3785313069820404,pro2,0.3423023521900177
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_76.png,pro2,pro1,0.3487087786197662,pro2,0.3356829881668091
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_77.png,pro2,pro3,0.4049325287342071,pro2,0.3807563185691833
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_83.png,pro2,pro3,0.3459269106388092,pro1,0.3377574980258941
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_86.png,pro2,pro1,0.3661303222179413,pro3,0.3648166954517364
+DenseNet-201,Original RR,data/dataset/original_rr/pro_2/2_S_90.png,pro2,pro3,0.3446096181869507,pro2,0.3400787115097046
+DenseNet-201,Original RR,data/dataset/original_rr/pro_3/3_FS (99).png,pro3,pro2,0.3832310736179352,pro3,0.3751592934131622
+DenseNet-201,HoleAlign Test,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro2_holealign/2_F_28.png,pro2,pro1,,,
+DenseNet-201,RR + HoleAlign,data/dataset/original_rr_holealign/pro2_holealign/2_F_28.png,pro2,pro1,0.4134350121021271,pro2,0.4021950364112854
+EfficientNet-B0,Original RR,data/dataset/original_rr/pro_2/2_F_17.png,pro2,pro3,0.3662388622760772,pro2,0.3639298379421234
+EfficientNet-B0,Original RR,data/dataset/original_rr/pro_2/2_F_2.png,pro2,pro3,0.3995041251182556,pro2,0.321476399898529
+EfficientNet-B0,Original RR,data/dataset/original_rr/pro_2/2_F_20.png,pro2,pro3,0.3789390623569488,pro2,0.3461941182613373
+EfficientNet-B0,Original RR,data/dataset/original_rr/pro_2/2_F_24.png,pro2,pro3,0.3514004647731781,pro2,0.329633891582489
+EfficientNet-B0,Original RR,data/dataset/original_rr/pro_2/2_F_30.png,pro2,pro3,0.3831871747970581,pro2,0.3573269546031952
+EfficientNet-B0,Original RR,data/dataset/original_rr/pro_2/2_F_34.png,pro2,pro3,0.3623595535755157,pro2,0.3603400886058807
+EfficientNet-B0,Original RR,data/dataset/original_rr/pro_2/2_F_4.png,pro2,pro3,0.3815709352493286,pro2,0.3337251543998718
+EfficientNet-B0,Original RR,data/dataset/original_rr/pro_2/2_F_40.png,pro2,pro3,0.3468233942985534,pro2,0.3323287963867187
+EfficientNet-B0,Original RR,data/dataset/original_rr/pro_2/2_S_87.png,pro2,pro3,0.3471068143844604,pro2,0.3432639539241791
+EfficientNet-B0,Original RR,data/dataset/original_rr/pro_2/2_S_90.png,pro2,pro3,0.3719207942485809,pro2,0.3576048612594604
+MobileNet-V2,Original RR,data/dataset/original_rr/pro_1/1_S15_11.BMP,pro1,pro2,0.3598127663135528,pro1,0.3515335023403168
+MobileNet-V2,Original RR,data/dataset/original_rr/pro_1/1_S15_44.BMP,pro1,pro2,0.4304685294628143,pro1,0.3822446167469024
+MobileNet-V2,Original RR,data/dataset/original_rr/pro_1/2_s22_1.BMP,pro1,pro2,0.4071835875511169,pro1,0.387539654970169
+MobileNet-V2,HoleAlign Test,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro3_holealign/3_FS (58).png,pro3,pro1,,,
+MobileNet-V2,RR + HoleAlign,data/dataset/original_rr_holealign/pro3_holealign/3_FS (58).png,pro3,pro1,0.3652434945106506,pro3,0.3486852347850799
+MobileNet-V2,RR + HoleAlign,data/dataset/original_rr_holealign/pro3_holealign/3_FS (76).png,pro3,pro2,0.3579399585723877,pro1,0.3398889601230621
+MobileNet-V2,RR + HoleAlign,data/dataset/original_rr_holealign/pro3_holealign/3_FS (90).png,pro3,pro1,0.4310654103755951,pro3,0.3701684474945068
+MobileNet-V2,RR + HoleAlign,data/dataset/original_rr_holealign/pro3_holealign/3_SS (53).png,pro3,pro2,0.3850442469120025,pro3,0.3567773699760437
+MobileNet-V2,RR + HoleAlign,data/dataset/original_rr_holealign/pro3_holealign/3_SS (72).png,pro3,pro1,0.3588010370731354,pro3,0.3565094769001007
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_11.png,pro2,pro1,0.4041354358196258,pro3,0.3005677461624145
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_13.png,pro2,pro1,0.4318658411502838,pro2,0.316539466381073
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_15.png,pro2,pro1,0.4015474021434784,pro2,0.3271624743938446
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_16.png,pro2,pro1,0.3993124365806579,pro2,0.3634601235389709
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_17.png,pro2,pro1,0.414760947227478,pro2,0.3536095023155212
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_19.png,pro2,pro1,0.4330690801143646,pro2,0.3225299715995788
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_20.png,pro2,pro1,0.3977516591548919,pro2,0.3391241133213043
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_24.png,pro2,pro1,0.4019712507724762,pro2,0.3015996813774109
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_25.png,pro2,pro1,0.4315520524978637,pro2,0.340560644865036
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_26.png,pro2,pro1,0.3983393013477325,pro3,0.3015726506710052
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_27.png,pro2,pro1,0.4070768654346466,pro2,0.3099767565727234
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_28.png,pro2,pro1,0.3790456056594848,pro3,0.3180704116821289
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_4.png,pro2,pro1,0.3939812481403351,pro2,0.3397704064846039
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_40.png,pro2,pro1,0.4087598025798797,pro2,0.3162108659744262
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_6.png,pro2,pro1,0.4165583550930023,pro3,0.2935713231563568
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_F_8.png,pro2,pro1,0.3958786725997925,pro2,0.3643319308757782
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_23.png,pro2,pro1,0.3856818079948425,pro3,0.3361304700374603
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_26.png,pro2,pro1,0.4001147150993347,pro3,0.3195222616195678
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_27.png,pro2,pro1,0.4160982072353363,pro3,0.3150635957717895
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_28.png,pro2,pro1,0.3793272674083709,pro2,0.3769751489162445
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_29.png,pro2,pro1,0.3959915041923523,pro3,0.3044978976249695
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_31.png,pro2,pro1,0.4209408760070801,pro3,0.2915890216827392
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_40.png,pro2,pro1,0.3845011293888092,pro2,0.3533675372600555
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_42.png,pro2,pro1,0.3969714641571045,pro2,0.3161715865135193
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_43.png,pro2,pro3,0.3380248844623565,pro1,0.3362694084644317
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_47.png,pro2,pro1,0.3985749185085296,pro3,0.3388548493385315
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_49.png,pro2,pro1,0.3910770416259765,pro3,0.3321674466133117
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_76.png,pro2,pro1,0.3791800141334533,pro2,0.3444775342941284
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_80.png,pro2,pro1,0.3798815608024597,pro2,0.3331591486930847
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_83.png,pro2,pro1,0.3859812319278717,pro2,0.3440338969230652
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_86.png,pro2,pro1,0.3806481957435608,pro2,0.333518922328949
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_87.png,pro2,pro1,0.4143765866756439,pro2,0.3578208982944488
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_88.png,pro2,pro1,0.4162549674510956,pro3,0.3039793670177459
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_90.png,pro2,pro1,0.3947803974151611,pro3,0.319591760635376
+Inception-V3,Original RR,data/dataset/original_rr/pro_2/2_S_91.png,pro2,pro1,0.3962225019931793,pro2,0.3070614039897918
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (100).png,pro3,pro1,0.3998366892337799,pro3,0.3126925826072693
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (51).png,pro3,pro1,0.4800356030464172,pro3,0.2801815271377563
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (52).png,pro3,pro2,0.3990532159805298,pro1,0.3324105441570282
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (55).png,pro3,pro1,0.461549311876297,pro2,0.2699639201164245
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (57).png,pro3,pro1,0.4022136330604553,pro3,0.3016226887702942
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (58).png,pro3,pro1,0.4189664423465729,pro2,0.2931031286716461
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (60).png,pro3,pro1,0.4200884401798248,pro2,0.3045997619628906
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (62).png,pro3,pro1,0.4443104565143585,pro2,0.2923992276191711
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (63).png,pro3,pro1,0.3620667457580566,pro3,0.3193796873092651
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (65).png,pro3,pro1,0.4409464299678802,pro2,0.2881633639335632
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (69).png,pro3,pro2,0.3387053310871124,pro3,0.3332388699054718
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (70).png,pro3,pro1,0.4141297936439514,pro3,0.3068768084049225
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (74).png,pro3,pro1,0.3842619061470032,pro3,0.320355474948883
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (75).png,pro3,pro1,0.4854204952716827,pro3,0.2618113756179809
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (76).png,pro3,pro1,0.4409774541854858,pro2,0.2809591293334961
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (77).png,pro3,pro1,0.4170089960098266,pro3,0.3203510642051697
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (82).png,pro3,pro1,0.4153954982757568,pro2,0.3093390762805938
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (84).png,pro3,pro1,0.4450951516628265,pro3,0.2877147495746612
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (89).png,pro3,pro1,0.4284515678882599,pro3,0.3023238480091095
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (90).png,pro3,pro1,0.3703217804431915,pro3,0.3163219094276428
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (93).png,pro3,pro1,0.3684573471546173,pro2,0.3651308715343475
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (94).png,pro3,pro1,0.4619706869125366,pro2,0.2697936296463012
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (95).png,pro3,pro1,0.3857457041740417,pro3,0.3160407841205597
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (96).png,pro3,pro1,0.4511900246143341,pro2,0.3117287755012512
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_FS (99).png,pro3,pro1,0.4034774303436279,pro3,0.3194568157196045
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (51).png,pro3,pro1,0.3804763257503509,pro3,0.3214991092681885
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (53).png,pro3,pro1,0.4025903344154358,pro3,0.3446403741836548
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (56).png,pro3,pro1,0.4300651252269745,pro3,0.2892058789730072
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (58).png,pro3,pro1,0.4000720679759979,pro3,0.321923017501831
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (59).png,pro3,pro1,0.3930294215679168,pro3,0.3531826138496399
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (60).png,pro3,pro1,0.4111930429935455,pro3,0.3229288160800934
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (61).png,pro3,pro1,0.3683784306049347,pro2,0.3349759578704834
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (62).png,pro3,pro1,0.4335819184780121,pro3,0.2909610867500305
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (69).png,pro3,pro1,0.4168720245361328,pro3,0.3271145522594452
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (70).png,pro3,pro1,0.4456881284713745,pro3,0.300187885761261
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (71).png,pro3,pro1,0.4013417363166809,pro2,0.3151550889015198
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (72).png,pro3,pro1,0.3655914068222046,pro2,0.3375179767608642
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (73).png,pro3,pro1,0.3988198041915893,pro3,0.3405330777168274
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (74).png,pro3,pro1,0.4420063197612762,pro3,0.3148976564407348
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (75).png,pro3,pro1,0.3983125984668731,pro3,0.3303974568843841
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (77).png,pro3,pro1,0.4108996391296386,pro3,0.3166486322879791
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (79).png,pro3,pro1,0.3746435046195984,pro3,0.3324547708034515
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (81).png,pro3,pro1,0.4063059389591217,pro3,0.3010410368442535
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (84).png,pro3,pro1,0.4516999721527099,pro3,0.3071119785308838
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (85).png,pro3,pro1,0.4439062476158142,pro2,0.2814170122146606
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (87).png,pro3,pro1,0.3688163459300995,pro3,0.3593182563781738
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (89).png,pro3,pro1,0.4281787872314453,pro3,0.3149034380912781
+Inception-V3,Original RR,data/dataset/original_rr/pro_3/3_SS (93).png,pro3,pro1,0.4049611389636993,pro3,0.3408535122871399

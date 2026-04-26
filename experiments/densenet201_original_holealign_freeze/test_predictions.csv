@@ -1,0 +1,28 @@
+sample_id,path,label,prediction,correct
+ss_s10_3,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro1_holealign/SS_S10_3.BMP,pro1,pro1,1
+ss_s16_4,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro1_holealign/SS_S16_4.BMP,pro1,pro1,1
+3_fs (94),/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro3_holealign/3_FS (94).png,pro3,pro3,1
+2_s30_6,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro1_holealign/2_s30_6.BMP,pro1,pro1,1
+2_s_75,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro2_holealign/2_S_75.png,pro2,pro2,1
+2_s_31,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro2_holealign/2_S_31.png,pro2,pro2,1
+2_s_30,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro2_holealign/2_S_30.png,pro2,pro2,1
+2_f_17,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro2_holealign/2_F_17.png,pro2,pro2,1
+2_s_44,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro2_holealign/2_S_44.png,pro2,pro2,1
+2_s17_8,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro1_holealign/2_s17_8.BMP,pro1,pro1,1
+3_fs (56),/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro3_holealign/3_FS (56).png,pro3,pro3,1
+2_f_25,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro2_holealign/2_F_25.png,pro2,pro2,1
+2_f_28,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro2_holealign/2_F_28.png,pro2,pro1,0
+3_fs (57),/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro3_holealign/3_FS (57).png,pro3,pro3,1
+3_fs (63),/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro3_holealign/3_FS (63).png,pro3,pro3,1
+3_ss (51),/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro3_holealign/3_SS (51).png,pro3,pro3,1
+2_s20_7,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro1_holealign/2_s20_7.BMP,pro1,pro1,1
+1_s17_88,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro1_holealign/1_S17_88.BMP,pro1,pro1,1
+3_ss (74),/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro3_holealign/3_SS (74).png,pro3,pro3,1
+2_f_18,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro2_holealign/2_F_18.png,pro2,pro2,1
+ss_s13_8,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro1_holealign/SS_S13_8.BMP,pro1,pro1,1
+3_fs (58),/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro3_holealign/3_FS (58).png,pro3,pro3,1
+2_s_49,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro2_holealign/2_S_49.png,pro2,pro2,1
+2_s20_5,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro1_holealign/2_s20_5.BMP,pro1,pro1,1
+3_ss (52),/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro3_holealign/3_SS (52).png,pro3,pro3,1
+ss_s17_7,/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro1_holealign/SS_S17_7.BMP,pro1,pro1,1
+3_ss (61),/home/hjj747/catheter-preprocessing/data/dataset/original_holealign/pro3_holealign/3_SS (61).png,pro3,pro3,1

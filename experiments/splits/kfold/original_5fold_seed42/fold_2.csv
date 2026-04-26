@@ -1,0 +1,181 @@
+record_id,sample_id,label_name,split
+pro1:1_s17_55,1_s17_55,pro1,train
+pro2:2_f_4,2_f_4,pro2,train
+pro1:2_s17_8,2_s17_8,pro1,train
+pro3:3_fs (54),3_fs (54),pro3,train
+pro2:2_f_13,2_f_13,pro2,train
+pro1:ss_s10_4,ss_s10_4,pro1,train
+pro2:2_s_23,2_s_23,pro2,train
+pro1:ss_s15_6,ss_s15_6,pro1,train
+pro2:2_f_12,2_f_12,pro2,train
+pro3:3_ss (51),3_ss (51),pro3,train
+pro3:3_ss (52),3_ss (52),pro3,train
+pro2:2_s_71,2_s_71,pro2,train
+pro2:2_f_21,2_f_21,pro2,train
+pro2:2_s_41,2_s_41,pro2,train
+pro1:ss_s14_7,ss_s14_7,pro1,train
+pro1:2_s22_5,2_s22_5,pro1,train
+pro2:2_s_90,2_s_90,pro2,train
+pro3:3_ss (56),3_ss (56),pro3,train
+pro2:2_f_19,2_f_19,pro2,train
+pro3:3_ss (75),3_ss (75),pro3,train
+pro2:2_s_76,2_s_76,pro2,train
+pro1:2_s17_6,2_s17_6,pro1,train
+pro3:3_fs (76),3_fs (76),pro3,train
+pro3:3_ss (83),3_ss (83),pro3,train
+pro3:3_ss (53),3_ss (53),pro3,train
+pro1:2_s20_5,2_s20_5,pro1,train
+pro3:3_fs (94),3_fs (94),pro3,train
+pro3:3_ss (58),3_ss (58),pro3,train
+pro2:2_s_77,2_s_77,pro2,train
+pro3:3_fs (63),3_fs (63),pro3,train
+pro2:2_s_91,2_s_91,pro2,train
+pro2:2_f_26,2_f_26,pro2,train
+pro3:3_ss (89),3_ss (89),pro3,train
+pro1:1_s17_66,1_s17_66,pro1,train
+pro3:3_fs (51),3_fs (51),pro3,train
+pro3:3_fs (57),3_fs (57),pro3,train
+pro1:2_s20_7,2_s20_7,pro1,train
+pro3:3_ss (87),3_ss (87),pro3,train
+pro3:3_ss (74),3_ss (74),pro3,train
+pro1:3_s1_1,3_s1_1,pro1,train
+pro3:3_ss (84),3_ss (84),pro3,train
+pro1:ss_s16_5,ss_s16_5,pro1,train
+pro1:ss_s15_1,ss_s15_1,pro1,train
+pro2:2_f_40,2_f_40,pro2,train
+pro3:3_fs (78),3_fs (78),pro3,train
+pro1:ss_s17_5,ss_s17_5,pro1,train
+pro1:2_s17_3,2_s17_3,pro1,train
+pro1:ss_s14_8,ss_s14_8,pro1,train
+pro3:3_fs (95),3_fs (95),pro3,train
+pro3:3_ss (55),3_ss (55),pro3,train
+pro2:2_f_32,2_f_32,pro2,train
+pro3:3_fs (55),3_fs (55),pro3,train
+pro1:3_s1_8,3_s1_8,pro1,train
+pro2:2_s_49,2_s_49,pro2,train
+pro2:2_f_29,2_f_29,pro2,train
+pro2:2_s_30,2_s_30,pro2,train
+pro2:2_s_43,2_s_43,pro2,train
+pro1:1_s15_22,1_s15_22,pro1,train
+pro2:2_s_24,2_s_24,pro2,train
+pro3:3_fs (65),3_fs (65),pro3,train
+pro3:3_ss (61),3_ss (61),pro3,train
+pro2:2_s_75,2_s_75,pro2,train
+pro2:2_s_39,2_s_39,pro2,train
+pro2:2_s_40,2_s_40,pro2,train
+pro3:3_ss (93),3_ss (93),pro3,train
+pro2:2_f_24,2_f_24,pro2,train
+pro1:2_s22_3,2_s22_3,pro1,train
+pro1:ss_s10_1,ss_s10_1,pro1,train
+pro1:1_s15_11,1_s15_11,pro1,train
+pro1:3_s2_7,3_s2_7,pro1,train
+pro2:2_f_2,2_f_2,pro2,train
+pro2:2_s_47,2_s_47,pro2,train
+pro3:3_fs (52),3_fs (52),pro3,train
+pro1:2_s20_3,2_s20_3,pro1,train
+pro1:3_s2_6,3_s2_6,pro1,train
+pro2:2_f_17,2_f_17,pro2,train
+pro3:3_ss (69),3_ss (69),pro3,train
+pro3:3_fs (49),3_fs (49),pro3,train
+pro2:2_s_42,2_s_42,pro2,train
+pro2:2_f_18,2_f_18,pro2,train
+pro3:3_fs (62),3_fs (62),pro3,train
+pro3:3_ss (62),3_ss (62),pro3,train
+pro2:2_s_31,2_s_31,pro2,train
+pro2:2_s_22,2_s_22,pro2,train
+pro3:3_ss (95),3_ss (95),pro3,train
+pro1:ss_s10_5,ss_s10_5,pro1,train
+pro1:1_s15_44,1_s15_44,pro1,train
+pro3:3_fs (74),3_fs (74),pro3,train
+pro2:2_f_36,2_f_36,pro2,train
+pro3:3_fs (77),3_fs (77),pro3,train
+pro2:2_f_8,2_f_8,pro2,train
+pro1:2_s17_1,2_s17_1,pro1,train
+pro3:3_ss (85),3_ss (85),pro3,train
+pro1:ss_s15_7,ss_s15_7,pro1,train
+pro2:2_f_16,2_f_16,pro2,train
+pro1:3_s2_4,3_s2_4,pro1,train
+pro1:ss_s14_1,ss_s14_1,pro1,train
+pro2:2_s_45,2_s_45,pro2,train
+pro1:1_s17_88,1_s17_88,pro1,train
+pro3:3_ss (73),3_ss (73),pro3,train
+pro3:3_fs (60),3_fs (60),pro3,train
+pro2:2_f_15,2_f_15,pro2,train
+pro1:3_s1_3,3_s1_3,pro1,train
+pro1:2_s20_6,2_s20_6,pro1,train
+pro1:1_s17_33,1_s17_33,pro1,train
+pro3:3_fs (99),3_fs (99),pro3,train
+pro3:3_ss (92),3_ss (92),pro3,train
+pro1:ss_s17_1,ss_s17_1,pro1,train
+pro3:3_ss (70),3_ss (70),pro3,train
+pro1:ss_s10_2,ss_s10_2,pro1,train
+pro2:2_f_11,2_f_11,pro2,train
+pro1:1_s17_77,1_s17_77,pro1,train
+pro3:3_fs (58),3_fs (58),pro3,train
+pro1:2_s22_8,2_s22_8,pro1,train
+pro2:2_s_74,2_s_74,pro2,train
+pro2:2_f_20,2_f_20,pro2,train
+pro1:2_s20_4,2_s20_4,pro1,train
+pro2:2_f_30,2_f_30,pro2,val
+pro2:2_s_87,2_s_87,pro2,val
+pro3:3_fs (75),3_fs (75),pro3,val
+pro3:3_fs (71),3_fs (71),pro3,val
+pro2:2_f_34,2_f_34,pro2,val
+pro3:3_ss (60),3_ss (60),pro3,val
+pro1:ss_s17_4,ss_s17_4,pro1,val
+pro1:2_s30_4,2_s30_4,pro1,val
+pro2:2_s_88,2_s_88,pro2,val
+pro1:ss_s11_1,ss_s11_1,pro1,val
+pro3:3_fs (89),3_fs (89),pro3,val
+pro2:2_s_86,2_s_86,pro2,val
+pro2:2_f_27,2_f_27,pro2,val
+pro3:3_fs (96),3_fs (96),pro3,val
+pro1:ss_s17_7,ss_s17_7,pro1,val
+pro1:1_s17_11,1_s17_11,pro1,val
+pro1:ss_s17_2,ss_s17_2,pro1,val
+pro1:ss_s10_3,ss_s10_3,pro1,val
+pro1:2_s30_6,2_s30_6,pro1,val
+pro3:3_fs (70),3_fs (70),pro3,val
+pro2:2_s_34,2_s_34,pro2,val
+pro3:3_ss (81),3_ss (81),pro3,val
+pro3:3_ss (72),3_ss (72),pro3,val
+pro3:3_fs (81),3_fs (81),pro3,val
+pro1:2_s22_6,2_s22_6,pro1,val
+pro2:2_s_78,2_s_78,pro2,val
+pro2:2_f_6,2_f_6,pro2,val
+pro1:1_s17_22,1_s17_22,pro1,test
+pro1:1_s15_33,1_s15_33,pro1,test
+pro1:2_s20_1,2_s20_1,pro1,test
+pro1:2_s22_1,2_s22_1,pro1,test
+pro1:2_s30_1,2_s30_1,pro1,test
+pro1:3_s1_5,3_s1_5,pro1,test
+pro1:ss_s13_8,ss_s13_8,pro1,test
+pro1:ss_s15_2,ss_s15_2,pro1,test
+pro1:ss_s16_1,ss_s16_1,pro1,test
+pro1:ss_s16_4,ss_s16_4,pro1,test
+pro1:ss_s16_7,ss_s16_7,pro1,test
+pro1:ss_s17_3,ss_s17_3,pro1,test
+pro2:2_f_10,2_f_10,pro2,test
+pro2:2_f_25,2_f_25,pro2,test
+pro2:2_f_28,2_f_28,pro2,test
+pro2:2_s_21,2_s_21,pro2,test
+pro2:2_s_26,2_s_26,pro2,test
+pro2:2_s_27,2_s_27,pro2,test
+pro2:2_s_28,2_s_28,pro2,test
+pro2:2_s_29,2_s_29,pro2,test
+pro2:2_s_33,2_s_33,pro2,test
+pro2:2_s_44,2_s_44,pro2,test
+pro2:2_s_80,2_s_80,pro2,test
+pro2:2_s_83,2_s_83,pro2,test
+pro3:3_fs (100),3_fs (100),pro3,test
+pro3:3_fs (56),3_fs (56),pro3,test
+pro3:3_fs (69),3_fs (69),pro3,test
+pro3:3_fs (82),3_fs (82),pro3,test
+pro3:3_fs (84),3_fs (84),pro3,test
+pro3:3_fs (90),3_fs (90),pro3,test
+pro3:3_fs (93),3_fs (93),pro3,test
+pro3:3_fs (98),3_fs (98),pro3,test
+pro3:3_ss (59),3_ss (59),pro3,test
+pro3:3_ss (71),3_ss (71),pro3,test
+pro3:3_ss (77),3_ss (77),pro3,test
+pro3:3_ss (79),3_ss (79),pro3,test

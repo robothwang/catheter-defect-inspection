@@ -1,0 +1,9 @@
+dataset,model,accuracy,precision,recall,f1
+original,resnet18,1.0,1.0,1.0,1.0
+original,densenet121,1.0,1.0,1.0,1.0
+original,googlenet,1.0,1.0,1.0,1.0
+original,mobilenet_v2,1.0,1.0,1.0,1.0
+holealign,resnet18,1.0,1.0,1.0,1.0
+holealign,densenet121,1.0,1.0,1.0,1.0
+holealign,googlenet,1.0,1.0,1.0,1.0
+holealign,mobilenet_v2,1.0,1.0,1.0,1.0

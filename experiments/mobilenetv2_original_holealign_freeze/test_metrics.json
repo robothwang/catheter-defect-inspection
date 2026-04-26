@@ -1,0 +1,65 @@
+{
+  "dataset_type": "original_holealign",
+  "data_root": "default",
+  "split_csv": "/home/hjj747/catheter-preprocessing/experiments/splits/mobilenetv2_3class_seed42.csv",
+  "checkpoint_path": "experiments/mobilenetv2_original_holealign_freeze/best_model.pth",
+  "image_size": 224,
+  "epochs": 50,
+  "batch_size": 16,
+  "lr": 0.0001,
+  "weight_decay": 0.0001,
+  "freeze_backbone": true,
+  "test_loss": 0.6927953627374437,
+  "test_accuracy": 0.9629629629629629,
+  "test_macro_f1": 0.9628482972136222,
+  "classification_report": {
+    "pro1": {
+      "precision": 0.9,
+      "recall": 1.0,
+      "f1-score": 0.9473684210526315,
+      "support": 9.0
+    },
+    "pro2": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 9.0
+    },
+    "pro3": {
+      "precision": 1.0,
+      "recall": 0.8888888888888888,
+      "f1-score": 0.9411764705882353,
+      "support": 9.0
+    },
+    "accuracy": 0.9629629629629629,
+    "macro avg": {
+      "precision": 0.9666666666666667,
+      "recall": 0.9629629629629629,
+      "f1-score": 0.9628482972136222,
+      "support": 27.0
+    },
+    "weighted avg": {
+      "precision": 0.9666666666666667,
+      "recall": 0.9629629629629629,
+      "f1-score": 0.9628482972136223,
+      "support": 27.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      9,
+      0,
+      0
+    ],
+    [
+      0,
+      9,
+      0
+    ],
+    [
+      1,
+      0,
+      8
+    ]
+  ]
+}

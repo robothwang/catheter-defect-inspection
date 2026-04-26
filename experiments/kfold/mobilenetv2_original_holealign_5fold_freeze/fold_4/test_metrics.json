@@ -1,0 +1,65 @@
+{
+  "dataset_type": "original_holealign",
+  "data_root": "default",
+  "split_csv": "/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_4.csv",
+  "checkpoint_path": "/home/hjj747/catheter-preprocessing/experiments/kfold/mobilenetv2_original_holealign_5fold_freeze/fold_4/best_model.pth",
+  "image_size": 224,
+  "epochs": 50,
+  "batch_size": 16,
+  "lr": 0.0001,
+  "weight_decay": 0.0001,
+  "freeze_backbone": true,
+  "test_loss": 0.6043985817167494,
+  "test_accuracy": 1.0,
+  "test_macro_f1": 1.0,
+  "classification_report": {
+    "pro1": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 12.0
+    },
+    "pro2": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 12.0
+    },
+    "pro3": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 12.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 36.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 36.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      12,
+      0,
+      0
+    ],
+    [
+      0,
+      12,
+      0
+    ],
+    [
+      0,
+      0,
+      12
+    ]
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "dataset_type": "original_holealign",
+  "data_root": "default",
+  "split_csv": "/home/hjj747/catheter-preprocessing/experiments/splits/kfold/original_holealign_5fold_seed42/fold_3.csv",
+  "checkpoint_path": "/home/hjj747/catheter-preprocessing/experiments/kfold/densenet121_original_holealign_5fold_freeze/fold_3/best_model.pth",
+  "image_size": 224,
+  "epochs": 50,
+  "batch_size": 16,
+  "lr": 0.0001,
+  "weight_decay": 0.0001,
+  "freeze_backbone": true,
+  "test_loss": 0.7014663153224521,
+  "test_accuracy": 0.9444444444444444,
+  "test_macro_f1": 0.9443961352657005,
+  "classification_report": {
+    "pro1": {
+      "precision": 0.9166666666666666,
+      "recall": 0.9166666666666666,
+      "f1-score": 0.9166666666666666,
+      "support": 12.0
+    },
+    "pro2": {
+      "precision": 1.0,
+      "recall": 0.9166666666666666,
+      "f1-score": 0.9565217391304348,
+      "support": 12.0
+    },
+    "pro3": {
+      "precision": 0.9230769230769231,
+      "recall": 1.0,
+      "f1-score": 0.96,
+      "support": 12.0
+    },
+    "accuracy": 0.9444444444444444,
+    "macro avg": {
+      "precision": 0.9465811965811964,
+      "recall": 0.9444444444444443,
+      "f1-score": 0.9443961352657005,
+      "support": 36.0
+    },
+    "weighted avg": {
+      "precision": 0.9465811965811967,
+      "recall": 0.9444444444444444,
+      "f1-score": 0.9443961352657004,
+      "support": 36.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      11,
+      0,
+      1
+    ],
+    [
+      1,
+      11,
+      0
+    ],
+    [
+      0,
+      0,
+      12
+    ]
+  ]
+}

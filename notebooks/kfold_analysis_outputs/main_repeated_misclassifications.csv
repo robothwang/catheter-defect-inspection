@@ -1,0 +1,283 @@
+file,label,prediction,wrong_folds,total_errors,model,scenario
+2_F_12.png,pro2,pro3,5,5,DenseNet-121,Original RR
+2_F_21.png,pro2,pro1,5,5,DenseNet-121,Original RR
+2_F_29.png,pro2,pro1,5,5,DenseNet-121,Original RR
+2_S_22.png,pro2,pro1,5,5,DenseNet-121,Original RR
+2_S_31.png,pro2,pro3,5,5,DenseNet-121,Original RR
+2_S_40.png,pro2,pro3,5,5,DenseNet-121,Original RR
+2_S_47.png,pro2,pro3,5,5,DenseNet-121,Original RR
+2_S_71.png,pro2,pro1,5,5,DenseNet-121,Original RR
+2_s22_5.BMP,pro1,pro2,5,5,DenseNet-121,Original RR
+3_FS (99).png,pro3,pro2,5,5,DenseNet-121,Original RR
+3_SS (79).png,pro3,pro1,5,5,DenseNet-121,Original RR
+2_F_17.png,pro2,pro3,5,5,DenseNet-201,Original RR
+2_F_20.png,pro2,pro3,5,5,DenseNet-201,Original RR
+2_F_21.png,pro2,pro3,5,5,DenseNet-201,Original RR
+2_F_24.png,pro2,pro3,5,5,DenseNet-201,Original RR
+2_F_25.png,pro2,pro1,5,5,DenseNet-201,Original RR
+2_F_27.png,pro2,pro3,5,5,DenseNet-201,Original RR
+2_F_29.png,pro2,pro3,5,5,DenseNet-201,Original RR
+2_F_34.png,pro2,pro3,5,5,DenseNet-201,Original RR
+2_S_28.png,pro2,pro3,5,5,DenseNet-201,Original RR
+2_S_44.png,pro2,pro3,5,5,DenseNet-201,Original RR
+3_FS (99).png,pro3,pro2,5,5,DenseNet-201,Original RR
+3_s1_1.BMP,pro1,pro3,5,5,DenseNet-201,Original RR
+2_F_2.png,pro2,pro3,5,5,EfficientNet-B0,Original RR
+2_F_24.png,pro2,pro3,5,5,EfficientNet-B0,Original RR
+2_F_34.png,pro2,pro3,5,5,EfficientNet-B0,Original RR
+2_s22_8.BMP,pro1,pro2,5,5,EfficientNet-B0,RR + HoleAlign
+1_S15_11.BMP,pro1,pro2,5,5,MobileNet-V2,Original RR
+2_s17_8.BMP,pro1,pro2,5,5,MobileNet-V2,Original RR
+2_s22_1.BMP,pro1,pro2,5,5,MobileNet-V2,Original RR
+2_s22_8.BMP,pro1,pro3,5,5,MobileNet-V2,Original RR
+2_s30_1.BMP,pro1,pro3,5,5,MobileNet-V2,Original RR
+3_FS (74).png,pro3,pro2,5,5,MobileNet-V2,Original RR
+3_FS (96).png,pro3,pro2,5,5,MobileNet-V2,Original RR
+3_SS (75).png,pro3,pro2,5,5,MobileNet-V2,Original RR
+SS_S10_1.BMP,pro1,pro2,5,5,MobileNet-V2,Original RR
+SS_S10_5.BMP,pro1,pro2,5,5,MobileNet-V2,Original RR
+SS_S13_8.BMP,pro1,pro2,5,5,MobileNet-V2,Original RR
+SS_S15_1.BMP,pro1,pro3,5,5,MobileNet-V2,Original RR
+SS_S16_1.BMP,pro1,pro2,5,5,MobileNet-V2,Original RR
+SS_S16_4.BMP,pro1,pro2,5,5,MobileNet-V2,Original RR
+2_F_10.png,pro2,pro3,5,5,ResNet-18,Original RR
+2_F_18.png,pro2,pro3,5,5,ResNet-18,Original RR
+2_F_20.png,pro2,pro1,5,5,ResNet-18,Original RR
+2_S_23.png,pro2,pro3,5,5,ResNet-18,Original RR
+2_S_28.png,pro2,pro3,5,5,ResNet-18,Original RR
+2_S_30.png,pro2,pro3,5,5,ResNet-18,Original RR
+2_S_41.png,pro2,pro3,5,5,ResNet-18,Original RR
+2_S_78.png,pro2,pro1,5,5,ResNet-18,Original RR
+2_S_80.png,pro2,pro3,5,5,ResNet-18,Original RR
+2_s20_5.BMP,pro1,pro2,5,5,ResNet-18,Original RR
+2_F_16.png,pro2,pro3,5,5,ResNet-50,Original RR
+2_F_19.png,pro2,pro1,4,4,DenseNet-121,Original RR
+2_F_27.png,pro2,pro3,4,4,DenseNet-121,Original RR
+2_F_28.png,pro2,pro3,4,4,DenseNet-121,Original RR
+2_F_34.png,pro2,pro1,4,4,DenseNet-121,Original RR
+2_S_23.png,pro2,pro3,4,4,DenseNet-121,Original RR
+2_S_24.png,pro2,pro1,4,4,DenseNet-121,Original RR
+2_S_30.png,pro2,pro1,4,4,DenseNet-121,Original RR
+2_S_75.png,pro2,pro1,4,4,DenseNet-121,Original RR
+2_S_83.png,pro2,pro3,4,4,DenseNet-121,Original RR
+3_FS (77).png,pro3,pro1,4,4,DenseNet-121,Original RR
+3_FS (78).png,pro3,pro2,4,4,DenseNet-121,Original RR
+2_F_15.png,pro2,pro3,4,4,DenseNet-201,Original RR
+2_F_18.png,pro2,pro3,4,4,DenseNet-201,Original RR
+2_F_2.png,pro2,pro3,4,4,DenseNet-201,Original RR
+2_F_30.png,pro2,pro3,4,4,DenseNet-201,Original RR
+2_F_6.png,pro2,pro1,4,4,DenseNet-201,Original RR
+2_S_42.png,pro2,pro3,4,4,DenseNet-201,Original RR
+2_S_75.png,pro2,pro3,4,4,DenseNet-201,Original RR
+2_S_77.png,pro2,pro3,4,4,DenseNet-201,Original RR
+2_F_17.png,pro2,pro3,4,4,EfficientNet-B0,Original RR
+2_F_20.png,pro2,pro3,4,4,EfficientNet-B0,Original RR
+2_F_4.png,pro2,pro3,4,4,EfficientNet-B0,Original RR
+2_S_90.png,pro2,pro3,4,4,EfficientNet-B0,Original RR
+3_SS (83).png,pro3,pro2,4,4,EfficientNet-B0,Original RR
+3_s1_1.BMP,pro1,pro3,4,4,EfficientNet-B0,RR + HoleAlign
+2_s22_5.BMP,pro1,pro2,4,4,MobileNet-V2,Original RR
+3_FS (99).png,pro3,pro2,4,4,MobileNet-V2,Original RR
+3_SS (77).png,pro3,pro2,4,4,MobileNet-V2,Original RR
+3_SS (79).png,pro3,pro2,4,4,MobileNet-V2,Original RR
+3_SS (85).png,pro3,pro2,4,4,MobileNet-V2,Original RR
+3_SS (87).png,pro3,pro2,4,4,MobileNet-V2,Original RR
+SS_S15_7.BMP,pro1,pro2,4,4,MobileNet-V2,Original RR
+SS_S17_5.BMP,pro1,pro2,4,4,MobileNet-V2,Original RR
+SS_S17_7.BMP,pro1,pro2,4,4,MobileNet-V2,Original RR
+2_F_19.png,pro2,pro3,4,4,ResNet-18,Original RR
+2_S_33.png,pro2,pro1,4,4,ResNet-18,RR + HoleAlign
+2_S_47.png,pro2,pro1,4,4,ResNet-18,Original RR
+2_S_88.png,pro2,pro1,4,4,ResNet-18,Original RR
+3_SS (74).png,pro3,pro1,4,4,ResNet-18,Original RR
+3_SS (84).png,pro3,pro2,4,4,ResNet-18,Original RR
+2_F_25.png,pro2,pro3,3,3,DenseNet-121,Original RR
+2_S_26.png,pro2,pro3,3,3,DenseNet-121,Original RR
+2_S_74.png,pro2,pro3,3,3,DenseNet-121,Original RR
+3_FS (63).png,pro3,pro2,3,3,DenseNet-121,RR + HoleAlign
+3_FS (90).png,pro3,pro1,3,3,DenseNet-121,Original RR
+3_SS (92).png,pro3,pro1,3,3,DenseNet-121,Original RR
+2_F_12.png,pro2,pro3,3,3,DenseNet-201,Original RR
+2_F_28.png,pro2,pro1,3,3,DenseNet-201,Original RR
+2_S_23.png,pro2,pro3,3,3,DenseNet-201,Original RR
+2_S_74.png,pro2,pro1,3,3,DenseNet-201,Original RR
+2_S_76.png,pro2,pro1,3,3,DenseNet-201,Original RR
+2_S_83.png,pro2,pro3,3,3,DenseNet-201,Original RR
+2_S_86.png,pro2,pro3,3,3,DenseNet-201,Original RR
+2_F_11.png,pro2,pro3,3,3,EfficientNet-B0,Original RR
+2_F_40.png,pro2,pro3,3,3,EfficientNet-B0,Original RR
+2_F_8.png,pro2,pro3,3,3,EfficientNet-B0,Original RR
+2_F_17.png,pro2,pro1,3,3,ResNet-18,Original RR
+2_F_24.png,pro2,pro3,3,3,ResNet-18,Original RR
+2_S_26.png,pro2,pro3,3,3,ResNet-18,Original RR
+2_s20_1.BMP,pro1,pro2,3,3,ResNet-18,RR + HoleAlign
+2_s20_4.BMP,pro1,pro2,3,3,ResNet-18,Original RR
+2_s20_7.BMP,pro1,pro2,3,3,ResNet-18,RR + HoleAlign
+3_s2_6.BMP,pro1,pro3,3,3,ResNet-18,Original RR
+2_F_25.png,pro2,pro1,2,2,DenseNet-121,Original RR
+2_F_29.png,pro2,pro1,2,2,DenseNet-121,RR + HoleAlign
+2_F_32.png,pro2,pro3,2,2,DenseNet-121,Original RR
+2_F_36.png,pro2,pro3,2,2,DenseNet-121,Original RR
+2_F_6.png,pro2,pro3,2,2,DenseNet-121,Original RR
+2_S_34.png,pro2,pro3,2,2,DenseNet-121,Original RR
+2_S_44.png,pro2,pro3,2,2,DenseNet-121,Original RR
+2_S_74.png,pro2,pro1,2,2,DenseNet-121,RR + HoleAlign
+2_S_87.png,pro2,pro1,2,2,DenseNet-121,Original RR
+2_S_87.png,pro2,pro3,2,2,DenseNet-121,Original RR
+2_S_87.png,pro2,pro1,2,2,DenseNet-121,RR + HoleAlign
+2_s20_5.BMP,pro1,pro2,2,2,DenseNet-121,Original RR
+3_FS (65).png,pro3,pro2,2,2,DenseNet-121,RR + HoleAlign
+3_FS (82).png,pro3,pro1,2,2,DenseNet-121,Original RR
+3_SS (92).png,pro3,pro2,2,2,DenseNet-121,Original RR
+3_SS (93).png,pro3,pro1,2,2,DenseNet-121,Original RR
+SS_S14_1.BMP,pro1,pro2,2,2,DenseNet-121,Original RR
+2_S_74.png,pro2,pro3,2,2,DenseNet-201,Original RR
+2_S_83.png,pro2,pro1,2,2,DenseNet-201,Original RR
+2_S_86.png,pro2,pro1,2,2,DenseNet-201,Original RR
+3_SS (51).png,pro3,pro2,2,2,DenseNet-201,Original RR
+3_s2_6.BMP,pro1,pro3,2,2,DenseNet-201,Original RR
+1_s15_33.BMP,pro1,pro3,2,2,EfficientNet-B0,RR + HoleAlign
+2_F_30.png,pro2,pro3,2,2,EfficientNet-B0,Original RR
+2_F_6.png,pro2,pro1,2,2,EfficientNet-B0,Original RR
+2_S_31.png,pro2,pro3,2,2,EfficientNet-B0,Original RR
+2_S_87.png,pro2,pro3,2,2,EfficientNet-B0,Original RR
+1_S15_44.BMP,pro1,pro2,2,2,MobileNet-V2,Original RR
+3_FS (55).png,pro3,pro2,2,2,MobileNet-V2,Original RR
+3_FS (76).png,pro3,pro2,2,2,MobileNet-V2,RR + HoleAlign
+3_FS (95).png,pro3,pro1,2,2,MobileNet-V2,Original RR
+3_SS (53).png,pro3,pro2,2,2,MobileNet-V2,RR + HoleAlign
+SS_S14_8.BMP,pro1,pro2,2,2,MobileNet-V2,Original RR
+2_F_17.png,pro2,pro3,2,2,ResNet-18,Original RR
+2_S_27.png,pro2,pro1,2,2,ResNet-18,Original RR
+2_S_49.png,pro2,pro3,2,2,ResNet-18,Original RR
+2_s20_4.BMP,pro1,pro3,2,2,ResNet-18,Original RR
+2_s20_5.BMP,pro1,pro2,2,2,ResNet-18,RR + HoleAlign
+3_SS (71).png,pro3,pro1,2,2,ResNet-18,Original RR
+3_s1_8.BMP,pro1,pro2,2,2,ResNet-18,Original RR
+3_s1_8.BMP,pro1,pro2,2,2,ResNet-18,RR + HoleAlign
+3_FS (69).png,pro3,pro1,2,2,ResNet-50,RR + HoleAlign
+1_S15_11.BMP,pro1,pro2,1,1,DenseNet-121,Original RR
+1_S15_44.BMP,pro1,pro2,1,1,DenseNet-121,Original RR
+2_F_11.png,pro2,pro1,1,1,DenseNet-121,HoleAlign Test
+2_F_11.png,pro2,pro1,1,1,DenseNet-121,RR + HoleAlign
+2_F_13.png,pro2,pro3,1,1,DenseNet-121,Original RR
+2_F_27.png,pro2,pro1,1,1,DenseNet-121,Original RR
+2_S_23.png,pro2,pro1,1,1,DenseNet-121,Original RR
+2_S_29.png,pro2,pro3,1,1,DenseNet-121,Original RR
+2_S_30.png,pro2,pro3,1,1,DenseNet-121,Original RR
+2_S_41.png,pro2,pro1,1,1,DenseNet-121,Original RR
+2_S_74.png,pro2,pro1,1,1,DenseNet-121,Original RR
+2_S_80.png,pro2,pro1,1,1,DenseNet-121,Original RR
+2_S_83.png,pro2,pro1,1,1,DenseNet-121,Original RR
+2_S_86.png,pro2,pro1,1,1,DenseNet-121,HoleAlign Test
+2_S_86.png,pro2,pro1,1,1,DenseNet-121,RR + HoleAlign
+2_S_87.png,pro2,pro1,1,1,DenseNet-121,HoleAlign Test
+2_S_90.png,pro2,pro3,1,1,DenseNet-121,Original RR
+2_s17_6.BMP,pro1,pro2,1,1,DenseNet-121,Original RR
+2_s20_4.BMP,pro1,pro3,1,1,DenseNet-121,Original RR
+2_s30_4.BMP,pro1,pro3,1,1,DenseNet-121,HoleAlign Test
+2_s30_6.BMP,pro1,pro3,1,1,DenseNet-121,RR + HoleAlign
+3_FS (63).png,pro3,pro2,1,1,DenseNet-121,HoleAlign Test
+3_FS (70).png,pro3,pro2,1,1,DenseNet-121,Original Test
+3_FS (78).png,pro3,pro1,1,1,DenseNet-121,Original RR
+3_FS (90).png,pro3,pro1,1,1,DenseNet-121,Original Test
+3_FS (93).png,pro3,pro1,1,1,DenseNet-121,Original Test
+3_FS (98).png,pro3,pro1,1,1,DenseNet-121,Original RR
+3_SS (59).png,pro3,pro1,1,1,DenseNet-121,Original Test
+3_SS (61).png,pro3,pro1,1,1,DenseNet-121,Original RR
+3_SS (74).png,pro3,pro1,1,1,DenseNet-121,Original RR
+3_SS (77).png,pro3,pro1,1,1,DenseNet-121,Original Test
+3_SS (77).png,pro3,pro1,1,1,DenseNet-121,Original RR
+3_s1_3.BMP,pro1,pro2,1,1,DenseNet-121,Original RR
+SS_S10_4.BMP,pro1,pro2,1,1,DenseNet-121,Original RR
+SS_S17_5.BMP,pro1,pro2,1,1,DenseNet-121,Original RR
+2_F_10.png,pro2,pro3,1,1,DenseNet-201,Original Test
+2_F_11.png,pro2,pro3,1,1,DenseNet-201,Original RR
+2_F_18.png,pro2,pro3,1,1,DenseNet-201,Original Test
+2_F_19.png,pro2,pro3,1,1,DenseNet-201,Original RR
+2_F_28.png,pro2,pro3,1,1,DenseNet-201,Original RR
+2_F_6.png,pro2,pro3,1,1,DenseNet-201,Original RR
+2_S_40.png,pro2,pro1,1,1,DenseNet-201,Original RR
+2_S_40.png,pro2,pro3,1,1,DenseNet-201,Original RR
+2_S_43.png,pro2,pro3,1,1,DenseNet-201,Original RR
+2_S_47.png,pro2,pro3,1,1,DenseNet-201,Original RR
+2_S_76.png,pro2,pro3,1,1,DenseNet-201,Original RR
+2_S_90.png,pro2,pro3,1,1,DenseNet-201,Original RR
+3_FS (62).png,pro3,pro1,1,1,DenseNet-201,Original RR
+3_FS (84).png,pro3,pro2,1,1,DenseNet-201,Original Test
+3_FS (98).png,pro3,pro2,1,1,DenseNet-201,Original Test
+3_s1_1.BMP,pro1,pro3,1,1,DenseNet-201,HoleAlign Test
+SS_S17_1.BMP,pro1,pro3,1,1,DenseNet-201,Original RR
+SS_S17_5.BMP,pro1,pro3,1,1,DenseNet-201,Original RR
+1_S15_11.BMP,pro1,pro3,1,1,EfficientNet-B0,HoleAlign Test
+1_S15_22.BMP,pro1,pro3,1,1,EfficientNet-B0,HoleAlign Test
+1_S15_22.BMP,pro1,pro3,1,1,EfficientNet-B0,RR + HoleAlign
+1_s15_33.BMP,pro1,pro3,1,1,EfficientNet-B0,HoleAlign Test
+2_S_33.png,pro2,pro3,1,1,EfficientNet-B0,Original RR
+2_S_83.png,pro2,pro3,1,1,EfficientNet-B0,Original RR
+2_s22_1.BMP,pro1,pro2,1,1,EfficientNet-B0,RR + HoleAlign
+2_s22_8.BMP,pro1,pro2,1,1,EfficientNet-B0,HoleAlign Test
+3_FS (99).png,pro3,pro2,1,1,EfficientNet-B0,Original RR
+3_SS (62).png,pro3,pro2,1,1,EfficientNet-B0,Original RR
+3_SS (69).png,pro3,pro2,1,1,EfficientNet-B0,Original Test
+3_s1_1.BMP,pro1,pro3,1,1,EfficientNet-B0,HoleAlign Test
+2_F_12.png,pro2,pro3,1,1,MobileNet-V2,Original Test
+2_F_16.png,pro2,pro3,1,1,MobileNet-V2,Original Test
+2_F_27.png,pro2,pro3,1,1,MobileNet-V2,Original RR
+2_F_28.png,pro2,pro3,1,1,MobileNet-V2,Original Test
+2_F_36.png,pro2,pro3,1,1,MobileNet-V2,Original Test
+2_S_77.png,pro2,pro3,1,1,MobileNet-V2,Original Test
+2_S_87.png,pro2,pro3,1,1,MobileNet-V2,Original Test
+2_s20_5.BMP,pro1,pro2,1,1,MobileNet-V2,Original RR
+2_s30_4.BMP,pro1,pro3,1,1,MobileNet-V2,Original RR
+3_FS (100).png,pro3,pro2,1,1,MobileNet-V2,RR + HoleAlign
+3_FS (58).png,pro3,pro1,1,1,MobileNet-V2,RR + HoleAlign
+3_FS (90).png,pro3,pro1,1,1,MobileNet-V2,HoleAlign Test
+3_FS (90).png,pro3,pro1,1,1,MobileNet-V2,RR + HoleAlign
+3_FS (94).png,pro3,pro2,1,1,MobileNet-V2,Original RR
+3_SS (53).png,pro3,pro2,1,1,MobileNet-V2,HoleAlign Test
+3_SS (84).png,pro3,pro2,1,1,MobileNet-V2,Original RR
+3_s1_3.BMP,pro1,pro2,1,1,MobileNet-V2,Original RR
+SS_S17_4.BMP,pro1,pro2,1,1,MobileNet-V2,Original RR
+2_F_11.png,pro2,pro3,1,1,ResNet-18,Original RR
+2_S_21.png,pro2,pro3,1,1,ResNet-18,Original RR
+2_S_23.png,pro2,pro3,1,1,ResNet-18,Original Test
+2_S_33.png,pro2,pro1,1,1,ResNet-18,HoleAlign Test
+2_S_41.png,pro2,pro3,1,1,ResNet-18,Original Test
+2_s17_1.BMP,pro1,pro2,1,1,ResNet-18,Original Test
+2_s20_1.BMP,pro1,pro2,1,1,ResNet-18,Original Test
+2_s20_1.BMP,pro1,pro3,1,1,ResNet-18,HoleAlign Test
+2_s20_6.BMP,pro1,pro2,1,1,ResNet-18,HoleAlign Test
+3_FS (58).png,pro3,pro1,1,1,ResNet-18,HoleAlign Test
+3_FS (58).png,pro3,pro1,1,1,ResNet-18,RR + HoleAlign
+3_SS (56).png,pro3,pro2,1,1,ResNet-18,RR + HoleAlign
+3_SS (69).png,pro3,pro1,1,1,ResNet-18,RR + HoleAlign
+3_SS (77).png,pro3,pro1,1,1,ResNet-18,Original RR
+3_s2_4.BMP,pro1,pro3,1,1,ResNet-18,Original Test
+3_s2_7.BMP,pro1,pro3,1,1,ResNet-18,Original RR
+SS_S11_1.BMP,pro1,pro2,1,1,ResNet-18,Original RR
+2_F_2.png,pro2,pro3,1,1,ResNet-50,Original RR
+2_F_40.png,pro2,pro3,1,1,ResNet-50,Original RR
+2_S_21.png,pro2,pro3,1,1,ResNet-50,Original RR
+2_S_24.png,pro2,pro1,1,1,ResNet-50,RR + HoleAlign
+2_S_28.png,pro2,pro3,1,1,ResNet-50,Original RR
+2_S_29.png,pro2,pro1,1,1,ResNet-50,HoleAlign Test
+2_S_29.png,pro2,pro1,1,1,ResNet-50,RR + HoleAlign
+2_S_40.png,pro2,pro1,1,1,ResNet-50,RR + HoleAlign
+2_S_43.png,pro2,pro3,1,1,ResNet-50,Original RR
+2_S_44.png,pro2,pro1,1,1,ResNet-50,HoleAlign Test
+2_S_44.png,pro2,pro1,1,1,ResNet-50,RR + HoleAlign
+2_S_77.png,pro2,pro1,1,1,ResNet-50,RR + HoleAlign
+2_S_91.png,pro2,pro3,1,1,ResNet-50,Original RR
+2_s22_6.BMP,pro1,pro2,1,1,ResNet-50,RR + HoleAlign
+3_FS (100).png,pro3,pro1,1,1,ResNet-50,HoleAlign Test
+3_FS (100).png,pro3,pro1,1,1,ResNet-50,RR + HoleAlign
+3_FS (52).png,pro3,pro2,1,1,ResNet-50,Original Test
+3_FS (52).png,pro3,pro2,1,1,ResNet-50,Original RR
+3_FS (57).png,pro3,pro1,1,1,ResNet-50,RR + HoleAlign
+3_FS (69).png,pro3,pro2,1,1,ResNet-50,Original Test
+3_FS (69).png,pro3,pro1,1,1,ResNet-50,HoleAlign Test
+3_FS (84).png,pro3,pro1,1,1,ResNet-50,HoleAlign Test
+3_FS (84).png,pro3,pro1,1,1,ResNet-50,RR + HoleAlign
+3_FS (96).png,pro3,pro1,1,1,ResNet-50,RR + HoleAlign
+3_SS (77).png,pro3,pro1,1,1,ResNet-50,RR + HoleAlign

@@ -1,0 +1,2 @@
+experiment,n_folds,n_per_fold,accuracy_mean,accuracy_std,macro_f1_mean,macro_f1_std,macro_precision_mean,macro_recall_mean
+resnet50_original_5fold_freeze,5,180,0.9866666666666667,0.009296222517045304,0.9866547658629818,0.009315763920790044,0.9872891771252428,0.9866666666666667

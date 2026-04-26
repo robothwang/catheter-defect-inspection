@@ -2,6 +2,54 @@
 
 이 문서는 프로젝트의 주요 변경 이력을 기록합니다.
 
+## [0.4.0] - 2026-04-27
+
+### Added
+- `scripts/fine-tuning/` 분류 모델 파인튜닝 파이프라인 추가
+  - 지원 모델: ResNet18, ResNet50, DenseNet121, DenseNet201, EfficientNetB0, MobileNetV2, GoogLeNet, InceptionV3
+  - 각 모델에 대해 `{Model}.py` (모델·데이터셋 정의), `{Model}_train.py` (학습), `{Model}_inference.py` (추론) 스크립트 구성
+  - backbone freeze 방식 전이학습, train/val/test split CSV 기반 재현 가능한 실험 구조
+- `scripts/fine-tuning/create_kfold_splits.py`: stratified k-fold 분할 CSV 생성 스크립트 추가
+- `scripts/fine-tuning/run_kfold_training.py`: 전체 모델 × fold 학습 자동화 스크립트 추가
+- `scripts/fine-tuning/run_kfold_inference.py`: 전체 모델 × fold 추론 자동화 스크립트 추가
+- `scripts/fine-tuning/summarize_kfold.py`: fold별 학습 metrics (accuracy, macro-F1, loss) 집계 스크립트 추가
+- `scripts/fine-tuning/summarize_kfold_inference.py`: fold별 추론 결과 집계 스크립트 추가
+- `scripts/generate_original_rr.py`: 회전 강건성 평가용 랜덤 회전 이미지 생성 스크립트 추가
+  - seed 기반 재현 가능한 회전 각도, rotation metadata CSV 저장
+- `scripts/preprocess_metrics.py`: 전처리 파이프라인 metrics CSV 필드 정의 및 공통 I/O 모듈 추가
+  - `gid_angle_deg` 필드 포함 전처리 지표 표준화
+- `experiments/` 단일 분할 실험 결과 추가
+  - 대상 모델: ResNet18, ResNet50, DenseNet121, DenseNet201, EfficientNetB0, MobileNetV2, GoogLeNet, InceptionV3 (8개)
+  - 데이터셋: `original`, `original_holealign` (2종)
+  - 각 실험 산출물: `best_model.pth`, `test_metrics.json`, `test_predictions.csv`, `training_history.csv`, `original_rr_predictions.csv`
+- `experiments/kfold/` 5-fold 교차검증 실험 결과 추가
+  - 대상 모델: ResNet18, ResNet50, DenseNet121, DenseNet201, EfficientNetB0, MobileNetV2, InceptionV3 (7개)
+  - 데이터셋: `original`, `original_holealign` (2종)
+  - 집계 결과: `kfold_fold_metrics.csv`, `kfold_summary.csv`
+- `experiments/splits/` 모델별 단일 분할 CSV 및 k-fold 분할 CSV 추가
+  - `experiments/splits/{model}_3class_seed42.csv`: 모델별 단일 train/val/test 분할
+  - `experiments/splits/kfold/original_5fold_seed42/`: original 5-fold 분할 (fold_1~5.csv)
+  - `experiments/splits/kfold/original_holealign_5fold_seed42/`: holealign 5-fold 분할 (fold_1~5.csv)
+- `notebooks/cnn.ipynb`: CNN 분류 초기 학습·탐색 노트북 추가
+- `notebooks/model_performance_analysis.ipynb`: 단일 분할 실험 모델 성능 비교 분석 노트북 추가
+- `notebooks/kfold_cross_validation_analysis.ipynb`: 5-fold 교차검증 결과 분석 및 논문용 테이블·그래프 생성 노트북 추가
+- `notebooks/analysis_outputs/`: 단일 분할 모델 성능 비교 시각화 결과물 추가
+  - `accuracy_heatmap.png`, `confusion_matrices_original_rr.png`, `confusion_matrices_rr_plus_holealign.png`
+  - `original_rr_per_class_f1.png`, `rr_macro_f1_comparison.png`
+  - `model_summary_metrics.csv`, `model_summary_metrics_percent.csv`, `paper_accuracy_table.csv`
+  - `per_class_metrics.csv`, `misclassified_samples.csv`
+- `notebooks/kfold_analysis_outputs/`: k-fold 분석 결과 및 논문용 테이블 추가
+  - `main_accuracy_heatmap.png`, `confusion_matrices_original_rr_main.png`, `confusion_matrices_rr_holealign_main.png`
+  - `rr_holealign_improvement.png`, `rr_holealign_improvement.csv`
+  - `kfold_fold_metrics.csv`, `kfold_summary_metrics.csv`
+  - `paper_ready_macro_metrics_table.csv`, `paper_ready_rr_macro_metrics_table.csv`
+  - `main_paper_accuracy_table.csv`, `main_per_class_metrics.csv`, `main_repeated_misclassifications.csv`
+  - `supplementary_accuracy_table_with_inception.csv`
+  - `table1_cv_original_holealign_test.csv`, `table2_rr_robustness_original_vs_holealign.csv`
+
+### Changed
+- `.gitignore`에 `*.pth` (모델 가중치), `/data/dataset/` (학습 이미지), `/notebooks/checkpoints/`, `_workspace/` (내부 작업 디렉토리), `.claude/` (Claude Code 내부 파일) 제외 항목 추가
+
 ## [0.3.2] - 2026-04-11
 
 ### Added

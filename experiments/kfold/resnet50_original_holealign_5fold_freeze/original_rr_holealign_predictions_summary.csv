@@ -1,0 +1,2 @@
+experiment,n_folds,n_per_fold,accuracy_mean,accuracy_std,macro_f1_mean,macro_f1_std,macro_precision_mean,macro_recall_mean
+resnet50_original_holealign_5fold_freeze,5,180,0.9855555555555556,0.026234931006927992,0.9857350941452815,0.025835354038282226,0.9869827812582062,0.9855555555555554

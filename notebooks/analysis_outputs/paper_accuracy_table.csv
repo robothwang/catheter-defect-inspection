@@ -1,0 +1,8 @@
+model,input_size,Original Test,Original RR,RR + HoleAlign
+ResNet-18,224 x 224,88.89%,85.56%,98.33%
+ResNet-50,224 x 224,96.30%,97.78%,100.00%
+DenseNet-121,224 x 224,100.00%,89.44%,100.00%
+DenseNet-201,224 x 224,100.00%,82.78%,99.44%
+EfficientNet-B0,224 x 224,100.00%,94.44%,100.00%
+MobileNet-V2,224 x 224,100.00%,98.33%,97.22%
+Inception-V3,299 x 299,100.00%,53.89%,100.00%
